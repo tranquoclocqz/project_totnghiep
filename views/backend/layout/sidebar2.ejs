@@ -1,0 +1,58 @@
+<div class="nav-side-menu">
+    <div class="brand">ADMIN</div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>  
+        <div class="menu-list">  
+            <ul id="menu-content" class="menu-content collapse out">
+                <li>
+                  <a href="<%=sails.getUrlFor('AdminController.dashboard')%>">
+                  <i class="fa fa-dashboard fa-lg"></i> Dashboard
+                  </a>
+                </li>
+
+                <li data-toggle="collapse" data-target="#sanpham" class="collapsed">
+                  <a><i class="fa fa-dropbox fa-lg"></i> Sản phẩm <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="sanpham">
+                  <li><a href="/admin/sanpham/danhsach">Danh sách</a></li>
+                  <li><a href="/admin/sanpham/them">Thêm</a></li>
+                </ul>
+
+
+
+                <li data-toggle="collapse" data-target="#thietbi" class="collapsed">
+                  <a><i class="fa fa-tag fa-lg"></i>Thiết bị <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="thietbi">
+                  <li><a href="<%=sails.getUrlFor('ThietbiController.danhsachGET')%>">Danh sách</a></li>
+                  <li><a href="<%=sails.getUrlFor('ThietbiController.themGET')%>">Thêm</a></li>
+                </ul>
+
+
+                <li data-toggle="collapse" data-target="#nhasx" class="collapsed">
+                  <a><i class="fa fa-tags fa-lg"></i> Nhà sản xuất <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="nhasx">
+                  <li><a href="<%=sails.getUrlFor('NhasanxuatController.danhsachGET')%>">Danh sách</a></li>
+                  <li><a href="<%=sails.getUrlFor('NhasanxuatController.themGET')%>">Thêm</a></li>
+                </ul>
+
+                <li data-toggle="collapse" data-target="#taikhoan" class="collapsed">
+                  <a><i class="fa fa-users fa-lg"></i> Tài khoản<span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="taikhoan">
+                  <li><a href="<%=sails.getUrlFor('UserController.danhsachGET')%>">Danh sách</a></li>
+                  <li><a href="<%=sails.getUrlFor('UserController.themGET')%>">Thêm</a></li>
+                </ul>
+                 <li>
+                  <a href="">
+                    <i class="fa fa-user fa-lg"></i><%=%>
+                  </a>
+                </li>
+                <li>
+                  <a href="/admin/logout">
+                    <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> Logout
+                  </a>
+                </li>
+            </ul>
+     </div>
+</div>
