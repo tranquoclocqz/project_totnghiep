@@ -61,8 +61,8 @@ module.exports.routes = {
       'GET /admin/sanpham/them':'Sanphamcontroller.themGET',
       'POST /admin/sanpham/them':'Sanphamcontroller.themPOST',
       /*--sửa--*/
-      'GET /admin/sanpham/sua':'Sanphamcontroller.suaGET',
-      'POST /admin/sanpham/sua':'Sanphamcontroller.suaPOST',
+      'GET /admin/sanpham/sua/:id':'Sanphamcontroller.suaGET',
+      'POST /admin/sanpham/sua/:id':'Sanphamcontroller.suaPOST',
     /**********Thiết bị**********/
       /*--danh sách--*/
       'GET /admin/thietbi/danhsach':'ThietbiController.danhsachGET',

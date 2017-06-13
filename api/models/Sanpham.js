@@ -31,6 +31,9 @@ module.exports = {
 		cauhinh: {
 			type: 'text',
 		},
+		mota:{
+			type:'text',
+		},
 		idnhasanxuat: {
 			model: 'nhasanxuat',
 		},

@@ -1,5 +1,6 @@
 <div class='row main' style="margin:20px 0px 0px 0px">
     <form method="post" action="/admin/sanpham/them" class="form-horizontal" enctype="multipart/form-data">
+    <input type='hidden' name='_csrf' value='<%= _csrf %>'>
         <div class="col-sm-7 col-sm-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Thông tin sản phẩm</div>
@@ -41,8 +42,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <input type='hidden' name='_csrf' value='<%= _csrf %>'>
+            </div>            
         </div>
         <div class='col-sm-3'>
             <div class="panel panel-default">
@@ -78,7 +78,7 @@
                     <div>
                         <div>
                             <input type="file" accept="image/*" name='ful_anhdaidien' id="ful_anhdaidien" class="filestyle" data-buttonName="btn-primary">
-                        </div>
+                        </div>                        
                         <div class="image-holder" id="image-holder-1">
 
                         </div>
@@ -101,9 +101,9 @@
                 </div>
             </div>
         </div>
-        <!--<div class='text-center'>
+        <div class='text-center'>
             <input type="submit" name="btn_them" class="btn btn-primary" value="Cập nhật">
-        </div>-->
+        </div>
     </form>
 </div>
 
