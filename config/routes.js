@@ -34,9 +34,10 @@ module.exports.routes = {
 
   '/': 'PageController.index',
   '/shop': 'PageController.shop',
-  '/single': 'PageController.single',
+  '/chitiet/:slug/:id.html': 'PageController.single',
   '/cart': 'PageController.cart',
   '/checkout': 'PageController.checkout',
+  '/addtocart/:id':'CartController.addToCart',
   /************admin************/
     
     /************authenticate************/

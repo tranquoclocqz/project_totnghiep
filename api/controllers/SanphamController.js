@@ -68,10 +68,11 @@ module.exports = {
 			}
 		});
 	},
+
 	suaGET: function (req, res) {
 		Sanpham.query('SELECT sanpham.id,tensanpham,idnhasanxuat,anhdaidien,soluong,gia,khuyenmai,cauhinh,thietbi.id as idthietbi FROM sanpham,nhasanxuat,thietbi WHERE idnhasanxuat = nhasanxuat.id AND nhasanxuat.idthietbi = thietbi.id AND sanpham.id = ?', [req.param('id')], function (err, sp) {
 			Thietbi.find({ trangthai: 1 }).exec(function (err, tb) {
-				Nhasanxuat.find({ trangthai: 1, idthietbi: tb.id }).exec(function (err, nhasx) {
+				Nhasanxuat.find({ trangthai: 1, idthietbi: sp[0].idthietbi }).exec(function (err, nhasx) {
 					Hinhsanpham.find({ idsanpham: sp[0].id }).exec(function (err, hinh) {
 						if (err) {
 							return res.serverError(err);
@@ -90,65 +91,54 @@ module.exports = {
 			});
 		});
 	},
-	suaPOST: function (req, res) {
-		var name = slug(req.param('txt_tensp')) + '-' + Math.random().toString(36).substr(2, 5) + '.png';
-		// Sanpham.update(
-		// 	{
-		// 		id: req.param('id'),
-		// 	},
-		// 	{
-		// 		tensanpham: req.param('txt_tensp'),
-		// 		soluong: req.param('txt_sl'),
-		// 		gia: req.param('txt_gia'),
-		// 		anhdaidien: name,
-		// 		khuyenmai: req.param('txt_km'),
-		// 		cauhinh: req.param('txt_cauhinh'),
-		// 		mota: req.param('txt_noidung'),
-		// 		idnhasanxuat: req.param('cbo_nhasx'),
-		// 		slug: slug(req.param('txt_tensp')),
-		// 	}).exec({
-		// 		err: function (err) {
-		// 			return res.serverError(err);
-		// 		},
-		// 		success: function (sp) {
-		// 			if (req.param('chkanhdaidien') == undefined) {
-		// 				req.file('ful_anhdaidien').upload({
-		// 					saveAs: name,
-		// 					dirname: require('path').resolve(sails.config.appPath, 'assets/images'),
-		// 				}, function (err) {
-		// 					if (err) return res.negotiate(err);
-		// 				});
-		// 			} else {
-		// 				fs.rename('','',function(err){
 
-		// 				});
-		// 			}
-		// 		}
-		// 	});
-		Sanpham.findOne({ id: req.param('id') }).exec(function (err, sp) {
-			var rc = sp;
-			sp.tensanpham = req.param('txt_tensp');
-			sp.soluong = req.param('txt_sl');
-			sp.gia = req.param('txt_gia');
-			if (req.param('chkanhdaidien') == undefined) {								
+	suaPOST: function (req, res) {
+		var path = require('path').resolve(sails.config.appPath, 'assets/images');
+		var name = slug(req.param('txt_tensp')) + '-' + Math.random().toString(36).substr(2, 5) + '.png';
+		var rc;
+		Sanpham.findOne({id: req.param('id')}).exec({
+			err: function (err) {
+				return res.serverError(err);
+			},
+			success: function (sp) {
 				req.file('ful_anhdaidien').upload({
 					saveAs: name,
-					dirname: require('path').resolve(sails.config.appPath, 'assets/images'),
-				}, function (err) {
-					if (err) return res.negotiate(err);
+					dirname: path,
+				}, function (err, uploadedFiles) {
+					if (err)
+						return res.serverError(err);
+					if (uploadedFiles == null) {
+						// fs.renameSync(path + '/' + sp.anhdaidien, path + '/' + name);
+						// console.log('rong');
+						// console.log(sp.anhdaidien);
+						res.json({
+							uploadedFiles,
+							sanpham: sp,
+						});
+					} else {
+						res.json({
+							jsonanh: uploadedFiles,
+							oldPath: sp.anhdaidien,
+							sanpham: sp,
+						});
+						// fs.unlinkSync(path + '/' + sp.anhdaidien);
+						// console.log(sp.anhdaidien);
+					}
 				});
-				fs.unlinkSync(require('path').resolve(sails.config.appPath, 'assets/images') + '/' + sp.anhdaidien);
-				sp.anhdaidien = name;
-			}
-			sp.anhdaidien = name;
-			sp.khuyenmai = req.param('txt_km');
-			sp.cauhinh = req.param('txt_cauhinh');
-			sp.mota = req.param('txt_noidung');
-			sp.idnhasanxuat = req.param('cbo_nhasx');
-			sp.slug = slug(req.param('txt_tensp'));
-			rc.save(function (err) {
-				return res.serverError(err);
-			});
+				rc = sp;
+				rc.anhdaidien = name;
+				rc.tensanpham = req.param('txt_tensp');
+				rc.soluong = req.param('txt_sl');
+				rc.gia = req.param('txt_gia');
+				rc.khuyenmai = req.param('txt_km');
+				rc.cauhinh = req.param('txt_cauhinh');
+				rc.mota = req.param('txt_noidung');
+				rc.idnhasanxuat = req.param('cbo_nhasx');
+				rc.slug = slug(req.param('txt_tensp'));
+				rc.save();			
+				return;					
+			},
+
 		});
 	},
 	xoaPOST: function (req, res) {
