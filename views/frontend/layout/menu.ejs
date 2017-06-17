@@ -13,13 +13,18 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/">Home</a></li>
                     <!--<li><a href="/shop">Shop page</a></li>
-                    <li><a href="/single">Single product</a></li>
+                    <li><a href="/single">Single product</a></li>-->                    
+                    <% myVar.forEach(function(tb){ %>
+                       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= tb.tenthietbi %><span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                        <% tb.nhasanxuat.forEach(function(nhasx){%>
+                             <li><a href="/<%= nhasx.slug %>-<%= nhasx.id %>.html"><%= nhasx.tennhasanxuat %></a></li>
+                        <% }) %>
+                        </ul>
+                    </li>                       
+                    <% }) %>
                     <li><a href="/cart">Cart</a></li>
-                    <li><a href="/checkout">Checkout</a></li>-->
-                   
-                    <li><a href="#">Category</a></li>
-                    <li><a href="#">Others</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="/checkout">Checkout</a></li>
                 </ul>
             </div>
         </div>

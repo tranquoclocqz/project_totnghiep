@@ -13,7 +13,7 @@ module.exports = {
                 sanpham: sp,
                 title: 'index.ejs',
             })
-        });
+        });       
     },
     single: function (req, res) {
         Sanpham.findOne({ id: req.param('id') }).populate('anhsanpham').exec(function (err, result) {
@@ -22,7 +22,6 @@ module.exports = {
                 title: result.tensanpham,
                 result: result,
             });
-            // res.send(result);
         });
     },
     cart: function (req, res) {

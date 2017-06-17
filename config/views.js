@@ -90,4 +90,7 @@ module.exports.views = {
   ****************************************************************************/
 
   partials: false,
+  locals: {
+    myvar: 'this is a view var'
+  }
 };
