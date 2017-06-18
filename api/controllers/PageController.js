@@ -13,7 +13,7 @@ module.exports = {
                 sanpham: sp,
                 title: 'index.ejs',
             })
-        });       
+        });
     },
     single: function (req, res) {
         Sanpham.findOne({ id: req.param('id') }).populate('anhsanpham').exec(function (err, result) {
@@ -25,10 +25,20 @@ module.exports = {
         });
     },
     cart: function (req, res) {
+        if (!req.session.cart) {
+            return res.view('frontend/cart/cart', {
+                layout: 'frontend/layout/layout',
+                product: null,
+            });
+        }
+        var cart = new addCart(req.session.cart);
         return res.view('frontend/cart/cart', {
             layout: 'frontend/layout/layout',
             title: 'cart.ejs',
-        })
+            product: cart.generateArray(),
+            totalPrice: cart.totalPrice,
+        });
+        // console.log(cart.generateArray());
     },
     checkout: function (req, res) {
         return res.view('frontend/checkout/checkout', {

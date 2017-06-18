@@ -87,35 +87,42 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="cart_item">
+                                    <% _.each(product,function(value){ %>
+                                    <tr class="cart_item">                                        
                                         <td class="product-remove">
                                             <a title="Remove this item" class="remove" href="#">×</a>
                                         </td>
 
                                         <td class="product-thumbnail">
-                                            <a href="single-product.html"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="asset/img/product-thumb-2.jpg"></a>
+                                            <a href="/chitiet/<%= value.item.slug %>/<%= value.item.id %>.html"><img width="145" height="145" alt="<%= value.item.tensanpham %>" class="shop_thumbnail" src="images/<%= value.item.anhdaidien %>"></a>
                                         </td>
 
                                         <td class="product-name">
-                                            <a href="single-product.html">Ship Your Idea</a>
+                                            <a href="/chitiet/<%= value.item.slug %>/<%= value.item.id %>.html"><%= value.item.tensanpham %></a>
                                         </td>
 
                                         <td class="product-price">
-                                            <span class="amount">£15.00</span>
+                                            <span class="amount"><% if(value.item.khuyenmai != 0){ %>
+                                                <%= value.item.khuyenmai %>
+                                            <% } else {%>
+                                                <%= value.item.gia %>
+                                            <% } %>
+                                            </span>
                                         </td>
 
                                         <td class="product-quantity">
                                             <div class="quantity buttons_added">
                                                 <input type="button" class="minus" value="-">
-                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="1" min="0" step="1">
+                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="<%= value.qty %>" min="0" step="1">
                                                 <input type="button" class="plus" value="+">
                                             </div>
                                         </td>
 
                                         <td class="product-subtotal">
-                                            <span class="amount">£15.00</span>
+                                            <span class="amount"><%= value.gia %></span>
                                         </td>
                                     </tr>
+                                    <% }) %>
                                     <tr>
                                         <td class="actions" colspan="6">
                                             <div class="coupon">
