@@ -9,10 +9,10 @@ module.exports = {
 
   attributes: {
     idhoadon: {
-      model: 'hoadon',
+      type: 'integer',
     },
     idsanpham: {
-      model: 'sanpham',
+      type: 'integer',
     },
     autoPK: false,
   }

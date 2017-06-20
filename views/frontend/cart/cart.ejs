@@ -17,10 +17,10 @@
             <div class="col-md-4">
                 <div class="single-sidebar">
                     <h2 class="sidebar-title">Search Products</h2>
-                    <form action="#">
+                    <!--<form action="#">
                         <input type="text" placeholder="Search products...">
                         <input type="submit" value="Search">
-                    </form>
+                    </form>-->
                 </div>
 
                 <div class="single-sidebar">
@@ -74,7 +74,8 @@
                 <div class="col-md-8">
                     <div class="product-content-right">
                         <div class="woocommerce table-responsive">
-                            <form method="post" action="#">
+                            <form method="post" action="/cart">
+                                <input type="hidden" name="_csrf" value="<%= _csrf %>">
                                 <table cellspacing="0" class="shop_table cart table table-hover">
                                     <thead>
                                         <tr>
@@ -114,9 +115,10 @@
 
                                                 <td class="product-quantity">
                                                     <div class="quantity buttons_added">
-                                                        <input type="button" class="minus" value="-">
-                                                        <input type="number" size="4" class="input-text qty text" title="Qty" value="<%= value.qty %>" min="0" step="1">
-                                                        <input type="button" class="plus" value="+">
+                                                        <!--<input type="button" class="minus" value="-">-->
+                                                        <input type="number" size="4" class="input-text qty text" name="txt_soluong" title="Qty" value="<%= value.qty %>" min="1"
+                                                            step="1">
+                                                        <!--<input type="button" class="plus" value="+">-->
                                                     </div>
                                                 </td>
 
@@ -129,16 +131,17 @@
                                                     <td class="actions" colspan="6">
                                                         <div class="coupon">
                                                             <label for="coupon_code">Coupon:</label>
-                                                            <input type="text" placeholder="Coupon code" value="" id="coupon_code" class="input-text" name="coupon_code">
-                                                            <input type="submit" value="Apply Coupon" name="apply_coupon" class="button">
+                                                            <!--<input type="text" placeholder="Coupon code" value="" id="coupon_code" class="input-text" name="coupon_code">-->
+                                                            <!--<input type="submit" value="Apply Coupon" name="apply_coupon" class="button">-->
                                                         </div>
-                                                        <input type="submit" value="Update Cart" name="update_cart" class="button">
-                                                        <input type="submit" value="Checkout" name="proceed" class="checkout-button button alt wc-forward">
+                                                        <input type="submit" value="Update Cart" name="update_cart" id="update" class="button">
+                                                        <!--<a href="/updatetocart" class="button">Update Cart</a>-->
+                                                        <!--<input type="submit" value="Checkout" name="proceed" class="checkout-button button alt wc-forward">-->
                                                     </td>
                                                 </tr>
                                     </tbody>
                                 </table>
-                            </form>
+                            </form>                            
                             <h1>
                                 <%=totalQty%>
                             </h1>

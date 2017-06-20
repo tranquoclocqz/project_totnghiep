@@ -33,11 +33,12 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': 'PageController.index',
-  '/:slug-:id.html': 'PageController.shop',
-  '/chitiet/:slug/:id.html': 'PageController.single',
-  '/cart': 'PageController.cart',
-  '/checkout': 'PageController.checkout',
-  '/addtocart/:id':'CartController.addToCart',
+  'GET /:slug-:id.html': 'PageController.shop',
+  'GET /chitiet/:slug/:id.html': 'PageController.single',
+  'GET /cart': 'PageController.cart',
+  'GET /checkout': 'PageController.checkout',
+  'GET /addtocart/:id':'CartController.addToCart',
+  'POST /cart':'CartController.thaydoi',
   /************admin************/
     
     /************authenticate************/

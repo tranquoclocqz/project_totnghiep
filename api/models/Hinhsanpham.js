@@ -7,18 +7,18 @@
 
 module.exports = {
 
-  attributes: {
-  	id:{
-  		type:'integer',
-  		autoIncrement:true,
-      primaryKey:true,
-  	},
-  	url:{
-  		type:'text',
-  	},
-  	idsanpham:{  		
-  		model:'Sanpham',
-  	},
-  }
+	attributes: {
+		id: {
+			type: 'integer',
+			autoIncrement: true,
+			primaryKey: true,
+		},
+		url: {
+			type: 'text',
+		},
+		idsanpham: {
+			model: 'Sanpham',
+		},
+	}
 };
 

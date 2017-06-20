@@ -16,10 +16,26 @@ module.exports = {
             req.session.cart = cart;
             // console.log(req.session.cart);
             return res.redirect('/');
-        });        
+        });
     },
     thaydoi: function (req, res) {
-
+        // var idproduct = req.param('id');
+        var soluong = req.param('txt_soluong');
+        var cart = new addCart(req.session.cart ? req.session.cart : {});
+        var list = cart.generateArray();
+        var i = 0;
+        list.forEach(function (element) {
+            Sanpham.findOne({ id: element.item.id }).exec(function (err, product) {
+                if (err) {
+                    return res.serverError(err);
+                }
+                cart.change(product, product.id, soluong[i]);
+                req.session.cart = cart;
+                i++;
+            });
+        });
+        console.log(req.session.cart);
+        return res.redirect('/cart');
     },
     destroy: function (req, res) {
 

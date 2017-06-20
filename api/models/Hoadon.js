@@ -34,11 +34,7 @@ module.exports = {
     },
     giatri: {
       type: 'text'
-    },
-    chitiethoadon: {
-      model: 'chitiethoadon',
-      via: 'idhoadon',
-    },
+    },    
   }
 };
 
