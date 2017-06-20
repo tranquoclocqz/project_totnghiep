@@ -95,12 +95,13 @@ module.exports = {
 	suaPOST: function (req, res) {
 		var path = require('path').resolve(sails.config.appPath, 'assets/images');
 		var name = slug(req.param('txt_tensp')) + '-' + Math.random().toString(36).substr(2, 5) + '.png';
-		var rc;
-		Sanpham.findOne({id: req.param('id')}).exec({
+		var rc;		
+		Sanpham.findOne({ id: req.param('id') }).exec({
 			err: function (err) {
 				return res.serverError(err);
 			},
 			success: function (sp) {
+				obj = sp;
 				req.file('ful_anhdaidien').upload({
 					saveAs: name,
 					dirname: path,
@@ -109,20 +110,16 @@ module.exports = {
 						return res.serverError(err);
 					if (uploadedFiles == null) {
 						// fs.renameSync(path + '/' + sp.anhdaidien, path + '/' + name);
-						// console.log('rong');
-						// console.log(sp.anhdaidien);
-						res.json({
-							uploadedFiles,
-							sanpham: sp,
+						return res.json({
+							message:'k chon',
+							anh: sp,
 						});
 					} else {
-						res.json({
-							jsonanh: uploadedFiles,
-							oldPath: sp.anhdaidien,
-							sanpham: sp,
-						});
 						// fs.unlinkSync(path + '/' + sp.anhdaidien);
-						// console.log(sp.anhdaidien);
+						return res.json({
+							message:'co chon',
+							anh: sp,
+						});
 					}
 				});
 				rc = sp;
@@ -135,10 +132,9 @@ module.exports = {
 				rc.mota = req.param('txt_noidung');
 				rc.idnhasanxuat = req.param('cbo_nhasx');
 				rc.slug = slug(req.param('txt_tensp'));
-				rc.save();			
-				return;					
+				rc.save();
+				// return res.redirect('/admin/sanpham/sua/' + sp.id);
 			},
-
 		});
 	},
 	xoaPOST: function (req, res) {

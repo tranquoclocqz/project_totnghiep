@@ -16,10 +16,7 @@ module.exports = {
             req.session.cart = cart;
             // console.log(req.session.cart);
             return res.redirect('/');
-        });
-        // var json = { "cool": "34.33", "alsocool": "45454" };
-        // json.coolness = 34.33;
-        // console.log(json);
+        });        
     },
     thaydoi: function (req, res) {
 

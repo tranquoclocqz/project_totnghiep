@@ -25,7 +25,10 @@ module.exports.policies = {
   * access)                                                                  *
   *                                                                          *
   ***************************************************************************/
-  '*': 'decorate',
+  // '*': 'decorate',
+  PageController:{
+    '*': ['decorate','cartDetail']
+  }
   // AdminController:{
   //   '*':'sessionAuth',
   // },
