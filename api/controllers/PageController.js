@@ -6,11 +6,11 @@
  */
 var accounting = require('accounting');
 var options = {
-	symbol : "VNĐ",
-	decimal : ".",
-	thousand: ".",
-	precision : 0,
-	format: "%v %s"
+    symbol: "VNĐ",
+    decimal: ".",
+    thousand: ".",
+    precision: 0,
+    format: "%v %s"
 };
 module.exports = {
     index: function (req, res) {
@@ -36,9 +36,11 @@ module.exports = {
             return res.view('frontend/cart/cart', {
                 layout: 'frontend/layout/layout',
                 product: null,
+                title: 'cart.ejs',
             });
         }
-        var cart = new addCart(req.session.cart);        
+        var cart = new addCart(req.session.cart);
+        console.log(req.session.cart);
         return res.view('frontend/cart/cart', {
             layout: 'frontend/layout/layout',
             title: 'cart.ejs',
@@ -47,7 +49,8 @@ module.exports = {
             totalQty: cart.totalQty,
             accounting: accounting,
             options: options,
-        });        
+        });
+
         // console.log(cart.generateArray());
     },
     checkout: function (req, res) {

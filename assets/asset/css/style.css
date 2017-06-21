@@ -1084,8 +1084,8 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 
 
 .cart-collaterals .shipping_calculator {
-  float: right;
-  width: 40%;
+  /*float: right;
+  width: 40%;*/
 }
 
 

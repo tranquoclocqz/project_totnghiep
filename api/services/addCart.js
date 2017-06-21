@@ -13,16 +13,16 @@ module.exports = function (x) {
             storeItems.qty++;
             storeItems.gia = (storeItems.item.khuyenmai != 0 ? storeItems.item.khuyenmai : storeItems.item.gia) * storeItems.qty;
         }
-        this.totalPrice = storeItems.gia;
     };
     this.change = function (item, id, soluong) {
         var storeItems = this.items[id];
         if (storeItems) {
             storeItems.qty = soluong;
             storeItems.gia = (storeItems.item.khuyenmai != 0 ? storeItems.item.khuyenmai : storeItems.item.gia) * storeItems.qty;
-            this.totalPrice = storeItems.gia;
-            console.log('ok');
-        } else console.log('opp');
+        }
+    };
+    this.remove = function (id) {
+        delete this.items[id];
     };
     this.generateArray = function () {
         var arr = [];

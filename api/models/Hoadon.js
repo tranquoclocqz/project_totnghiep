@@ -22,9 +22,6 @@ module.exports = {
     diachi: {
       type: 'text'
     },
-    email: {
-      type: 'text',
-    },
     trangthai: {
       type: 'integer',
       defaultsTo: 1,
@@ -35,6 +32,10 @@ module.exports = {
     giatri: {
       type: 'text'
     },    
+    chitiethoadon:{
+      collection:'chitiethoadon',
+      via:'idhoadon'
+    }
   }
 };
 

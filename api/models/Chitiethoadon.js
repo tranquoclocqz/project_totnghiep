@@ -9,12 +9,14 @@ module.exports = {
 
   attributes: {
     idhoadon: {
-      type: 'integer',
+      model: 'hoadon'
     },
     idsanpham: {
-      type: 'integer',
+      model: 'sanpham'
     },
-    autoPK: false,
+    soluong:{
+      type:'integer',
+    },
   }
 };
 

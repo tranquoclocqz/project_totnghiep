@@ -31,8 +31,8 @@ module.exports = {
 		cauhinh: {
 			type: 'text',
 		},
-		mota:{
-			type:'text',
+		mota: {
+			type: 'text',
 		},
 		idnhasanxuat: {
 			model: 'nhasanxuat',
@@ -48,6 +48,10 @@ module.exports = {
 			type: 'integer',
 			defaultsTo: 1,
 		},
+		chitiethoadon: {
+			collection: 'chitiethoadon',
+			via: 'idsanpham'
+		}
 	}
 };
 

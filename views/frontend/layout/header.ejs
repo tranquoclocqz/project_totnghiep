@@ -53,9 +53,9 @@
             <div class="col-sm-6">
                 <div class="shopping-item">
                     <% if(req.session.cart){ %>
-                        <a href="/cart">Cart - <span class="cart-amunt"><%= price %> VNĐ</span> <i class="fa fa-shopping-cart"></i> <span class="product-count"><%= qty %></span></a>
+                        <a href="/cart">Cart - <span class="cart-amunt"><%= qty %></span></a>
                     <% } else { %>
-                        <a href="/cart">Cart - <span class="cart-amunt">0 VNĐ</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">0</span></a>
+                        <a href="/cart">Cart - <span class="cart-amunt">0</span></a>
                     <% } %>
                 </div>
             </div>
