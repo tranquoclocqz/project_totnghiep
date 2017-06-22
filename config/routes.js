@@ -37,9 +37,7 @@ module.exports.routes = {
   'GET /chitiet/:slug/:id.html': 'PageController.single',
   'GET /cart': 'PageController.cart',
   'GET /checkout': 'PageController.checkout',
-  'GET /addtocart/:id':'CartController.addToCart',
-  'POST /cart':'CartController.thaydoi',
-  'POST /cart':'CartController.dathang',
+  'GET /addtocart/:id':'CartController.addToCart', 
   /************admin************/
     
     /************authenticate************/
@@ -92,7 +90,8 @@ module.exports.routes = {
 
       'GET /admin/ajax/nhasx-:id':'AjaxController.nhasx',   
       'POST /thaydoi':'AjaxController.thaydoi',  
-      'POST /xoa':'AjaxController.xoa',      
+      'POST /xoa':'AjaxController.xoa',     
+      'POST /dathang':'AjaxController.dathang', 
 
 
 

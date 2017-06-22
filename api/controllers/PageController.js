@@ -40,7 +40,7 @@ module.exports = {
             });
         }
         var cart = new addCart(req.session.cart);
-        console.log(req.session.cart);
+        console.log(req.session);
         return res.view('frontend/cart/cart', {
             layout: 'frontend/layout/layout',
             title: 'cart.ejs',
@@ -49,9 +49,8 @@ module.exports = {
             totalQty: cart.totalQty,
             accounting: accounting,
             options: options,
-        });
-
-        // console.log(cart.generateArray());
+        });       
+        
     },
     checkout: function (req, res) {
         return res.view('frontend/checkout/checkout', {

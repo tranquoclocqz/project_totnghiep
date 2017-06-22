@@ -1,3 +1,9 @@
+function kiemtrasoluong(soluongton, soluongdat) {
+    if (soluongton < soluongdat) {
+        console.log('khong du hang');
+        return true;
+    }
+};
 module.exports = function (x) {
     this.items = x.items || {};
     this.totalQty = x.totalQty || 0;

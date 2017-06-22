@@ -8,6 +8,7 @@
     };
 
 </script>
+
 <div class="product-big-title-area">
     <div class="container">
         <div class="row">
@@ -19,6 +20,15 @@
         </div>
     </div>
 </div>
+<div id="loading" style="opacity:0.8;
+    background-color:#ccc;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:1000;
+    display:none">Loading ...</div>
 <!-- End Page title area -->
 <div class="single-product-area">
     <div class="zigzag-bottom"></div>
@@ -80,8 +90,8 @@
                     </ul>
                 </div>
             </div>
-            <% if(product != null){ %>
-                <div class="col-md-8">
+            <% if(!_.isEmpty(product)){ %>
+                <div class="col-md-8" id="cart">
                     <div class="product-content-right">
                         <div class="woocommerce table-responsive">
                             <form method="post" action="/cart">
@@ -151,12 +161,11 @@
                                         $.post('/thaydoi', {
                                             _csrf: "<%= _csrf %>",
                                             soluong: num_soluong,
-                                            id: id,//$this.closest('tr').find('.p....')
+                                            id: id,
                                         }, function (data) {
                                             column.text(accounting.formatMoney(JSON.stringify(data.items[id].gia), options));
                                             var n = (Object.keys(data.items).length);
                                             Object.keys(data.items).forEach(function (key) {
-                                                // console.log(data.items[key]);
                                                 tong += data.items[key].gia;
                                             });
 
@@ -170,9 +179,17 @@
                                 $(document).ready(function () {
                                     $(".product-remove a").click(function () {
                                         var id = $(this).attr('id');
-                                        $.post('/xoa', {
-                                            _csrf: "<%= _csrf %>",
-                                            id: id,
+                                        $.ajax({
+                                            type: "POST",
+                                            cache: false,
+                                            url: '/xoa',
+                                            data: {
+                                                id: id,
+                                                _csrf: "<%= _csrf %>",
+                                            },
+                                            success: function (data) {
+                                                windows.location.reload(true);
+                                            },
                                         });
                                     });
                                 });
@@ -202,19 +219,37 @@
                                 </div>
 
                                 <div class="col-sm-6">
-                                    <form method="post" action="/cart" class="shipping_calculator">
-                                        <input type="hidden" name="_csrf" value="<%= _csrf%>">
+                                    <!--<form method="post" action="/cart" class="shipping_calculator">
+                                        <input type="hidden" name="_csrf" value="<%= _csrf%>">-->
+                                    <div class="shipping_calculator">
                                         <h2><a class="shipping-calculator-button" data-toggle="collapse" href="#calcalute-shipping-wrap"
                                                 aria-expanded="false" aria-controls="calcalute-shipping-wrap">Thông tin khách hàng</a></h2>
 
-                                        <p class="form-row form-row-wide"><input type="text" id="" name="txt_tenkhachhang" placeholder="Họ tên khách hàng *"
+                                        <p class="form-row form-row-wide"><input type="text" id="txt_tenkhachhang" name="txt_tenkhachhang" placeholder="Họ tên khách hàng *"
                                                 value="" class="input-text"> </p>
-                                        <p class="form-row form-row-wide"><input type="text" id="" name="txt_diachi" placeholder="Địa chỉ *" value="" class="input-text"></p>
-                                        <p class="form-row form-row-wide"><input type="text" id="" name="txt_sdt" placeholder="Số điện thoại *" value="" class="input-text"></p>
-                                        <p><button class="button" value="1" name="calc_shipping" type="submit">Đặt hàng</button></p>
+                                        <p class="form-row form-row-wide"><input type="text" id="txt_diachi" name="txt_diachi" placeholder="Địa chỉ *" value=""
+                                                class="input-text"></p>
+                                        <p class="form-row form-row-wide"><input type="text" id="txt_sdt" name="txt_sdt" placeholder="Số điện thoại *" value=""
+                                                class="input-text"></p>
+                                        <p><button class="button" data-toggle="modal" data-target="#myModal" value="1" id="dathang"
+                                                name="calc_shipping" type="submit">Đặt hàng</button></p>
 
-                                        </section>
-                                    </form>
+                                    </div>
+                                    <!--</form>-->
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#dathang").click(function () {
+                                                $.post('/dathang', {
+                                                    txt_tenkhachhang: $('txt_tenkhachhang').val(),
+                                                    txt_diachi: $("txt_diachi").val(),
+                                                    txt_sdt: $("txt_sdt").val(),
+                                                    _csrf: "<%= _csrf %>",
+                                                }, function (data) {
+                                                    $("#code").text(data);
+                                                });
+                                            });
+                                        });
+                                    </script>
                                 </div>
                             </div>
                         </div>
@@ -224,3 +259,29 @@
         </div>
     </div>
 </div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Mã hóa đơn của bạn là
+                    <h4 id="code"></h4>
+                </p>
+                </p>Nhập mã hóa đơn vào ô xem đơn hàng để xem chi tiết đơn hàng mà bạn đã đặt hàng</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#close").click(function () {
+            window.location.href = "/";
+        });
+    });
+</script>
