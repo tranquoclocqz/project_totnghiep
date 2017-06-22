@@ -90,12 +90,6 @@ module.exports.routes = {
       /*--xóa--*/
       'GET /admin/nhasanxuat/xoa-:id':'NhasanxuatController.xoaGET',
 
-    /************tin tức************/
-      /*--danh sách--*/
-
-      /*--thêm--*/
-
-      /*--sửa--*/
       'GET /admin/ajax/nhasx-:id':'AjaxController.nhasx',   
       'POST /thaydoi':'AjaxController.thaydoi',  
       'POST /xoa':'AjaxController.xoa',      

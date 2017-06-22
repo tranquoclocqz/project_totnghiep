@@ -13,7 +13,7 @@ module.exports = {
             if (err) {
                 return res.serverError(err);
             }
-            if(!product){
+            if (!product) {
                 console.log('Khong ton tai san pham');
             }
             cart.add(product, product.id);
@@ -33,7 +33,7 @@ module.exports = {
         var list = cart.generateArray();
         var rc;
         Hoadon.create({
-            hachhang: req.param('txt_tenkhachhang'),
+            khachhang: req.param('txt_tenkhachhang'),
             sodienthoai: req.param('txt_sdt'),
             diachi: req.param('txt_diachi'),
             giatri: req.session.cart.totalPrice,
@@ -43,6 +43,24 @@ module.exports = {
             },
             success: function (hoadon) {
                 console.log('them hoa don thanh cong');
+                // list.forEach(function (x) {
+                //     Sanpham.findOne({ id: x.item.id }).exec(function (err, sanpham) {
+                //         rc = sanpham;
+                //         rc.soluong = rc.soluong - x.qty;
+                //         if (rc.soluong < 0) {
+                //             console.log('het hang cua san pham ' + rc.id);
+                //             return;
+                //         }
+                //         sanpham.save(function (err) {
+                //             if (err) {
+                //                 return res.serverError(err);
+                //             }
+                //             console.log('- so luong thanh cong');
+                //             console.log(rc);
+                //             req.session.destroy();
+                //         });
+                //     });
+                // });
                 list.forEach(function (x) {
                     Chitiethoadon.create({
                         idhoadon: hoadon.id,
@@ -65,14 +83,14 @@ module.exports = {
                                     if(err){
                                         return res.serverError(err);
                                     }
-                                    console.log('- so luong thanh cong');
-                                    console.log(rc);
-                                    req.session.destroy();
+                                    console.log('- so luong thanh cong');                                   
+                                    
                                 });
                             });
                         }
                     });
                 });
+                req.session.destroy();
                 return res.redirect('/cart');
             }
         });

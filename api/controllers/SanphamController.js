@@ -25,6 +25,7 @@ module.exports = {
 	themPOST: function (req, res) {
 		//req.file('ful_anhdaidien')._files[0].stream.filename
 		var name = slug(req.param('txt_tensp')) + '-' + Math.random().toString(36).substr(2, 5) + '.png';
+		var path = require('path').resolve(sails.config.appPath, 'assets/images');
 		Sanpham.create({
 			tensanpham: req.param('txt_tensp'),
 			anhdaidien: name,
@@ -42,12 +43,12 @@ module.exports = {
 			success: function (result) {
 				req.file('ful_anhdaidien').upload({
 					saveAs: name,
-					dirname: require('path').resolve(sails.config.appPath, 'assets/images'),
+					dirname: path + "/anhdaidien",
 				}, function (err) {
 					if (err) return res.negotiate(err);
 				});
 				req.file('ful_anhsanpham').upload({
-					dirname: require('path').resolve(sails.config.appPath, 'assets/images'),
+					dirname: path + "/anhchitiet",
 				}, function (err, uploadedFiles) {
 					if (err) return res.negotiate(err);
 					var n = uploadedFiles.length;
@@ -95,7 +96,7 @@ module.exports = {
 	suaPOST: function (req, res) {
 		var path = require('path').resolve(sails.config.appPath, 'assets/images');
 		var name = slug(req.param('txt_tensp')) + '-' + Math.random().toString(36).substr(2, 5) + '.png';
-		var rc;		
+		var rc;
 		Sanpham.findOne({ id: req.param('id') }).exec({
 			err: function (err) {
 				return res.serverError(err);
@@ -111,13 +112,13 @@ module.exports = {
 					if (uploadedFiles == null) {
 						// fs.renameSync(path + '/' + sp.anhdaidien, path + '/' + name);
 						return res.json({
-							message:'k chon',
+							message: 'k chon',
 							anh: sp,
 						});
 					} else {
 						// fs.unlinkSync(path + '/' + sp.anhdaidien);
 						return res.json({
-							message:'co chon',
+							message: 'co chon',
 							anh: sp,
 						});
 					}

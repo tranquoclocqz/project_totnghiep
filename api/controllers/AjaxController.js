@@ -4,7 +4,7 @@
  * @description :: Server-side logic for managing ajaxes
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-function truyxuat(req, res){
+function truyxuat(req, res) {
 
 }
 module.exports = {

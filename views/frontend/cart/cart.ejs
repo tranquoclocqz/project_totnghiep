@@ -133,7 +133,7 @@
                                                 </td>
 
                                                 <td class="product-subtotal">
-                                                    <span class="amount"><%= accounting.formatMoney(value.gia,options) %></span>
+                                                    <span class="amount" id="<%= value.item.id %>"><%= accounting.formatMoney(value.gia,options) %></span>
                                                 </td>
                                             </tr>
                                             <% }) %>
@@ -146,13 +146,22 @@
                                     $("input[type='number']").blur(function () {
                                         var num_soluong = $(this).val();
                                         var id = $(this).attr('id');
+                                        var column = $(this).closest('tr').find('.product-subtotal span');
+                                        var tong = 0;
                                         $.post('/thaydoi', {
                                             _csrf: "<%= _csrf %>",
                                             soluong: num_soluong,
-                                            id: id,
+                                            id: id,//$this.closest('tr').find('.p....')
                                         }, function (data) {
-                                            $(".product-subtotal span").text(accounting.formatMoney(JSON.stringify(data.items["1"].gia), options));
-                                            // $("#demo").text(JSON.stringify(data));
+                                            column.text(accounting.formatMoney(JSON.stringify(data.items[id].gia), options));
+                                            var n = (Object.keys(data.items).length);
+                                            Object.keys(data.items).forEach(function (key) {
+                                                // console.log(data.items[key]);
+                                                tong += data.items[key].gia;
+                                            });
+
+                                            $("#tong").text(accounting.formatMoney(tong, options));
+                                            $("#tonggiohang").text(accounting.formatMoney(tong, options));
                                         });
                                     });
                                 });
@@ -176,7 +185,7 @@
                                         <tbody>
                                             <tr class="cart-subtotal">
                                                 <th>Tổng giỏ hàng</th>
-                                                <td><span class="amount"><%= accounting.formatMoney(price,options) %></span></td>
+                                                <td><span id="tonggiohang" class="amount"><%= accounting.formatMoney(price,options) %></span></td>
                                             </tr>
 
                                             <tr class="shipping">
@@ -186,7 +195,7 @@
 
                                             <tr class="order-total">
                                                 <th>Tổng</th>
-                                                <td><strong><span class="amount"><%= accounting.formatMoney(price,options) %></span></strong>                                                    </td>
+                                                <td><strong><span id="tong" class="amount"><%= accounting.formatMoney(price,options) %></span></strong>                                                    </td>
                                             </tr>
                                         </tbody>
                                     </table>

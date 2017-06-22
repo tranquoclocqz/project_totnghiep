@@ -13,6 +13,12 @@ module.exports = {
       autoIncrement: true,
       primaryKey: true,
     },
+    donhang:{
+      type:'text',
+      defaultsTo: function(){
+        return Math.random().toString(36).substr(2, 5);
+      }
+    },
     khachhang: {
       type: 'text',
     },
