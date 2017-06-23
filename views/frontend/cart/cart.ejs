@@ -158,7 +158,6 @@
                                             Object.keys(data.items).forEach(function (key) {
                                                 tong += data.items[key].gia;
                                             });
-
                                             $("#tong").text(accounting.formatMoney(tong, options));
                                             $("#tonggiohang").text(accounting.formatMoney(tong, options));
                                         });
@@ -230,9 +229,9 @@
                                         $(document).ready(function () {
                                             $("#dathang").click(function () {
                                                 $.post('/dathang', {
-                                                    txt_tenkhachhang: $('txt_tenkhachhang').val(),
-                                                    txt_diachi: $("txt_diachi").val(),
-                                                    txt_sdt: $("txt_sdt").val(),
+                                                    txt_tenkhachhang: $('#txt_tenkhachhang').val(),
+                                                    txt_diachi: $("#txt_diachi").val(),
+                                                    txt_sdt: $("#txt_sdt").val(),
                                                     _csrf: "<%= _csrf %>",
                                                 }, function (data) {
                                                     $("#code").text(data);

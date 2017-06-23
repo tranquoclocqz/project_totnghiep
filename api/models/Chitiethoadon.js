@@ -9,15 +9,17 @@ module.exports = {
 
   attributes: {
     idhoadon: {
-      model: 'hoadon'
+      model: 'hoadon',      
+    },
+    donhang:{
+      type:'text'
     },
     idsanpham: {
       model: 'sanpham'
     },
     gia: {
       type: 'text',
-    }
-    ,
+    },
     soluong: {
       type: 'integer',
     },

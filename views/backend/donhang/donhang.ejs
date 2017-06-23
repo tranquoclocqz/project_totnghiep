@@ -20,17 +20,31 @@
                                 <%= ct.soluong %>
                             </td>
                             <td>
-                                <%= accounting.formatMoney(ct.idsanpham.gia,options) %>
+                                <%= accounting.formatMoney(ct.gia,options) %>
                             </td>
                         </tr>
                         <% }) %>
                             <tr>
-                                <td></td>
-                                <td>Tổng giá trị</td>
+                                <td class="text-center" colspan="3">
+                                    <h4>Thông tin</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Tổng giá trị</td>
                                 <td>
                                     <%= accounting.formatMoney(chitiet[0].idhoadon.giatri, options) %>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>Ngày đặt hàng: <b><%= moment(chitiet[0].idhoadon.createAt).locale('vi').format('LL') %></b></td>
+                                <td  colspan="2">Trạng thái:
+                                    <% if(chitiet[0].idhoadon.trangthai == 1){ %>
+                                        <span class="label label-primary">Đang trong quá trình giao hàng</span>
+                                        <% }else{ %>
+                                            <span class="label label-success">Đã giao hàng</span>
+                                            <% } %>                                                
+                                </td>                                
+                            </tr>                            
                 </tbody>
             </table>
         </div>

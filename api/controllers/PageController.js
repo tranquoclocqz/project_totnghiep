@@ -44,7 +44,6 @@ module.exports = {
             });
         }
         var cart = new addCart(req.session.cart);
-        console.log(req.session);
         return res.view('frontend/cart/cart', {
             layout: 'frontend/layout/layout',
             title: 'cart.ejs',
@@ -64,7 +63,6 @@ module.exports = {
     },
     shop: function (req, res) {
         Sanpham.find({ soluong: { '!': 0 }, trangthai: { '!': 0 }, idnhasanxuat: req.param('id'), sort: 'id DESC' }).populate('idnhasanxuat', { where: { trangthai: 1 } }).exec(function (err, result) {
-            console.log(result);
             return res.view('frontend/shop/shop', {
                 layout: 'frontend/layout/layout',
                 title: result[0].idnhasanxuat.tennhasanxuat,

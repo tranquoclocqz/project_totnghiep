@@ -6,17 +6,11 @@
  */
 
 module.exports = {
-
   attributes: {
-    id: {
-      type: 'integer',
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    donhang:{
-      type:'text',
-      defaultsTo: function(){
-        return Math.random().toString(36).substr(2, 5);
+    donhang: {
+      type: 'string',      
+      defaultsTo: function () {
+        return Math.random().toString(36).substr(2, 10);
       }
     },
     khachhang: {
@@ -37,11 +31,11 @@ module.exports = {
     },
     giatri: {
       type: 'text'
-    },    
-    chitiethoadon:{
-      collection:'chitiethoadon',
-      via:'idhoadon'
+    },
+    chitiethoadon: {
+      collection: 'chitiethoadon',
+      via: 'idhoadon'
     }
-  }
+  },
 };
 

@@ -15,14 +15,14 @@ var options = {
 var moment = require('moment');
 module.exports = {
     donhang: function (req, res) {
-        Chitiethoadon.find({ idhoadon: req.param('id') }).populate('idhoadon').populate('idsanpham').exec(function (err, result) {
-            // res.send(result);
+        Chitiethoadon.find({ donhang: req.param('id') }).populate('idhoadon').populate('idsanpham').exec(function (err, result) {
             return res.view('backend/donhang/donhang', {
                 layout: 'backend/layout/layout',
                 chitiet: result,
                 title: 'Chi tiết đơn hàng ' + result[0].idhoadon.donhang,
                 options: options,
                 accounting: accounting,
+                moment: moment,
             });
         });
     }

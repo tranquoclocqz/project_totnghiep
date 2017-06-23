@@ -34,13 +34,14 @@
               <th>Giá trị</th>
               <th>Địa chỉ</th>
               <th>SĐT</th>
+              <th>Ngày đặt hàng</th>
               <th>Trạng thái</th>
             </thead>
             <tbody>
               <% hoadon.forEach(function(hd){ %>
                 <tr>
                   <td>
-                    <a href="/admin/donhang/<%= hd.id %>"> <%= hd.donhang %></a>
+                    <a href="/admin/donhang/<%= hd.donhang %>"> <%= hd.donhang %></a>
                   </td>
                   <td>
                     <%= hd.khachhang %>
@@ -55,8 +56,11 @@
                     <%= hd.sodienthoai %>
                   </td>
                   <td>
+                    <%= moment(hd.createdAt).locale('vi').format('LL') %>
+                  </td>
+                  <td>
                     <% if(hd.trangthai == 1){%>
-                      <span class="label label-primary">Đang giao hàng</span>
+                      <span class="label label-primary">Đang trong quá trình giao hàng</span>
                       <% }else{ %>
                         <span class="label label-success">Đã giao hàng</span>
                         <% } %>
