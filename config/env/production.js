@@ -34,5 +34,5 @@ module.exports = {
   // log: {
   //   level: "silent"
   // }
-  hookTimeout: 40000
+  hookTimeout: 80000
 };

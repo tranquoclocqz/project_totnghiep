@@ -31,7 +31,9 @@
         </div>
     </div>
     <!-- End promo area -->
-
+   <script>
+        // accounting.formatMoney($("ins").text(), options);        
+    </script>
     <div class="maincontent-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
@@ -43,7 +45,7 @@
                             <% sanpham.forEach(function(value){%>
                                 <div class="single-product">
                                     <div class="product-f-image">
-                                        <img src="images/<%=value.anhdaidien%>" alt="">
+                                        <img src="images/anhdaidien/<%=value.anhdaidien%>" alt="">
                                         <div class="product-hover">
                                             <a href="/addtocart/<%=value.id%>" id="addtocart" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
                                             <a href="/chitiet/<%=value.slug%>/<%=value.id%>.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
@@ -55,9 +57,9 @@
                                         </a>
                                     </h2>
                                     <div class="product-carousel-price">
-                                        <ins>
-                                            <%=value.gia%>
-                                        </ins>
+                                        <p>
+                                            <%= accounting.formatMoney(value.gia,options)%>
+                                        </p>
                                     </div>
                                 </div>
                                 <% }) %>
@@ -67,6 +69,7 @@
             </div>
         </div>
     </div>
+ 
     <!-- End main content area -->
 
     <div class="brands-area">

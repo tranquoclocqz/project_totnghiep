@@ -19,6 +19,8 @@ module.exports = {
                 layout: 'frontend/layout/layout',
                 sanpham: sp,
                 title: 'index.ejs',
+                accounting: accounting,
+                options: options,
             })
         });
     },
@@ -28,6 +30,8 @@ module.exports = {
                 layout: 'frontend/layout/layout',
                 title: result.tensanpham,
                 result: result,
+                accounting: accounting,
+                options: options,
             });
         });
     },
@@ -49,8 +53,8 @@ module.exports = {
             totalQty: cart.totalQty,
             accounting: accounting,
             options: options,
-        });       
-        
+        });
+
     },
     checkout: function (req, res) {
         return res.view('frontend/checkout/checkout', {
@@ -59,9 +63,15 @@ module.exports = {
         })
     },
     shop: function (req, res) {
-        return res.view('frontend/shop/shop', {
-            layout: 'frontend/layout/layout',
-            title: 'shop.ejs',
+        Sanpham.find({ soluong: { '!': 0 }, trangthai: { '!': 0 }, idnhasanxuat: req.param('id'), sort: 'id DESC' }).populate('idnhasanxuat', { where: { trangthai: 1 } }).exec(function (err, result) {
+            console.log(result);
+            return res.view('frontend/shop/shop', {
+                layout: 'frontend/layout/layout',
+                title: result[0].idnhasanxuat.tennhasanxuat,
+                sanpham: result,
+                accounting: accounting,
+                options: options,
+            });
         })
     },
 };

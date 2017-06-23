@@ -17,13 +17,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="single-sidebar">
+                    <!--<div class="single-sidebar">
                         <h2 class="sidebar-title">Search Products</h2>
                         <form action="">
                             <input type="text" placeholder="Search products...">
                             <input type="submit" value="Search">
                         </form>
-                    </div>
+                    </div>-->
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">Products</h2>
                         <div class="thubmnail-recent">
@@ -77,16 +77,14 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="product-images">
-                                    <div class="fotorama" data-nav="thumbs" data-autoplay="2000" data-width="100%">
+                                    <div class="fotorama" data-nav="thumbs" data-autoplay="5000" data-loop="true" data-width="100%">
                                         <img src="images/anhdaidien/<%=result.anhdaidien%>">
-
-                                        <img src="images/anhchitiet/<%=result.anhsanpham[0].url%>">
-                                        <img src="images/anhchitiet/<%=result.anhsanpham[1].url%>">
-
+                                        <% result.anhsanpham.forEach(function(anh){ %>
+                                            <img src="images/anhchitiet/<%=anh.url%>" alt="result.tensanpham">
+                                            <% }) %>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-sm-6">
                                 <div class="product-inner">
                                     <h2 class="product-name">
@@ -94,10 +92,10 @@
                                     </h2>
                                     <div class="product-inner-price">
                                         <ins>
-                                            <%=result.gia%>
+                                            <%= accounting.formatMoney(result.gia,options) %>
                                         </ins>
                                         <del>
-                                            <%=result.khuyenmai%>
+                                            <%= accounting.formatMoney(result.khuyenmai,options) %>
                                         </del>
                                     </div>
 
@@ -108,13 +106,33 @@
                             </div>
                         </div>
                         <div class="product-detail" style="margin:20px 0px 0px 0px">
-                            <h2 class="related-products-title">Chi tiết sản phẩm</h2>
-                            <div class="content-detail">
-                                <%- result.mota %>
-                            </div>
-                            <h2 class="related-products-title">Cấu hình sản phẩm</h2>
-                            <div class="content-detail">
-                                <%- result.cauhinh %>
+                            <!-- Nav tabs -->
+                            <div class="card">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#mota" aria-controls="mota" role="tab" data-toggle="tab">Mô tả sản phẩm</a></li>
+                                    <li role="presentation"><a href="#cauhinh" aria-controls="cauhinh" role="tab" data-toggle="tab">Cấu hình chi tiết</a></li>
+                                    <li role="presentation"><a href="#binhluan" aria-controls="binhluan" role="tab" data-toggle="tab">Bình luận</a></li>
+                                </ul>
+
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="mota">
+                                        <%- result.mota%>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="cauhinh"><%- result.cauhinh%></div>
+                                    <div role="tabpanel" class="tab-pane" id="binhluan">
+                                        <div id="fb-root"></div>
+                                        <script>(function(d, s, id) {
+                                        var js, fjs = d.getElementsByTagName(s)[0];
+                                        if (d.getElementById(id)) return;
+                                        js = d.createElement(s); js.id = id;
+                                        js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.9";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                        }(document, 'script', 'facebook-jssdk'));</script>
+                                        <div class="fb-comments" data-numposts="5" 	
+data-width="100%"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

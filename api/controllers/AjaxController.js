@@ -103,6 +103,19 @@ module.exports = {
                 return res.end(hoadon.donhang);
             }
         });
+    },
+    timkiem: function (req, res) {
+        var key = req.param('key');
+        Sanpham.find({ tensanpham: { 'like': '%' + key + '%' } }).exec(function (err, result) {
+            if (err) {
+                return res.serverError(err);
+            }
+            res.writeHead(200, { 'Content-Type': 'html/plain' });
+            result.forEach(function (key) {
+                return res.write('<li><a href="/chitiet/' + key.slug + '/' + key.id + '.html">' + key.tensanpham + '</a></li>');
+            });
+            res.end();
+        });
     }
 };
 
