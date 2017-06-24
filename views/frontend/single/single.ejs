@@ -119,18 +119,21 @@
                                     <div role="tabpanel" class="tab-pane active" id="mota">
                                         <%- result.mota%>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="cauhinh"><%- result.cauhinh%></div>
+                                    <div role="tabpanel" class="tab-pane" id="cauhinh">
+                                        <%- result.cauhinh%>
+                                    </div>
                                     <div role="tabpanel" class="tab-pane" id="binhluan">
                                         <div id="fb-root"></div>
-                                        <script>(function(d, s, id) {
-                                        var js, fjs = d.getElementsByTagName(s)[0];
-                                        if (d.getElementById(id)) return;
-                                        js = d.createElement(s); js.id = id;
-                                        js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.9";
-                                        fjs.parentNode.insertBefore(js, fjs);
-                                        }(document, 'script', 'facebook-jssdk'));</script>
-                                        <div class="fb-comments" data-numposts="5" 	
-data-width="100%"></div>
+                                        <script>
+                                            (function (d, s, id) {
+                                                var js, fjs = d.getElementsByTagName(s)[0];
+                                                if (d.getElementById(id)) return;
+                                                js = d.createElement(s); js.id = id;
+                                                js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.9";
+                                                fjs.parentNode.insertBefore(js, fjs);
+                                            }(document, 'script', 'facebook-jssdk'));
+                                        </script>
+                                        <div class="fb-comments" data-numposts="5" data-width="100%"></div>
                                     </div>
                                 </div>
                             </div>
@@ -140,6 +143,21 @@ data-width="100%"></div>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $(".digital table").addClass('table table-striped');
+            $("table tbody tr td div").removeAttr('style');
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var flag = false;
+            $("#navcau-hinh").click(function () {
+                $("#panel-cau-hinh").slideToggle(500);
+            });
+            $("#panel-cau-hinh").hide();
+        });
+    </script>
     <!-- Go to www.addthis.com/dashboard to customize your tools -->
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-593e9088d9c69597"></script>
     <% script('asset/js/fotorama.js') -%>

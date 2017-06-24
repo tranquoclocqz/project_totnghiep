@@ -62,7 +62,8 @@ module.exports = {
         })
     },
     shop: function (req, res) {
-        Sanpham.find({ soluong: { '!': 0 }, trangthai: { '!': 0 }, idnhasanxuat: req.param('id'), sort: 'id DESC' }).populate('idnhasanxuat', { where: { trangthai: 1 } }).exec(function (err, result) {
+        //skip: bat dau tu dau, limit: lay bao nhieu
+        Sanpham.find({ skip: 0, limit: 8, soluong: { '!': 0 }, trangthai: { '!': 0 }, idnhasanxuat: req.param('id'), sort: 'id DESC' }).populate('idnhasanxuat', { where: { trangthai: 1 } }).exec(function (err, result) {
             return res.view('frontend/shop/shop', {
                 layout: 'frontend/layout/layout',
                 title: result[0].idnhasanxuat.tennhasanxuat,
@@ -70,7 +71,7 @@ module.exports = {
                 accounting: accounting,
                 options: options,
             });
-        })
+        });
     },
 };
 

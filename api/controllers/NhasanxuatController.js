@@ -68,11 +68,11 @@ module.exports = {
                     return res.serverError(err);
                 }
                 req.flash('success', 'Cập nhật thành công');
-                return redirect(sails.getUrlFor('NhasanxuatController.suaGET'));
+                return res.redirect(sails.getUrlFor('NhasanxuatController.suaGET'));
             });
     },
     xoaGET: function (req, res) {
-        Nhasanxuat.destroy({ id: req.param('id') }).exec(function (err) {
+        Nhasanxuat.update({ trangthai: 0 }, { id: req.param('id') }).exec(function (err) {
             if (err) {
                 return res.serverError(err);
             }

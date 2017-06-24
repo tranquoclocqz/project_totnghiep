@@ -68,7 +68,7 @@ module.exports = {
         });
     },
     xoaGET: function (req, res) {
-        Thietbi.destroy({ id: req.param('id') }).exec(function (err) {
+        Thietbi.update({ trangthai: 0 }, { id: req.param('id') }).exec(function (err) {
             if (err) {
                 return res.serverError(err);
             }

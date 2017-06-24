@@ -3,7 +3,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="product-bit-title text-center">
-                    <h2><%=sanpham[0].idnhasanxuat.tennhasanxuat%></h2>
+                    <h2>
+                        <%=sanpham[0].idnhasanxuat.tennhasanxuat%>
+                    </h2>
                 </div>
             </div>
         </div>
@@ -12,51 +14,63 @@
 <div class="single-product-area">
     <div class="zigzag-bottom"></div>
     <div class="container">
-        <div class="row">
+        <input type="hidden" id="<%= sanpham[0].idnhasanxuat.id %>" value="<%= sanpham[0].idnhasanxuat.id %>">
+        <div class="row" id="result">
             <% sanpham.forEach(function(key){ %>
                 <div class="col-sm-6 col-md-3">
                     <div class="thumbnail">
-                        <a href="/chitiet/<%= key.tensanpham %>/<%= key.id %>.html" title="<%= key.tensanpham %>">
+                        <a href="/chitiet/<%= key.slug %>/<%= key.id %>.html" title="<%= key.tensanpham %>">
                             <img src="images/anhdaidien/<%= key.anhdaidien %>" alt="<%= key.tensanpham %>">
                         </a>
                         <div class="caption text-center">
-                            <h3 style=""><a href="/chitiet/<%= key.tensanpham %>/<%= key.id %>.html" title="<%= key.tensanpham %>"><%= key.tensanpham %></a></h3>
-                            <p><%= accounting.formatMoney(key.gia,options) %><sup>đ</sup></p>
-                            <% if(key.khuyenmai !='0' || key.khuyenmai != ''){ %>
-                                <p><%= accounting.formatMoney(key.khuyenmai,options) %><sup>đ</sup></p>
-                            <% } %>
+                            <h3 style="">
+                                <a href="/chitiet/<%= key.slug %>/<%= key.id %>.html" title="<%= key.tensanpham %>">
+                                    <%= key.tensanpham %>
+                                </a>
+                            </h3>
                             <p>
-                                <a href="/addtocart/<%= key.id %>" class="btn btn-primary">Buy Now!</a>
+                                <%= accounting.formatMoney(key.gia,options) %>
                             </p>
+                            <% if(key.khuyenmai !='0'){ %>
+                                <p>
+                                    <%= accounting.formatMoney(key.khuyenmai,options) %>
+                                </p>
+                                <% } %>
+                                    <p>
+                                        <a href="/addtocart/<%= key.id %>" class="btn btn-primary">Mua ngay</a>
+                                    </p>
                         </div>
                     </div>
-                </div>    
-            <% }) %>                    
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="product-pagination text-center">
-                    <nav>
-                        <ul class="pagination">
-                            <li>
-                                <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                              </a>
-                            </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                                <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                              </a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
-            </div>
+                <% }) %>
         </div>
+        <div class="text-center">
+            <button id="btnload" class="btn btn-default">Xem thêm sản phẩm <span class="caret"></span></button>
+        </div>
+        <script>
+            $(document).ready(function () {
+                var page = 2;
+                var id = $("input[type='hidden']").val();
+                $("#btnload").click(function () {
+                    $.ajax({
+                        type: "GET",
+                        cache: false,
+                        url: '/loadsanpham/' + id + '/' + page,
+                        data: {
+                            id: id,
+                            page: page,
+                        },
+                        success: function (data) {
+                            if (data) {
+                                page++;
+                                $("#result").append(data);
+                            } else {
+                                $("#btnload").remove();
+                            }
+                        },
+                    });
+                });
+            });
+        </script>        
     </div>
 </div>

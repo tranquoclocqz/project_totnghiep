@@ -4,9 +4,14 @@
  * @description :: Server-side logic for managing ajaxes
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-function truyxuat(req, res) {
-
-}
+var accounting = require('accounting');
+var options = {
+    symbol: "VNĐ",
+    decimal: ".",
+    thousand: ".",
+    precision: 0,
+    format: "%v %s"
+};
 // module.exports = {
 //     nhasx: function (req, res) {
 //         if (req.xhr) {
@@ -211,7 +216,6 @@ module.exports = {
         if (req.xhr) {
             var id = req.param('id');
             var cart = new addCart(req.session.cart ? req.session.cart : {});
-            console.log(req.session.cart);
             delete cart.items[id];
             cart.totalQty--;
             req.session.cart = cart;
@@ -281,6 +285,41 @@ module.exports = {
             });
             res.end();
         });
+    },
+    loadsanpham: function (req, res) {
+        var page = req.param('page');
+        var id = req.param('idnsx');
+        Sanpham.find({soluong: { '!': 0 }, trangthai: { '!': 0 }, idnhasanxuat: id}).skip((page - 1) * 8).limit(8).sort('id DESC').exec(function (err, result) {
+            res.writeHead(200, { 'Content-Type': 'html/plain' });
+            result.forEach(function (sp) {                
+                return res.write('<div class="col-sm-6 col-md-3">'
+                    + '<div class="thumbnail">'
+                    + '        <a href="/chitiet/' + sp.slug + '/' + sp.id + '.html" title="' + sp.tensanpham + '">'
+                    + '            <img src="images/anhdaidien/' + sp.anhdaidien + '" alt="' + sp.tensanpham + '"'
+                    + '        </a>'
+                    + '       <div class="caption text-center">'
+                    + '            <h3>'
+                    + '                <a href="/chitiet/' + sp.slug + '/' + sp.id + '.html" title="' + sp.tensanpham + '">' + sp.tensanpham + '</a>'
+                    + '            </h3>'
+                    + '            <p>'
+                    + '                  ' + accounting.formatMoney(sp.gia, options) + ''
+                    + '            </p>'
+                    // + '            <% if(key.khuyenmai !=){ %>'
+                    // + '                <p>'
+                    // + '                      '
+                    // + '                </p>'
+                    // + '                <% } %>'
+                    + '                    <p>'
+                    + '                        <a href="/addtocart/' + sp.id + '" class="btn btn-primary">Mua ngay</a>'
+                    + '                    </p>'
+                    + '        </div>'
+                    + '   </div>'
+                    + '</div>');
+            });
+            res.end();
+        });
+        // console.log(id);
+        // console.log(page);
     }
 };
 

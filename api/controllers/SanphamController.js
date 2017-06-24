@@ -6,9 +6,18 @@
  */
 var slug = require('url-slug');
 var fs = require('fs');
+var moment = require('moment');
 module.exports = {
 	danhsachGET: function (req, res) {
-
+		Sanpham.query('SELECT sanpham.id as spid, tensanpham,tenthietbi,tennhasanxuat,sanpham.createdAt, sanpham.updatedAt, sanpham.trangthai as sptrangthai FROM sanpham,thietbi,nhasanxuat WHERE sanpham.idnhasanxuat = nhasanxuat.id AND nhasanxuat.idthietbi = thietbi.id', function (err, sanpham) {
+			// res.send(sanpham);
+			return res.view('backend/sanpham/danhsach', {
+				layout: 'backend/layout/layout',
+				sanpham: sanpham,
+				title: 'Danh sách sản phẩm',
+				moment: moment,
+			});
+		});
 	},
 	themGET: function (req, res) {
 		Thietbi.find({ trangthai: 1 }).exec(function (err, tb) {
@@ -71,7 +80,7 @@ module.exports = {
 	},
 
 	suaGET: function (req, res) {
-		Sanpham.query('SELECT sanpham.id,tensanpham,idnhasanxuat,anhdaidien,soluong,gia,khuyenmai,cauhinh,thietbi.id as idthietbi FROM sanpham,nhasanxuat,thietbi WHERE idnhasanxuat = nhasanxuat.id AND nhasanxuat.idthietbi = thietbi.id AND sanpham.id = ?', [req.param('id')], function (err, sp) {
+		Sanpham.query('SELECT sanpham.id,tensanpham,mota,idnhasanxuat,anhdaidien,soluong,gia,khuyenmai,cauhinh,thietbi.id as idthietbi FROM sanpham,nhasanxuat,thietbi WHERE idnhasanxuat = nhasanxuat.id AND nhasanxuat.idthietbi = thietbi.id AND sanpham.id = ?', [req.param('id')], function (err, sp) {
 			Thietbi.find({ trangthai: 1 }).exec(function (err, tb) {
 				Nhasanxuat.find({ trangthai: 1, idthietbi: sp[0].idthietbi }).exec(function (err, nhasx) {
 					Hinhsanpham.find({ idsanpham: sp[0].id }).exec(function (err, hinh) {
@@ -86,7 +95,7 @@ module.exports = {
 								hinhsanpham: hinh,
 								title: 'Sửa sản phẩm ' + sp[0].tensanpham,
 							});
-						}
+						}						
 					});
 				});
 			});

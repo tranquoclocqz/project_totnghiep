@@ -25,7 +25,7 @@ module.exports = {
 					ds:ds,
 					accounting: accounting,
 					options: options,
-					moment: moment,
+					moment: moment,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 				});
 			});
 

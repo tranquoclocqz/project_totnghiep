@@ -95,6 +95,7 @@ module.exports.routes = {
       'POST /xoa':'AjaxController.xoa',     
       'POST /dathang':'AjaxController.dathang', 
       'GET /timkiem/:key':'AjaxController.timkiem',
+      'GET /loadsanpham/:idnsx/:page':'AjaxController.loadsanpham',
 
 
 
