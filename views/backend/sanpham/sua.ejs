@@ -88,10 +88,7 @@
                     <div>
                         <div>
                             <input type="file" accept="image/*" name='ful_anhdaidien' id="ful_anhdaidien" class="filestyle" data-buttonName="btn-primary">
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox" id="chkanhdaidien" name="chkanhdaidien">Thay đổi ảnh</label>
-                        </div>
+                        </div>                        
                         <div class="image-holder" id="image-holder-1">
                             <img class="img-responsive" src="images/anhdaidien/<%= sanpham.anhdaidien %>">
                         </div>
@@ -106,10 +103,7 @@
                     <div>
                         <div>
                             <input type="file" accept="image/*" name='ful_anhsanpham' id="ful_anhsanpham" multiple class="filestyle" data-buttonName="btn-primary">
-                        </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox" id="chkanhsp" name="chkanhsp">Thay đổi ảnh</label>
-                        </div>
+                        </div>                        
                         <div class="image-holder" id="image-holder-2">
                             <% hinhsanpham.forEach(function(value){ %>
                                 <img class="img-responsive thumb-image" src="images/anhchitiet/<%= value.url %>">
