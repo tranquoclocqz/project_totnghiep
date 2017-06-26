@@ -93,6 +93,6 @@ module.exports.views = {
   locals: {
     myvar: '',
     price: '',
-    qty: 0.
+    qty: 0,
   }
 };
