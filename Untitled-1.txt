@@ -2,4 +2,4 @@
 				<div class="alert alert-danger">
 					<%= JSON.stringify(req.session.flash.err[err][0].message) %><br>
 				</div>
-				<% }) %>
+				<% }) %> a
