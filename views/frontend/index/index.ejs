@@ -43,23 +43,30 @@
                         <h2 class="section-title">Latest Products</h2>
                         <div class="product-carousel">
                             <% sanpham.forEach(function(value){%>
-                                <div class="single-product">
-                                    <div class="product-f-image">
-                                        <img src="images/anhdaidien/<%=value.anhdaidien%>" alt="">
-                                        <div class="product-hover">
-                                            <a href="/addtocart/<%=value.id%>" id="addtocart" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                            <a href="/chitiet/<%=value.slug%>/<%=value.id%>.html" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                        </div>
-                                    </div>
-                                    <h2>
-                                        <a href="/chitiet/<%=value.slug%>/<%=value.id%>.html">
-                                            <%=value.tensanpham%>
+                                 <div class="col-sm-12">
+                                    <div class="thumbnail">
+                                        <a href="/chitiet/<%= value.slug %>/<%= value.id %>.html" title="<%= value.tensanpham %>">
+                                            <img src="images/anhdaidien/<%= value.anhdaidien %>" alt="<%= value.tensanpham %>">
                                         </a>
-                                    </h2>
-                                    <div class="product-carousel-price">
-                                        <p>
-                                            <%= accounting.formatMoney(value.gia,options)%>
-                                        </p>
+                                        <div class="caption text-center">
+                                            <h3 style="">
+                                                <a href="/chitiet/<%= value.slug %>/<%= value.id %>.html" title="<%= value.tensanpham %>">
+                                                    <%= value.tensanpham %>
+                                                </a>
+                                            </h3>                                            
+                                            <% if(value.khuyenmai !='0'){ %>
+                                                <p>
+                                                    <%= accounting.formatMoney(value.khuyenmai,options) %><sup style="color: red">KM</sup>
+                                                </p>
+                                                <% } else { %>
+                                                    <p>
+                                                 <%= accounting.formatMoney(value.gia,options) %>
+                                                 </p>
+                                                <% } %>
+                                                    <p>
+                                                        <a href="/addtocart/<%= value.id %>" class="btn btn-primary">Mua ngay</a>
+                                                    </p>
+                                        </div>
                                     </div>
                                 </div>
                                 <% }) %>

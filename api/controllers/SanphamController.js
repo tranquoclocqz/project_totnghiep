@@ -9,7 +9,6 @@ var fs = require('fs');
 var moment = require('moment');
 
 module.exports = {
-
 	danhsachGET: function (req, res) {
 		Sanpham.query('SELECT sanpham.id as spid, tensanpham,tenthietbi,tennhasanxuat,sanpham.createdAt, sanpham.updatedAt, sanpham.trangthai as sptrangthai FROM sanpham,thietbi,nhasanxuat WHERE sanpham.idnhasanxuat = nhasanxuat.id AND nhasanxuat.idthietbi = thietbi.id', function (err, sanpham) {
 			return res.view('backend/sanpham/danhsach', {
@@ -135,15 +134,26 @@ module.exports = {
 				}
 			});
 			Hinhsanpham.find({ idsanpham: sp.id }).exec(function (err, hsp) {
+				console.log(hsp);
 				req.file('ful_anhsanpham').upload({
 					dirname: path + '/anhchitiet/',
 				}, function (err, uploadedFiles) {
 					if (err)
 						return res.serverError(err);
 					if (!_.isEmpty(uploadedFiles)) {
-						rc = hsp;
-						
-						fs.unlinkSync(path + '/anhchitiet/' + sp.anhdaidien);						
+						var n = uploadedFiles.length;
+						hsp.forEach(function (hinh) {
+							fs.unlinkSync(path + '/anhchitiet/' + hinh.url);
+						});
+						Hinhsanpham.destroy({ idsanpham: sp.id }).exec();
+						for (var i = 0; i < n; i++) {
+							Hinhsanpham.create({
+								idsanpham: sp.id,
+								url: uploadedFiles[i].fd.split('\\').pop(),
+							}).exec(function (err) {
+								if (err) { return res.serverError(err); }
+							});
+						}
 					}
 				});
 			});
@@ -151,6 +161,11 @@ module.exports = {
 		});
 	},
 	xoaPOST: function (req, res) {
-
+		Sanpham.update({ id: req.param('id') }, { trangthai: 0 }).exec(function (err) {
+			if (err) {
+				return res.serverError(err);
+			}
+			return res.redirect('/admin/sanpham/danhsach');
+		});
 	}
 };

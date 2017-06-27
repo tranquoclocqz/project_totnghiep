@@ -5,7 +5,6 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var md5 = require('md5');
-var expect = require('sails-hook-validation')
 module.exports = {
     loginGET: function (req, res) {
         if (req.session.user) {

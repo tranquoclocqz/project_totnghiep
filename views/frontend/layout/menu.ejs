@@ -13,21 +13,66 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/">Home</a></li>
                     <!--<li><a href="/shop">Shop page</a></li>
-                    <li><a href="/single">Single product</a></li>-->                    
+                    <li><a href="/single">Single product</a></li>-->
                     <% myVar.forEach(function(tb){ %>
-                       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= tb.tenthietbi %><span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                        <% tb.nhasanxuat.forEach(function(nhasx){%>
-                             <li><a href="/<%= nhasx.slug %>-<%= nhasx.id %>.html"><%= nhasx.tennhasanxuat %></a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <%= tb.tenthietbi %><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <% tb.nhasanxuat.forEach(function(nhasx){%>
+                                    <li>
+                                        <a href="/<%= nhasx.slug %>-<%= nhasx.id %>.html">
+                                            <%= nhasx.tennhasanxuat %>
+                                        </a>
+                                    </li>
+                                    <% }) %>
+                            </ul>
+                        </li>
                         <% }) %>
+                            <li><a href="/cart">Giỏ hàng</a></li>
+                            <li><a href="/checkout">Kiểm tra hóa đơn</a></li>
+                </ul>
+                <ul class="navbar-form navbar-left">
+                    <div class="input-group">
+                        <input type="text" placeholder="Search products..." style="width:100%" id="keyup">                        
+                    </div>
+                    <div style="background: white;position: absolute;z-index: 999;">
+                        <ul class="ketqua" style="padding: 5px; list-style:none;">
+
                         </ul>
-                    </li>                       
-                    <% }) %>
-                    <li><a href="/cart">Giỏ hàng</a></li>
-                    <li><a href="/checkout">Kiểm tra hóa đơn</a></li>
+                    </div>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#keyup").keyup(function () {
+            var search = null;
+            var value = $(this).val();
+            if (value.length > 0) {
+                if (search != null) {
+                    search.abort();
+                }
+                search = $.ajax({
+                    type: "GET",
+                    url: '/timkiem/' + value,
+                    data: {
+                        key: value,
+                    },
+                    success: function (data) {
+                        if (data != '')
+                            $(".ketqua").html(data);
+                        else
+                            $(".ketqua").html('<li><a>Không có kết quả</a></li>');
+                    }
+                })
+            } else {
+                $(".ketqua").html('');
+            }
+        });
+    });
+
+</script>
 <!-- End mainmenu area -->

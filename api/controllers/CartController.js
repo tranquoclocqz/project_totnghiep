@@ -4,9 +4,7 @@
  * @description :: Server-side logic for managing carts
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
-function kiemtra(soluongcon, soluongdat) {
 
-}
 module.exports = {
     addToCart: function (req, res) {
         var proid = req.param('id');
@@ -21,9 +19,21 @@ module.exports = {
             }
             cart.add(product, product.id);
             req.session.cart = cart;
-            console.log(req.session.cart);
-            return res.redirect('/');
+            return res.redirect("/cart");
         });
-    },    
+    },
+    xoa: function (req, res) {
+        var id = req.param('id');
+        var cart = new addCart(req.session.cart ? req.session.cart : {});
+        delete cart.items[id];
+        cart.totalQty--;
+        req.session.cart = cart;
+        req.session.save(function (err) {
+            if (err) {
+                return res.serverError(err);
+            }
+        });
+        return res.redirect('/cart');
+    }
 };
 

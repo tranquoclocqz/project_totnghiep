@@ -33,6 +33,14 @@ module.exports = {
 	},
 	loginGET: function (req, res) {
 		return res.view('backend/login/login', { title: 'Đăng nhập' });
+	},
+	giaohang: function(req, res){
+		Hoadon.update({id:req.param('id')},{trangthai:0}).exec(function(err, result){
+			if(err){
+				return res.serverError(err);
+			}
+			return res.redirect('/admin/dashboard');
+		});
 	}
 };
 

@@ -28,34 +28,37 @@ module.exports.policies = {
   // '*': 'decorate',
   PageController:{
     '*': ['decorate','cartDetail']
+  },
+   AdminController:{
+     '*':'sessionAuth',
+   },
+  AjaxController:{
+    '*':'sessionAuth',
+  },
+  HinhsanphamController:{
+    '*':'sessionAuth',
+  },
+  HoadonController:{
+    '*':'sessionAuth',
+  },
+  KhachhangController:{
+    '*':'sessionAuth',
+  },
+  NhasanxuatController:{
+    '*':'sessionAuth',
+  },
+  ThietbiController:{
+    '*':'sessionAuth',
+  },
+  SanphamController:{
+    '*':'sessionAuth',
+  },
+  UserController:{
+    '*':'sessionAuth',
+  },
+  ChitiethoadonController:{
+    '*':'sessionAuth',
   }
-  // AdminController:{
-  //   '*':'sessionAuth',
-  // },
-  // AjaxController:{
-  //   '*':'sessionAuth',
-  // },
-  // HinhsanphamController:{
-  //   '*':'sessionAuth',
-  // },
-  // HoadonController:{
-  //   '*':'sessionAuth',
-  // },
-  // KhachhangController:{
-  //   '*':'sessionAuth',
-  // },
-  // NhasanxuatController:{
-  //   '*':'sessionAuth',
-  // },
-  // ThietbiController:{
-  //   '*':'sessionAuth',
-  // },
-  // SanpahmController:{
-  //   '*':'sessionAuth',
-  // },
-  // UserController:{
-  //   '*':'sessionAuth',
-  // },
   /***************************************************************************
   *                                                                          *
   * Here's an example of mapping some policies to run before a controller    *

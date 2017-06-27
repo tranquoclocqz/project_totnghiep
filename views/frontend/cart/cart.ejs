@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="product-bit-title text-center">
-                    <h2>Shopping Cart</h2>
+                    <h2>Giỏ hàng</h2>
                 </div>
             </div>
         </div>
@@ -23,61 +23,7 @@
     <div class="zigzag-bottom"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Search Products</h2>
-                    <!--<form action="#">
-                        <input type="text" placeholder="Search products...">
-                        <input type="submit" value="Search">
-                    </form>-->
-                </div>
-
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Products</h2>
-                    <div class="thubmnail-recent">
-                        <img src="asset/img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins>
-                            <del>$800.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img src="asset/img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins>
-                            <del>$800.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img src="asset/img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins>
-                            <del>$800.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img src="asset/img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins>
-                            <del>$800.00</del>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Recent Posts</h2>
-                    <ul>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                        <li><a href="#">Sony Smart TV - 2015</a></li>
-                    </ul>
-                </div>
+            <div class="col-md-2">
             </div>
             <% if(!_.isEmpty(product)){ %>
                 <div class="col-md-8" id="cart">
@@ -100,7 +46,7 @@
                                         <% _.each(product,function(value){ %>
                                             <tr class="cart_item">
                                                 <td class="product-remove">
-                                                    <a title="Remove this item" class="remove" id="<%= value.item.id %>" style="cursor:pointer">×</a>
+                                                    <a title="Remove this item" class="remove" href="/xoa/<%= value.item.id %>" style="cursor:pointer">×</a>
                                                 </td>
 
                                                 <td class="product-thumbnail">
@@ -217,8 +163,8 @@
                                                 value="" class="input-text"> </p>
                                         <p class="form-row form-row-wide"><input type="text" id="txt_diachi" name="txt_diachi" placeholder="Địa chỉ *" value=""
                                                 class="input-text"></p>
-                                        <p class="form-row form-row-wide"><input type="text" id="txt_sdt" name="txt_sdt" placeholder="Số điện thoại *" value="" onkeypress="return isNumber(event);"
-                                                class="input-text"></p>
+                                        <p class="form-row form-row-wide"><input type="text" id="txt_sdt" name="txt_sdt" placeholder="Số điện thoại *" value=""
+                                                onkeypress="return isNumber(event);" class="input-text"></p>
                                         <p><button class="button" data-toggle="modal" data-target="#myModal" value="1" id="dathang"
                                                 name="calc_shipping" type="submit">Đặt hàng</button></p>
 
@@ -244,6 +190,8 @@
                     </div>
                 </div>
                 <% } %>
+                    <div class="col-sm-2">
+                    </div>
         </div>
     </div>
 </div>
@@ -252,7 +200,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Modal Header</h4>
+                <h4 class="modal-title">Mã hóa đơn</h4>
             </div>
             <div class="modal-body">
                 <p>Mã hóa đơn của bạn là
@@ -272,6 +220,7 @@
             window.location.href = "/";
         });
     });
+
 </script>
 <script>
     function isNumber(evt) {
@@ -282,4 +231,5 @@
         }
         return true;
     }
+
 </script>

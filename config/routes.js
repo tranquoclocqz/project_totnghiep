@@ -41,6 +41,8 @@ module.exports.routes = {
   /************admin************/
     /************đơn hàng************/
     'GET /admin/donhang/:id':'ChitiethoadonController.donhang',
+    'GET /xoa/:id':'CartController.xoa',
+    'GET /admin/giaohang/:id':'AdminController.giaohang',
     /************authenticate************/
     'GET /admin/login':'AuthController.loginGET',
     'POST /admin/login':'AuthController.loginPOST',
@@ -91,11 +93,11 @@ module.exports.routes = {
 
     /***********AJAX*********/
       'GET /admin/ajax/nhasx-:id':'AjaxController.nhasx',   
-      'POST /thaydoi':'AjaxController.thaydoi',  
-      'POST /xoa':'AjaxController.xoa',     
+      'POST /thaydoi':'AjaxController.thaydoi',    
       'POST /dathang':'AjaxController.dathang', 
       'GET /timkiem/:key':'AjaxController.timkiem',
       'GET /loadsanpham/:idnsx/:page':'AjaxController.loadsanpham',
+      'POST /laythongtindonhang':'AjaxController.laythongtindonhang',
 
 
 

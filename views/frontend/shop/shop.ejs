@@ -27,18 +27,19 @@
                                 <a href="/chitiet/<%= key.slug %>/<%= key.id %>.html" title="<%= key.tensanpham %>">
                                     <%= key.tensanpham %>
                                 </a>
-                            </h3>
-                            <p>
-                                <%= accounting.formatMoney(key.gia,options) %>
-                            </p>
+                            </h3>                            
                             <% if(key.khuyenmai !='0'){ %>
                                 <p>
-                                    <%= accounting.formatMoney(key.khuyenmai,options) %>
+                                    <%= accounting.formatMoney(key.khuyenmai,options) %><sup style="color: red">KM</sup>
                                 </p>
-                                <% } %>
+                                <% } else { %>
                                     <p>
-                                        <a href="/addtocart/<%= key.id %>" class="btn btn-primary">Mua ngay</a>
+                                        <%= accounting.formatMoney(key.gia,options) %>
                                     </p>
+                                    <% } %>
+                                        <p>
+                                            <a href="/addtocart/<%= key.id %>" class="btn btn-primary">Mua ngay</a>
+                                        </p>
                         </div>
                     </div>
                 </div>
@@ -71,6 +72,6 @@
                     });
                 });
             });
-        </script>        
+        </script>
     </div>
 </div>
