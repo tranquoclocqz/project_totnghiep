@@ -16,9 +16,10 @@
 				<% }) %>
 			</div>
 		<% } %>
-		<% if(req.session.flash && req.session.flash.success){ %>
+		<% if(req.session.flash && req.sesison.flash.success){ %>
 			<div class="alert alert-success">
-				<%= req.flash('success') %>
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+					<%= req.flash('success') %>
 			</div>
 		<% } %>
 			<form class="form-horizontal" method="post" action="/admin/user/them">

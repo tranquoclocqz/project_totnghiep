@@ -1,8 +1,8 @@
 <div class='row main'>
-	<div class="col-sm-9 col-sm-offset-3">
+	<div class="col-sm-9 col-sm-offset-3">		
 	<div class="panel-heading">
 	       <div class="panel-title text-center">
-	       		<h1 class="title">Cập nhật danh mục cha</h1><small><%= nhasx.tennhasanxuat %></small>
+	       		<h1 class="title">Cập nhật thông tin nhà sản xuất</h1><small><%= nhasx.tennhasanxuat %></small>
 	       		<hr />
 	       	</div>
 	    </div> 
@@ -31,10 +31,21 @@
 				<input type="submit" name="btn_them" class="btn btn-primary" value="Cập nhật">
 			</div>
 		</form>
-		<% if(req.flash('success')){ %>
-		<div class='alert alert-success'>
-			<%-req.flash('success')%>
-		</div>
+		<% if(req.session.flash && req.session.flash.err){ %>
+			<% var j = req.flash('err')[0] %>                    
+					<% Object.keys(j).forEach(function(err){ %>				
+				<div class="alert alert-danger">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+					<strong>Lỗi</strong>
+						<%= JSON.stringify(j[err][0].message) %>                        
+				</div>
+					<% }) %>                   
+			<% } %>
+		<% if(req.session.flash && req.session.flash.success){ %>
+			<div class="alert alert-success">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+					<%= req.flash('success') %>
+			</div>
 		<% } %>
 	</div>
 </div>

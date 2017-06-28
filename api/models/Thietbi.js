@@ -14,7 +14,10 @@ module.exports = {
       primaryKey: true
     },
     tenthietbi: {
-      type: 'string'
+      type: 'string',
+      required: true,
+      minLength: 3,
+      maxLength: 20,
     },
     slug: {
       type: 'text'
@@ -23,9 +26,16 @@ module.exports = {
       collection: 'nhasanxuat',
       via: 'idthietbi',
     },
-    trangthai:{
-      type:'integer',
-      defaultsTo : 1,
+    trangthai: {
+      type: 'integer',
+      defaultsTo: 1,
+    }
+  },
+  validationMessages: {
+    tenthietbi:{
+      required: "Bạn chưa nhập tên thiết bị",
+      minLength: "Tên thiết bị phải từ 3 - 20 ký tự",
+      maxLength: "Tên thiết bị phải từ 3 - 20 ký tự",
     }
   }
 };

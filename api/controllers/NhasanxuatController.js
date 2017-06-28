@@ -37,10 +37,11 @@ module.exports = {
             idthietbi: req.param('cbo_danh_muc_cha'),
         }).exec(function (err, result) {
             if (err) {
-                return res.serverError(err);
+                req.flash('err', err.Errors);
+                return res.redirect('/admin/nhasanxuat/them');
             }
-            req.flash('success', 'Thêm thành công');
-            return res.redirect(sails.getUrlFor('NhasanxuatController.themGET'));
+            req.flash('success', 'Thêm nhà sản xuất thành công');
+            return res.redirect('/admin/nhasanxuat/them');
         });
     },
     suaGET: function (req, res) {
@@ -65,10 +66,11 @@ module.exports = {
                 idthietbi: req.param('cbo_danh_muc_cha'),
             }).exec(function (err, result) {
                 if (err) {
-                    return res.serverError(err);
+                    req.flash('err', err.Errors);
+                    return res.redirect('/admin/nhasanxuat/sua/' + req.param('id'));
                 }
                 req.flash('success', 'Cập nhật thành công');
-                return res.redirect(sails.getUrlFor('NhasanxuatController.suaGET'));
+                return res.redirect('/admin/nhasanxuat/sua/' + req.param('id'));
             });
     },
     xoaGET: function (req, res) {
@@ -77,7 +79,7 @@ module.exports = {
                 return res.serverError(err);
             }
             req.flash('success', 'Xóa thành công');
-            return res.redirect(sails.getUrlFor('NhasanxuatController.danhsachGET'));
+            return res.redirect('/admin/nhasanxuat/xoa/' + req.param('id'));
         });
     },
 };

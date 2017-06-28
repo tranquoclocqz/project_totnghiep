@@ -33,16 +33,18 @@ module.exports = {
             slug: slug(req.param('txt_tendanhmuc')),
         }).exec(function (err, result) {
             if (err) {
-                return res.serverError(err);
+                req.flash('err', err.Errors);
+                return res.redirect('/admin/thietbi/them');
             }
-            req.flash('success', 'Thêm thành công ' + req.param('txt_tendanhmuc'));
+            req.flash('success', 'Thêm thiết bị thành công ' + req.param('txt_tendanhmuc'));
             return res.redirect(sails.getUrlFor('ThietbiController.themGET'));
         });
     },
     suaGET: function (req, res) {
         Thietbi.findOne({ id: req.param('id') }).exec(function (err, result) {
             if (err) {
-                return res.serverError(err);
+                req.flash('err', err.Errors);
+                return res.redirect('/admin/thietbi/them');
             }
             if (result) {
                 return res.view('backend/thietbi/sua', {
@@ -59,7 +61,8 @@ module.exports = {
             slug: slug(req.param('txt_tendanhmuc'))
         }).exec(function (err, result) {
             if (err) {
-                return res.serverError(err);
+                req.flash('err', err.Errors);
+                return res.redirect('/admin/thietbi/sua-' + req.param('id'));
             }
             if (result) {
                 req.flash('success', 'Cập nhật thành công ' + req.param('txt_tendanhmuc'))

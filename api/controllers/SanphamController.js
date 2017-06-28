@@ -45,11 +45,11 @@ module.exports = {
 			mota: req.param('txt_noidung'),
 			idnhasanxuat: req.param('cbo_nhasx'),
 			slug: slug(req.param('txt_tensp')),
-		}).exec({
-			err: function (err) {
-				return res.serverError(err);
-			},
-			success: function (result) {
+		}).exec(function (err, result) {
+			if (err) {
+				req.flash('err', err.Errors);
+				return res.redirect('/admin/sanpham/them');
+			} else {
 				req.file('ful_anhdaidien').upload({
 					saveAs: name,
 					dirname: path + "/anhdaidien",
@@ -71,9 +71,8 @@ module.exports = {
 							});
 						}
 					}
-					// console.log(n);
 				});
-				req.flash('success', 'Thành công');
+				req.flash('success', 'Thêm sản phẩm mới thành công');
 				return res.redirect('/admin/sanpham/them');
 			}
 		});
@@ -119,6 +118,10 @@ module.exports = {
 		};
 		var name = slug(req.param('txt_tensp')) + '-' + Math.random().toString(36).substr(2, 5) + '.png';
 		Sanpham.findOne({ id: req.param('id') }).exec(function (err, sp) {
+			if (err) {
+				req.flash('err', err.Errors);
+				return res.redirect('/admin/sua/' + sp.id);
+			}
 			req.file('ful_anhdaidien').upload({
 				saveAs: name,
 				dirname: path + '/anhdaidien/',
@@ -134,7 +137,6 @@ module.exports = {
 				}
 			});
 			Hinhsanpham.find({ idsanpham: sp.id }).exec(function (err, hsp) {
-				console.log(hsp);
 				req.file('ful_anhsanpham').upload({
 					dirname: path + '/anhchitiet/',
 				}, function (err, uploadedFiles) {
@@ -157,6 +159,7 @@ module.exports = {
 					}
 				});
 			});
+			req.flash('success','Cập nhật sản phẩm thành công');
 			return res.redirect('/admin/sanpham/sua/' + sp.id);
 		});
 	},
@@ -165,6 +168,7 @@ module.exports = {
 			if (err) {
 				return res.serverError(err);
 			}
+			req.flash('success','Xóa sản phẩm thành công')
 			return res.redirect('/admin/sanpham/danhsach');
 		});
 	}

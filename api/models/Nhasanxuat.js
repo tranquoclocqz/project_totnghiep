@@ -15,9 +15,13 @@ module.exports = {
     },
     idthietbi: {
       model: 'thietbi',
+      required: true,
     },
     tennhasanxuat: {
-      type: 'string'
+      type: 'string',
+      required: true,
+      minLength: 3,
+      maxLength: 20,
     },
     slug: {
       type: 'text'
@@ -30,6 +34,16 @@ module.exports = {
       type: 'integer',
       defaultsTo: 1,
     }
+  },
+  validationMessages: {
+    idthietbi: {
+      required: "Bạn chưa chọn thiết bị",
+    },
+    tennhasanxuat: {
+      required: "Bạn chưa nhập tên nhà sãn xuất",
+      minLength: "Tên nhà sản xuất 3 - 20 ký tự",
+      maxLength: "Tên nhà sản xuất 3 - 20 ký tự",
+    },
   }
 };
 

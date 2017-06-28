@@ -15,9 +15,19 @@ module.exports = {
     },
     urlanh: {
       type: 'text',
+      required: true,
     },
     url: {
-      type: "text"
+      type: "text",
+      required: true,
+    }
+  },
+  validationMessages: {
+    urlanh: {
+      required: "Bạn chưa chọn hình ảnh",
+    },
+    url: {
+      required: "Bạn chưa nhập đường dẫn",
     }
   }
 };

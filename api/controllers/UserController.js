@@ -23,7 +23,7 @@ module.exports = {
 				req.flash('err', err.Errors );
 				return res.redirect('/admin/user/them');
 			}
-			req.flash('success', 'Thành công');
+			req.flash('success', 'Thêm tài khoản thành công');
 			return res.redirect('/admin/user/them');
 		});
 	},

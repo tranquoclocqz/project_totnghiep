@@ -14,8 +14,8 @@ module.exports = {
                 return res.serverError(err);
             }
             if (!product) {
-                console.log('Khong ton tai san pham');
-                return;
+                req.flash('err','Không tồn tại sản phẩm')
+                return res.redirect("/cart");                
             }
             cart.add(product, product.id);
             req.session.cart = cart;

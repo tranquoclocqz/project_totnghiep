@@ -21,7 +21,8 @@ module.exports = {
                 return serverError(err);
             }
             if (!result) {
-                req.flash('error', 'không có');
+                req.flash('err', 'Tài khoản không tồn tại vui lòng kiểm tra lại');
+                return res.redirect('/admin/dashboard');
             }
             else {
                 req.session.user = result;

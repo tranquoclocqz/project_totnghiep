@@ -15,27 +15,41 @@ module.exports = {
 		},
 		tensanpham: {
 			type: 'string',
+			required: true,
+			maxLength: 50,
+			minLength: 10,
 		},
 		anhdaidien: {
 			type: 'string',
+			required: true,
 		},
 		soluong: {
 			type: 'integer',
+			required: true,
+			max: 100,
+			min: 1,
 		},
 		gia: {
 			type: 'string',
+			required: true,
 		},
 		khuyenmai: {
 			type: 'string',
+			required: true,
 		},
 		cauhinh: {
 			type: 'text',
+			required: true,
+			maxLength: 500,
 		},
 		mota: {
 			type: 'text',
+			required: true,
+			maxLength: 2000,
 		},
 		idnhasanxuat: {
 			model: 'nhasanxuat',
+			required: true,
 		},
 		slug: {
 			type: 'string',
@@ -52,6 +66,38 @@ module.exports = {
 			collection: 'chitiethoadon',
 			via: 'idsanpham'
 		}
+	},
+	validationMessages: {
+		tensanpham: {
+			required: "Bạn chưa nhập tên sản phẩm",
+			maxLength: "Tên sản phẩm từ 10 - 50 ký tự",
+			minLength: "Tên sản phẩm từ 10 - 50 ký tự",
+		},
+		anhdaidien: {
+			required: "Bạn chưa có ảnh đại diện",
+		},
+		soluong: {
+			required: "Bạn chưa nhập số lượng",
+			max: "Số lượng từ  1 - 100 ký tự",
+			min: "Số lượng từ  1 - 100 ký tự",
+		},
+		gia: {
+			required: "Bạn chưa nhập giá",
+		},
+		khuyenmai: {
+			required: "Bạn chưa nhập giá khuyến mãi",
+		},
+		cauhinh: {
+			required: "Bạn chưa thông tin mô tả cấu hình",
+			maxLength: "Mô tả cấu hình tối đa 500 ký tự",
+		},
+		mota: {
+			required: "Bạn chưa nhập mô tả sản phẩm",
+			maxLength: "Mô tả sản phẩm tối đa 2000 ký tự",
+		},
+		idnhasanxuat: {
+			required: "Bạn chưa chọn nhà sản xuất",
+		},
 	}
 };
 
