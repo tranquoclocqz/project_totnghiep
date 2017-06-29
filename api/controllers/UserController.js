@@ -18,6 +18,7 @@ module.exports = {
 			password: md5(req.param('txt_password')),
 			tennguoidung: req.param('txt_name'),
 			email: req.param('txt_email'),
+			trangthai:1,
 		}).exec(function (err, newsuser) {
 			if (err) {
 				req.flash('err', err.Errors );

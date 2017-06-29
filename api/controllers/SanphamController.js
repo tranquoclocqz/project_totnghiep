@@ -45,6 +45,7 @@ module.exports = {
 			mota: req.param('txt_noidung'),
 			idnhasanxuat: req.param('cbo_nhasx'),
 			slug: slug(req.param('txt_tensp')),
+			trangthai:1,
 		}).exec(function (err, result) {
 			if (err) {
 				req.flash('err', err.Errors);

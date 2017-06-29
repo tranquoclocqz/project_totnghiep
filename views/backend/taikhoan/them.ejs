@@ -16,7 +16,7 @@
 				<% }) %>
 			</div>
 		<% } %>
-		<% if(req.session.flash && req.sesison.flash.success){ %>
+		<% if(req.session.flash && req.session.flash.success){ %>
 			<div class="alert alert-success">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
 					<%= req.flash('success') %>
@@ -83,3 +83,20 @@
 			</form>
 	</div>
 </div>
+<script src="admin_asset/js/jquery.validate-1.9.js"></script>
+<script>
+	$("form").validate({
+		rules: {
+			txt_ten_nhasx: {
+				required: true,
+				rangeLength: [3, 20],
+			}
+		},
+		messages: {
+			txt_ten_nhasx: {
+				required: "Bạn chưa nhập tên nhà sản xuất",
+				rangeLength: "Tên nhà sản xuất phải từ 3 - 20 ký tự",
+			}
+		}
+	});
+</script>

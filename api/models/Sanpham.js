@@ -26,7 +26,7 @@ module.exports = {
 		soluong: {
 			type: 'integer',
 			required: true,
-			max: 100,
+			max: 1000,
 			min: 1,
 		},
 		gia: {
@@ -60,7 +60,6 @@ module.exports = {
 		},
 		trangthai: {
 			type: 'integer',
-			defaultsTo: 1,
 		},
 		chitiethoadon: {
 			collection: 'chitiethoadon',
@@ -78,8 +77,8 @@ module.exports = {
 		},
 		soluong: {
 			required: "Bạn chưa nhập số lượng",
-			max: "Số lượng từ  1 - 100 ký tự",
-			min: "Số lượng từ  1 - 100 ký tự",
+			max: "Số lượng từ  1 - 1000",
+			min: "Số lượng từ  1 - 1000",
 		},
 		gia: {
 			required: "Bạn chưa nhập giá",

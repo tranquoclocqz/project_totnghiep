@@ -32,9 +32,9 @@ module.exports = {
     },
     themPOST: function (req, res) {
         Nhasanxuat.create({
-            tennhasanxuat: req.param('txt_ten_danh_muc'),
-            slug: slug(req.param('txt_ten_danh_muc')),
-            idthietbi: req.param('cbo_danh_muc_cha'),
+            tennhasanxuat: req.param('txt_ten_nhasx'),
+            slug: slug(req.param('txt_ten_nhasx')),
+            idthietbi: req.param('cbo_danh_tb'),
         }).exec(function (err, result) {
             if (err) {
                 req.flash('err', err.Errors);
@@ -61,9 +61,9 @@ module.exports = {
         Nhasanxuat.update({
             id: req.param('id')
         }, {
-                tennhasanxuat: req.param('txt_ten_danh_muc'),
-                slug: slug(req.param('txt_ten_danh_muc')),
-                idthietbi: req.param('cbo_danh_muc_cha'),
+                tennhasanxuat: req.param('txt_ten_nhasx'),
+                slug: slug(req.param('txt_ten_nhasx')),
+                idthietbi: req.param('cbo_danh_tb'),
             }).exec(function (err, result) {
                 if (err) {
                     req.flash('err', err.Errors);

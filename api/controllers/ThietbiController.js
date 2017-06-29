@@ -31,6 +31,7 @@ module.exports = {
         Thietbi.create({
             tenthietbi: req.param('txt_tendanhmuc'),
             slug: slug(req.param('txt_tendanhmuc')),
+            trangthai:1,
         }).exec(function (err, result) {
             if (err) {
                 req.flash('err', err.Errors);
@@ -71,7 +72,7 @@ module.exports = {
         });
     },
     xoaGET: function (req, res) {
-        Thietbi.update({ trangthai: 0 }, { id: req.param('id') }).exec(function (err) {
+        Thietbi.update({ id: req.param('id') },{ trangthai: 0 }).exec(function (err) {
             if (err) {
                 return res.serverError(err);
             }

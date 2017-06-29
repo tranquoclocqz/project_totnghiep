@@ -49,7 +49,7 @@ module.exports = {
             });
         }
     },
-    
+
     dathang: function (req, res) {
         var cart = new addCart(req.session.cart ? req.session.cart : {});
         var list = cart.generateArray();
@@ -59,41 +59,43 @@ module.exports = {
             sodienthoai: req.param('txt_sdt'),
             diachi: req.param('txt_diachi'),
             giatri: req.session.cart.totalPrice,
-        }).exec({
-            err: function (err) {
+            trangthai: 1,
+        }).exec(function (err, hoadon) {
+            if (err) {
+                // req.flash('err',err.Errors)
+                // return res.redirect('/cart');
                 return res.serverError(err);
-            },
-            success: function (hoadon) {
-                list.forEach(function (x) {
-                    Chitiethoadon.create({
-                        idhoadon: hoadon.id,
-                        idsanpham: x.item.id,
-                        soluong: x.qty,
-                        donhang: hoadon.donhang,
-                        gia: (x.gia / x.qty)
-                    }).exec({
-                        err: function (err) {
-                            return res.serverError(err);
-                        },
-                        success: function (dathang) {
-                            Sanpham.findOne({ id: x.item.id }).exec(function (err, sanpham) {
-                                rc = sanpham;
-                                rc.soluong = rc.soluong - x.qty;
-                                if (rc.soluong < 0) {
-                                    return;
-                                }
-                                sanpham.save(function (err) {
-                                    if (err) {
-                                        return res.serverError(err);
-                                    }
-                                });
-                            });
-                        }
-                    });
-                });
-                delete req.session.cart;
-                return res.end(hoadon.donhang);
             }
+            list.forEach(function (x) {
+                Chitiethoadon.create({
+                    idhoadon: hoadon.id,
+                    idsanpham: x.item.id,
+                    soluong: x.qty,
+                    donhang: hoadon.donhang,
+                    gia: (x.gia / x.qty)
+                }).exec({
+                    err: function (err) {
+                        return res.serverError(err);
+                    },
+                    success: function (dathang) {
+                        Sanpham.findOne({ id: x.item.id }).exec(function (err, sanpham) {
+                            rc = sanpham;
+                            rc.soluong = rc.soluong - x.qty;
+                            if (rc.soluong < 0) {
+                                return;
+                            }
+                            sanpham.save(function (err) {
+                                if (err) {
+                                    return res.serverError(err);
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+            delete req.session.cart;
+            return res.end(hoadon.donhang);
+
         });
     },
     timkiem: function (req, res) {
@@ -140,7 +142,7 @@ module.exports = {
         // console.log(page);
     },
     laythongtindonhang: function (req, res) {
-        Chitiethoadon.find({ donhang: req.param('madonhang') }).populate('idhoadon').populate('idsanpham').exec(function (err, result) {           
+        Chitiethoadon.find({ donhang: req.param('madonhang') }).populate('idhoadon').populate('idsanpham').exec(function (err, result) {
             if (result) {
                 res.writeHead(200, { 'Content-Type': 'html/plain' });
                 result.forEach(function (ct) {
@@ -166,7 +168,7 @@ module.exports = {
                     res.write('<tr><td colspan="4"><span class="label label-success">Đã giao hàng</span></td></tr>');
                 }
                 res.end();
-            }            
+            }
         });
     }
 };

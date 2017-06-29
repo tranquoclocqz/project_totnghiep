@@ -33,7 +33,6 @@ module.exports = {
     },
     trangthai: {
       type: 'integer',
-      defaultsTo: 1,
     },
     giatri: {
       type: 'text'

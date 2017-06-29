@@ -32,7 +32,6 @@ module.exports = {
     },
     trangthai: {
       type: 'integer',
-      defaultsTo: 1,
     }
   },
   validationMessages: {

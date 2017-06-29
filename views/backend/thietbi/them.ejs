@@ -1,38 +1,56 @@
 <div class='row main'>
-	<div class="col-sm-9 col-sm-offset-3">		
+	<div class="col-sm-9 col-sm-offset-3">
 		<div class="panel-heading">
-	       <div class="panel-title text-center">
-	       		<h1 class="title">Thêm thông tin thiết bị</h1>
-	       		<hr />
-	       	</div>
-	    </div> 
+			<div class="panel-title text-center">
+				<h1 class="title">Thêm thông tin thiết bị</h1>
+				<hr />
+			</div>
+		</div>
 		<form method="<%= them.method %>" action="<%= them.url %>" class="form-horizontal">
-		 <input type='hidden' name='_csrf' value='<%= _csrf %>'>
+			<input type='hidden' name='_csrf' value='<%= _csrf %>'>
 			<div class="form-group">
 				<label class="col-sm-2 label-control">Tên thiết bị</label>
 				<div class="col-sm-10">
 					<input type="text" name="txt_tendanhmuc" class="form-control">
-				</div>				
+				</div>
+				<label for="txt_tendanhmuc" generated="true" class="error" style="color:red">
 			</div>
-			<div class='form-group'>
+			<div class='form-group text-center'>
 				<input type="submit" name="btn_them" class="btn btn-primary" value="Thêm">
 			</div>
 		</form>
 		<% if(req.session.flash && req.session.flash.err){ %>
-                <% var j = req.flash('err')[0] %>                    
-                        <% Object.keys(j).forEach(function(err){ %>				
-                    <div class="alert alert-danger">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                        <strong>Lỗi</strong>
-                            <%= JSON.stringify(j[err][0].message) %>                        
-                    </div>
-                        <% }) %>                   
-                <% } %>
-            <% if(req.session.flash && req.session.flash.success){ %>
-                <div class="alert alert-success">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                        <%= req.flash('success') %>
-                </div>
-            <% } %>
+			<% var j = req.flash('err')[0] %>
+				<% Object.keys(j).forEach(function(err){ %>
+					<div class="alert alert-danger">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+						<strong>Lỗi</strong>
+						<%= JSON.stringify(j[err][0].message) %>
+					</div>
+					<% }) %>
+						<% } %>
+							<% if(req.session.flash && req.session.flash.success){ %>
+								<div class="alert alert-success">
+									<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+									<%= req.flash('success') %>
+								</div>
+								<% } %>
 	</div>
 </div>
+<script src="admin_asset/js/jquery.validate-1.9.js"></script>
+<script>
+	$("form").validate({
+		rules: {
+			txt_tendanhmuc: {
+				required: true,
+				rangeLength: [3, 20],
+			}
+		},
+		messages: {
+			txt_tendanhmuc: {
+				required: "Bạn chưa nhập tên thiết bị",
+				rangeLength: "Tên thiết bị phải từ 3 - 20 ký tự",
+			}
+		}
+	});
+</script>
