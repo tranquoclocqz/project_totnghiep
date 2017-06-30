@@ -16,8 +16,8 @@ module.exports = {
 		tensanpham: {
 			type: 'string',
 			required: true,
-			maxLength: 50,
-			minLength: 10,
+			maxLength: 100,
+			minLength: 1,
 		},
 		anhdaidien: {
 			type: 'string',
@@ -40,12 +40,12 @@ module.exports = {
 		cauhinh: {
 			type: 'text',
 			required: true,
-			maxLength: 500,
+			maxLength: 50000,
 		},
 		mota: {
 			type: 'text',
 			required: true,
-			maxLength: 2000,
+			maxLength: 200000,
 		},
 		idnhasanxuat: {
 			model: 'nhasanxuat',

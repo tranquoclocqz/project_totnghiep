@@ -22,7 +22,7 @@ module.exports = {
     sodienthoai: {
       type: 'text',
       required: true,
-      minLength: 9,
+      minLength: 8,
       maxLength: 11,
     },
     diachi: {
@@ -46,7 +46,7 @@ module.exports = {
     khachhang: {
       required: "Bạn chưa nhập tên",
       maxLength: "Tên 2 - 50 ký tự",
-      minLength: "Tên khách hàng 2 - 50 ký tự",
+      minLength: "Tên 2 - 50 ký tự",
     },
     sodienthoai: {
       required: "Bạn chưa nhập số điện thoại",

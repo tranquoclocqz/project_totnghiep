@@ -1145,3 +1145,19 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 .pagination > li > a, .pagination > li > span {
   color: #5a88ca;
 }
+.product-buttom h3{
+    font-size: 16px;
+    color: #000;
+    margin: 0;
+    text-transform: uppercase;
+    font-family: 'BreeSerif-Regular';
+    font-weight: 200;
+    margin: 15px 0px 15px 0px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.product-main:hover {
+  border:1px solid #73B6E1;
+  transition: 0.4s all;
+}

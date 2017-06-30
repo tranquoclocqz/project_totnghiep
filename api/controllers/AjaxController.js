@@ -64,6 +64,7 @@ module.exports = {
             if (err) {
                 // req.flash('err',err.Errors)
                 // return res.redirect('/cart');
+                // return res.serverError(err);
                 return res.serverError(err);
             }
             list.forEach(function (x) {
@@ -93,9 +94,8 @@ module.exports = {
                     }
                 });
             });
-            delete req.session.cart;
+            delete req.session.cart;            
             return res.end(hoadon.donhang);
-
         });
     },
     timkiem: function (req, res) {
@@ -138,8 +138,6 @@ module.exports = {
             });
             res.end();
         });
-        // console.log(id);
-        // console.log(page);
     },
     laythongtindonhang: function (req, res) {
         Chitiethoadon.find({ donhang: req.param('madonhang') }).populate('idhoadon').populate('idsanpham').exec(function (err, result) {

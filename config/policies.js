@@ -32,9 +32,6 @@ module.exports.policies = {
    AdminController:{
      '*':'sessionAuth',
    },
-  AjaxController:{
-    '*':'sessionAuth',
-  },
   HinhsanphamController:{
     '*':'sessionAuth',
   },

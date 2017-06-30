@@ -33,7 +33,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': 'PageController.index',
-  'GET /:slug-:id.html': 'PageController.shop',
+  'GET /:slug-:id.html?': 'PageController.shop',
   'GET /chitiet/:slug/:id.html': 'PageController.single',
   'GET /cart': 'PageController.cart',
   'GET /checkout': 'PageController.checkout',

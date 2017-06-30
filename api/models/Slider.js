@@ -13,6 +13,10 @@ module.exports = {
       autoIncrement: true,
       primaryKey: true
     },
+    tieude: {
+      type: 'text',
+      required: true,
+    },
     urlanh: {
       type: 'text',
       required: true,
@@ -23,6 +27,9 @@ module.exports = {
     }
   },
   validationMessages: {
+    tieude: {      
+      required: "Bạn chưa nhập tiêu đề",
+    },
     urlanh: {
       required: "Bạn chưa chọn hình ảnh",
     },

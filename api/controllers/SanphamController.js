@@ -32,7 +32,6 @@ module.exports = {
 		});
 	},
 	themPOST: function (req, res) {
-		//req.file('ful_anhdaidien')._files[0].stream.filename
 		var name = slug(req.param('txt_tensp')) + '-' + Math.random().toString(36).substr(2, 5) + '.png';
 		var path = require('path').resolve(sails.config.appPath, 'assets/images');
 		Sanpham.create({
@@ -53,11 +52,13 @@ module.exports = {
 			} else {
 				req.file('ful_anhdaidien').upload({
 					saveAs: name,
+					maxBytes:10000000,
 					dirname: path + "/anhdaidien",
 				}, function (err) {
 					if (err) return res.negotiate(err);
 				});
 				req.file('ful_anhsanpham').upload({
+					maxBytes:10000000,
 					dirname: path + "/anhchitiet",
 				}, function (err, uploadedFiles) {
 					if (err) return res.negotiate(err);
@@ -126,6 +127,7 @@ module.exports = {
 			req.file('ful_anhdaidien').upload({
 				saveAs: name,
 				dirname: path + '/anhdaidien/',
+				maxBytes:10000000,
 			}, function (err, uploadedFiles) {
 				if (err)
 					return res.serverError(err);

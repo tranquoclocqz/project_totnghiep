@@ -14,14 +14,26 @@ var options = {
 };
 module.exports = {
     index: function (req, res) {
-        Sanpham.find({ trangthai: 1, limit: 10, }).sort('id DESC').exec(function (err, sp) {
-            return res.view('frontend/index/index', {
-                layout: 'frontend/layout/layout',
-                sanpham: sp,
-                title: 'index.ejs',
-                accounting: accounting,
-                options: options,
-            })
+        // Sanpham.find({ trangthai: 1, limit: 10, }).sort('id DESC').exec(function (err, sp) {
+        //     return res.view('frontend/index/index', {
+        //         layout: 'frontend/layout/layout',
+        //         sanpham: sp,
+        //         title: 'index.ejs',
+        //         accounting: accounting,
+        //         options: options,
+        //     })
+        // });
+        Sanpham.query('SELECT * FROM `sanpham` WHERE id in (SELECT * FROM (SELECT `idsanpham` FROM chitiethoadon GROUP BY idsanpham ORDER BY sum(`soluong`) DESC limit 5) as t)',function(err, result){
+            Sanpham.find({trangthai:1}).sort('createdAt DESC').skip(0).limit(100).exec(function(err, sanpham){
+                    return res.view('frontend/index/index',{
+                        layout:'frontend/layout/layout',
+                        sanpham: result,
+                        topsanpham: sanpham,
+                        title: 'Ustora trang web bán điện thoại, laptop hàng đầu Việt Nam',
+                        accounting: accounting,
+                        options: options,
+                    });
+            });            
         });
     },
     single: function (req, res) {
@@ -62,7 +74,7 @@ module.exports = {
         })
     },
     shop: function (req, res) {
-        //skip: bat dau tu dau, limit: lay bao nhieu
+        // skip: bat dau tu dau, limit: lay bao nhieu
         Sanpham.find({ skip: 0, limit: 8, soluong: { '!': 0 }, trangthai: { '!': 0 }, idnhasanxuat: req.param('id'), sort: 'id DESC' }).populate('idnhasanxuat', { where: { trangthai: 1 } }).exec(function (err, result) {
             return res.view('frontend/shop/shop', {
                 layout: 'frontend/layout/layout',
@@ -70,8 +82,8 @@ module.exports = {
                 sanpham: result,
                 accounting: accounting,
                 options: options,
-            });
+            });         
         });
-    },
+    }
 };
 

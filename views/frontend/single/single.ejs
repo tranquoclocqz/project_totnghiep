@@ -91,12 +91,15 @@
                                         <%=result.tensanpham%>
                                     </h2>
                                     <div class="product-inner-price">
-                                        <ins>
+                                        <% if(result.khuyenmai !='0'){ %>
+                                        <p>
+                                            <%= accounting.formatMoney(result.khuyenmai,options) %><sup style="color: red">KM</sup>
+                                        </p>
+                                        <% } else { %>
+                                            <p>
                                             <%= accounting.formatMoney(result.gia,options) %>
-                                        </ins>
-                                        <del>
-                                            <%= accounting.formatMoney(result.khuyenmai,options) %>
-                                        </del>
+                                            </p>
+                                        <% } %>
                                     </div>
 
                                     <div class="cart">
