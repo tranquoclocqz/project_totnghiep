@@ -337,7 +337,7 @@ z-index: 999;}
 }
 
 .promo-area {
-  background:#fbfbfb;
+  /*background:#fbfbfb;*/
   color: #fff;
   padding: 40px 0 40px;
 }
@@ -1160,4 +1160,80 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 .product-main:hover {
   border:1px solid #73B6E1;
   transition: 0.4s all;
+}
+.online-strip{
+    border-top: 1px solid #C8C8C8;
+    border-bottom: 1px solid #C8C8C8;
+    padding: 20px 0;
+    text-align: center;
+    margin: 40px 0 30px;
+}
+.online-strip h3 {
+    color: #816263;
+    font-size: 1.5em;
+    padding: 0;
+}
+.shipping-grid {
+    border-left: 1px solid #C8C8C8;
+    border-right: 1px solid #C8C8C8;
+}
+.shipping {
+    float: left;
+    width: 13%;
+    margin-right: 3%;
+    margin-left: 20%;
+}
+.shipping-text {
+    float: left;
+}
+.online-strip p {
+    font-size: 0.95em;
+    color:black;
+}
+.online-strip h3 {
+    color: #816263;
+    font-size: 1.5em;
+    padding: 0;
+}
+.shipping img {
+    width: 100%;
+    margin-top: 10%;
+}
+a.twitter {
+    width: 25px;
+    height: 25px;
+    background: url(../img/follow.png) no-repeat 0px 0px;
+    display: inline-block;
+    margin: 0 1em;
+    vertical-align: text-bottom;
+}
+a.facebook {
+    width: 25px;
+    height: 25px;
+    background: url(../img/follow.png) no-repeat -25px 0px;
+    display: inline-block;
+    vertical-align: text-bottom;
+}
+.follow h3 {
+    margin-top: 20px;
+}
+.online-strip h3 {
+    color: #816263;
+    font-size: 1.5em;
+    padding: 0;
+    font-family: 'PlayfairDisplay-Regular'
+}
+a.facebook:hover{
+  opacity: 0.5;
+  transition:0.4 all;
+}
+a.twitter:hover{
+  opacity: 0.5;
+  transition:0.4 all;
+}
+.caption p ins{
+  text-decoration: initial;
+}
+.product-buttom p ins {
+  text-decoration: initial;
 }

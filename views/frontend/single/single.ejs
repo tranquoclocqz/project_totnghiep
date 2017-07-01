@@ -16,60 +16,24 @@
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <!--<div class="single-sidebar">
-                        <h2 class="sidebar-title">Search Products</h2>
-                        <form action="">
-                            <input type="text" placeholder="Search products...">
-                            <input type="submit" value="Search">
-                        </form>
-                    </div>-->
+                <div class="col-md-4">                    
                     <div class="single-sidebar">
-                        <h2 class="sidebar-title">Products</h2>
-                        <div class="thubmnail-recent">
-                            <img src="asset/img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="">Sony Smart TV - 2015</a></h2>
+                        <h2 class="sidebar-title">Bán chạy</h2>
+                        <% sanphammuanhieu.forEach(function(spmn){ %>
+                            <div class="thubmnail-recent">
+                            <img src="images/anhdaidien/<%= spmn.anhdaidien %>" class="recent-thumb" alt="<%= spmn.tensanpham %>">
+                            <h2><a href="/chitiet/<%= spmn.slug %>/<%= spmn.id%>.html"><%= spmn.tensanpham %></a></h2>
                             <div class="product-sidebar-price">
-                                <ins>$700.00</ins>
-                                <del>$100.00</del>
+                            <% if(spmn.khuyenmai !=0){ %>
+                                <ins><%= accounting.formatMoney(spmn.khuyenmai,options) %></ins>
+                                <del><%= accounting.formatMoney(spmn.gia,options) %></del>
+                            <% } else { %>
+                                <ins><%= accounting.formatMoney(spmn.gia,options) %></ins>
+                            <% } %>
                             </div>
                         </div>
-                        <div class="thubmnail-recent">
-                            <img src="asset/img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="">Sony Smart TV - 2015</a></h2>
-                            <div class="product-sidebar-price">
-                                <ins>$700.00</ins>
-                                <del>$100.00</del>
-                            </div>
-                        </div>
-                        <div class="thubmnail-recent">
-                            <img src="asset/img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="">Sony Smart TV - 2015</a></h2>
-                            <div class="product-sidebar-price">
-                                <ins>$700.00</ins>
-                                <del>$100.00</del>
-                            </div>
-                        </div>
-                        <div class="thubmnail-recent">
-                            <img src="asset/img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                            <h2><a href="">Sony Smart TV - 2015</a></h2>
-                            <div class="product-sidebar-price">
-                                <ins>$700.00</ins>
-                                <del>$100.00</del>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="single-sidebar">
-                        <h2 class="sidebar-title">Recent Posts</h2>
-                        <ul>
-                            <li><a href="">Sony Smart TV - 2015</a></li>
-                            <li><a href="">Sony Smart TV - 2015</a></li>
-                            <li><a href="">Sony Smart TV - 2015</a></li>
-                            <li><a href="">Sony Smart TV - 2015</a></li>
-                            <li><a href="">Sony Smart TV - 2015</a></li>
-                        </ul>
-                    </div>
+                        <% }) %>                    
+                    </div>                    
                 </div>
 
                 <div class="col-md-8">
@@ -93,7 +57,9 @@
                                     <div class="product-inner-price">
                                         <% if(result.khuyenmai !='0'){ %>
                                         <p>
-                                            <%= accounting.formatMoney(result.khuyenmai,options) %><sup style="color: red">KM</sup>
+                                            <del><%= accounting.formatMoney(result.gia,options) %></del>
+                                            <ins style="margin-left: 10px;text-decoration: initial; color: red; font-size: 20px; font-weight: 700"><%= accounting.formatMoney(result.khuyenmai,options) %><sup style="color: red">KM</sup>
+                                            </ins>
                                         </p>
                                         <% } else { %>
                                             <p>

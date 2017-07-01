@@ -24,7 +24,7 @@ module.exports = {
         //     })
         // });
         Sanpham.query('SELECT * FROM `sanpham` WHERE id in (SELECT * FROM (SELECT `idsanpham` FROM chitiethoadon GROUP BY idsanpham ORDER BY sum(`soluong`) DESC limit 5) as t)',function(err, result){
-            Sanpham.find({trangthai:1}).sort('createdAt DESC').skip(0).limit(100).exec(function(err, sanpham){
+            Sanpham.find({trangthai:1}).sort('createdAt DESC').skip(0).limit(20).exec(function(err, sanpham){
                     return res.view('frontend/index/index',{
                         layout:'frontend/layout/layout',
                         sanpham: result,
@@ -37,15 +37,18 @@ module.exports = {
         });
     },
     single: function (req, res) {
-        Sanpham.findOne({ id: req.param('id') }).populate('anhsanpham').exec(function (err, result) {
-            return res.view('frontend/single/single', {
-                layout: 'frontend/layout/layout',
-                title: result.tensanpham,
-                result: result,
-                accounting: accounting,
-                options: options,
+        Sanpham.query('SELECT * FROM `sanpham` WHERE id in (SELECT * FROM (SELECT `idsanpham` FROM chitiethoadon GROUP BY idsanpham ORDER BY sum(`soluong`) DESC limit 5) as t)',function(err, sanphammuanhieu){
+            Sanpham.findOne({ id: req.param('id') }).populate('anhsanpham').exec(function (err, result) {
+                return res.view('frontend/single/single', {
+                    layout: 'frontend/layout/layout',
+                    title: result.tensanpham,
+                    result: result,
+                    accounting: accounting,
+                    options: options,
+                    sanphammuanhieu: sanphammuanhieu,
+                });
             });
-        });
+        })
     },
     cart: function (req, res) {
         if (!req.session.cart) {

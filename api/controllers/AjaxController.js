@@ -141,7 +141,7 @@ module.exports = {
     },
     laythongtindonhang: function (req, res) {
         Chitiethoadon.find({ donhang: req.param('madonhang') }).populate('idhoadon').populate('idsanpham').exec(function (err, result) {
-            if (result) {
+            if (!_.isEmpty(result)) {
                 res.writeHead(200, { 'Content-Type': 'html/plain' });
                 result.forEach(function (ct) {
                     res.write('<tr class="text-center"><td><a href="/chitiet/' + ct.idsanpham.slug + '/' + ct.idsanpham.id + '.html"><img width="65px" height="65px" class="img img-responsive" src="images/anhdaidien/' + ct.idsanpham.anhdaidien + '" alt="' + ct.idsanpham.tensanpham + '"></a></td>'
@@ -166,6 +166,10 @@ module.exports = {
                     res.write('<tr><td colspan="4"><span class="label label-success">Đã giao hàng</span></td></tr>');
                 }
                 res.end();
+
+            } if(_.isEmpty(result)) {
+                res.writeHead(200, { 'Content-Type': 'html/plain' });
+                res.end('<tr><td colspan="4"><span class="label label-danger">Không có đơn hàng</span></td></tr>');
             }
         });
     }

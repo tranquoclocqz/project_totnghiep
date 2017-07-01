@@ -2,31 +2,29 @@
     <div class="promo-area">
         <div class="zigzag-bottom"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="single-promo promo1">
-                        <i class="fa fa-refresh"></i>
-                        <p>30 Days return</p>
-                    </div>
+            <div class="online-strip">
+                <div class="col-md-4 follow">
+                    <h3>
+                    Theo dõi:
+                        <a href="#" class="twitter"></a>
+                        <a href="#" class="facebook"></a>                       
+                    </h3>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="single-promo promo2">
-                        <i class="fa fa-truck"></i>
-                        <p>Free shipping</p>
+                <div class="col-md-4 shipping-grid">
+                    <div class="shipping">
+                        <img src="asset/img/shipping.png">                        
                     </div>
-                </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="single-promo promo3">
-                        <i class="fa fa-lock"></i>
-                        <p>Secure payments</p>
+                    <div class="shipping-text">
+                        <h3>Giao hàng miễn phí</h3>
+                        <h3>Trên toàn quốc</h3>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
-                <div class="col-md-3 col-sm-6">
-                    <div class="single-promo promo4">
-                        <i class="fa fa-gift"></i>
-                        <p>New products</p>
-                    </div>
+                <div class="col-md-4 online-order">
+                    <h3>Hỗ trợ</h3>
+                    <h3>Tel:0909.000.000</h3>
                 </div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>
@@ -56,11 +54,13 @@
                                             </h3>                                            
                                             <% if(value.khuyenmai !='0'){ %>
                                                 <p>
-                                                    <%= accounting.formatMoney(value.khuyenmai,options) %><sup style="color: red">KM</sup>
+                                                <del><%= accounting.formatMoney(value.gia,options) %></del>
+                                                    <ins><%= accounting.formatMoney(value.khuyenmai,options) %><sup style="color: red">KM</sup>
+                                                    </ins>
                                                 </p>
                                                 <% } else { %>
                                                     <p>
-                                                 <%= accounting.formatMoney(value.gia,options) %>
+                                                 <ins><%= accounting.formatMoney(value.gia,options) %></ins>
                                                  </p>
                                                 <% } %>
                                                     <p>
@@ -91,9 +91,6 @@
                             <img src="asset/img/brand3.png" alt="">
                             <img src="asset/img/brand4.png" alt="">
                             <img src="asset/img/brand5.png" alt="">
-                            <img src="asset/img/brand6.png" alt="">
-                            <img src="asset/img/brand1.png" alt="">
-                            <img src="asset/img/brand2.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -107,7 +104,7 @@
         <div class="container">
             <div class="row">
             <% topsanpham.forEach(function(sanpham){ %>
-                <div class="col-sm-3 text-center">
+                <div class="col-md-3 col-xs-6 text-center">
                     <div class="product-main" style="border:1px solid #dddddd;    margin-bottom: 20px;"">
                         <a href="/chitiet/<%= sanpham.slug %>/<%= sanpham.id %>.html">
                             <img src="images/anhdaidien/<%= sanpham.anhdaidien %>" alt="<%= sanpham.tensanpham %>"   class="img img-responsive">
@@ -120,7 +117,8 @@
                             </h3>
                             <% if(sanpham.khuyenmai !='0'){ %>
                                 <p>
-                                    <%= accounting.formatMoney(sanpham.khuyenmai,options) %><sup style="color: red">KM</sup>
+                                    <del><%= accounting.formatMoney(sanpham.gia,options) %></del>
+                                    <ins><%= accounting.formatMoney(sanpham.khuyenmai,options) %><sup style="color: red">KM</sup></ins>
                                 </p>
                                 <% } else { %>
                                     <p>
