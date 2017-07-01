@@ -1,4 +1,4 @@
-<% Object.keys(req.session.flash.err).forEach(function(err){ %>
+d<% Object.keys(req.session.flash.err).forEach(function(err){ %>
 				<div class="alert alert-danger">
 					<%= JSON.stringify(req.session.flash.err[err][0].message) %><br>
 				</div>
