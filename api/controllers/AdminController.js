@@ -16,7 +16,7 @@ var moment = require('moment');
 module.exports = {
 	dashboard: function (req, res) {
 		Hoadon.find().exec(function (err, hoadon) {
-			Hoadon.query('SELECT DATE(createdAt) as createdAt, SUM(giatri) as giatri FROM hoadon WHERE trangthai != 1 GROUP BY DATE(createdAt)',function (err, ds) {
+			Hoadon.query('SELECT DATE(createdAt) as createdAt, SUM(giatri) as giatri FROM hoadon WHERE trangthai = 0 AND(createdAt BETWEEN (NOW() - INTERVAL  1 MONTH) AND NOW())  GROUP BY DATE(createdAt)',function (err, ds) {
 				return res.view('backend/thongke/dashboard', {
 					layout: 'backend/layout/layout',
 					title: 'Dashboard',
@@ -24,10 +24,9 @@ module.exports = {
 					ds:ds,
 					accounting: accounting,
 					options: options,
-					moment: moment,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+					moment: moment,                                                                                             
 				});
 			});
-
 		});
 	},
 	loginGET: function (req, res) {

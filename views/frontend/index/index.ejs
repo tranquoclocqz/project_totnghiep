@@ -29,8 +29,7 @@
         </div>
     </div>
     <!-- End promo area -->
-   <script>
-        // accounting.formatMoney($("ins").text(), options);        
+   <script> 
     </script>
     <div class="maincontent-area">
         <div class="zigzag-bottom"></div>
@@ -47,11 +46,11 @@
                                             <img src="images/anhdaidien/<%= value.anhdaidien %>" alt="<%= value.tensanpham %>">
                                         </a>
                                         <div class="caption text-center">
-                                            <h3 style="">
+                                            <h4 style="">
                                                 <a href="/chitiet/<%= value.slug %>/<%= value.id %>.html" title="<%= value.tensanpham %>">
                                                     <%= value.tensanpham %>
                                                 </a>
-                                            </h3>                                            
+                                            </h4>                                            
                                             <% if(value.khuyenmai !='0'){ %>
                                                 <p>
                                                 <del><%= accounting.formatMoney(value.gia,options) %></del>
@@ -103,6 +102,7 @@
         <div class="zigzag-bottom"></div>
         <div class="container">
             <div class="row">
+            <h2 class="section-title">Sản phẩm mới</h2>
             <% topsanpham.forEach(function(sanpham){ %>
                 <div class="col-md-3 col-xs-6 text-center">
                     <div class="product-main" style="border:1px solid #dddddd;    margin-bottom: 20px;"">

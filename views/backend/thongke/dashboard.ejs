@@ -9,18 +9,7 @@
       <div class='row main' style="margin:20px 0px 0px 0px">
         <div class="col-sm-10 col-sm-offset-2">
           <h4>Doanh thu</h4>
-          <div class='form-inline'>
-            <div class='form-group'>
-              <input type="date" class="form-control">
-            </div>
-            <label>-</label>
-            <div class='form-group'>
-              <input type="date" class="form-control">
-            </div>
-            <div class='form-group'>
-              <input type="submit" class="btn btn-default" id="tim" value="Tìm">
-            </div>
-          </div>
+          
           <div id="myfirstchart" style="height: 250px;"></div>
         </div>
         <div class="col-sm-10 col-sm-offset-2">
@@ -61,40 +50,67 @@
                   <td>
                     <%= moment(hd.createdAt).locale('vi').format('LL') %>
                   </td>
-                  <td>
-                    <% if(hd.trangthai == 1){%>
-                      <span class="label label-primary">Đang trong quá trình giao hàng</span>
-                      <% }else{ %>
-                        <span class="label label-success">Đã giao hàng</span>
-                        <% } %>
-                  </td>
-                  <td>
-                    <% if(hd.trangthai == 1){ %>
-                      <a href="/admin/giaohang/<%= hd.id %>" class="btn btn-primary">Xác nhận</a>
-                      <% } %></td>
+                  <% if(hd.trangthai == 0){ %>
+                    <td>
+                      <label class="label label-success">Đã giao hàng</label>
+                    </td>
+                    <td></td>
+                  <% } else if(hd.trangthai == 1){ %>
+                    <td>
+                      <label class="label label-primary">Đang giao hàng</label>
+                    </td>
+                    <td><a href="/admin/giaohang/<%= hd.id %>" class="btn btn-primary">Xác nhận</a></td>
+                  <% } else { %>
+                    <td>
+                      <label class="label label-danger">Đã hũy đơn  hàng</label>
+                    </td>
+                    <td></td>
+                  <% } %>
                 </tr>
                 <% }) %>
             </tbody>
           </table>
+          <p id="demo"></p>
+      <p id="demo2"></p>
         </div>
-        <script>
-          // var data = [
-          //   { period: '2015-1-31', value: 30 },
-          //   { period: '2015-2-20', value: 31 },
-          //   { period: '2015-3-11', value: 3230 },
-          //   { period: '2015-4-13', value: 310 },
-          //   { period: '2015-5-3', value: 390 },
-          //   { period: '2015-6-11', value: 310 },
-          //   { period: '2015-7-2', value: 303 },
-          // ];
-          var data = [
-            <% ds.forEach(function (data) { %>
+        <script type="text/javascript">
+          $(document).ready(function(){
+            // $("#tim").click(function(){
+            //   if($("#start").val() != null && $("#end").val() != null){
+            //     if($("#start").val() < $("#end").val()){
+            //       $.ajax({
+            //         type:'POST',
+            //         url:"/doanhthu",
+            //         data:{
+            //           _csrf: '<%= _csrf %>',
+            //           start: $("#start").val(),
+            //           end: $("#end").val(),
+            //         },
+            //         success: function(data){
+            //           $("")
+            //         }
+            //       });
+            //     } else {
+            //       alert('Chọn lại ngày hợp lện');
+            //     }
+            //   } else {
+            //     alert('Chọn lại ngày hợp lện');
+            //   }              
+            //   // alert($("#start").val());
+            // });            
+          });
+        </script>
+        <script> 
+    
+        var data = [<% ds.forEach(function (data) { %>
               { period: '<%=moment(data.createdAt).format('YYYY[-]MM[-]DD')  %>', value: <%= data.giatri %> }, 
-            <% }) %>
-          ];
+            <% }) %>]
+ 
+                
+          
           new Morris.Line({
-            data,
-            // ID of the element in which to draw the chart.
+            data ,
+                        // ID of the element in which to draw the chart.
             element: 'myfirstchart',
             // Chart data records -- each entry in this array corresponds to a point on
             // the chart.
@@ -111,6 +127,7 @@
           });
         </script>
       </div>
+
       <% script('admin_asset/media/js/jquery.dataTables.min.js') -%>
         <% script('admin_asset/media/js/dataTables.bootstrap.min.js') -%>
           <script type="text/javascript">

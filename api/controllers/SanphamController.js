@@ -10,7 +10,7 @@ var moment = require('moment');
 
 module.exports = {
 	danhsachGET: function (req, res) {
-		Sanpham.query('SELECT sanpham.id as spid, tensanpham,tenthietbi,tennhasanxuat,sanpham.createdAt, sanpham.updatedAt, sanpham.trangthai as sptrangthai FROM sanpham,thietbi,nhasanxuat WHERE sanpham.idnhasanxuat = nhasanxuat.id AND nhasanxuat.idthietbi = thietbi.id', function (err, sanpham) {
+		Sanpham.query('SELECT sanpham.id as spid,sanpham.trangthai,sanpham.soluong, tensanpham,tenthietbi,tennhasanxuat,sanpham.createdAt, sanpham.updatedAt, sanpham.trangthai as sptrangthai FROM sanpham,thietbi,nhasanxuat WHERE sanpham.idnhasanxuat = nhasanxuat.id AND nhasanxuat.idthietbi = thietbi.id', function (err, sanpham) {
 			return res.view('backend/sanpham/danhsach', {
 				layout: 'backend/layout/layout',
 				sanpham: sanpham,
@@ -150,15 +150,16 @@ module.exports = {
 						hsp.forEach(function (hinh) {
 							fs.unlinkSync(path + '/anhchitiet/' + hinh.url);
 						});
-						Hinhsanpham.destroy({ idsanpham: sp.id }).exec();
-						for (var i = 0; i < n; i++) {
-							Hinhsanpham.create({
-								idsanpham: sp.id,
-								url: uploadedFiles[i].fd.split('\\').pop(),
-							}).exec(function (err) {
-								if (err) { return res.serverError(err); }
-							});
-						}
+						Hinhsanpham.destroy({ idsanpham: sp.id }).exec(function(){
+							for (var i = 0; i < n; i++) {
+								Hinhsanpham.create({
+									idsanpham: sp.id,
+									url: uploadedFiles[i].fd.split('\\').pop(),
+								}).exec(function (err) {
+									if (err) { return res.serverError(err); }
+								});
+							}
+						});						
 					}
 				});
 			});
@@ -166,12 +167,12 @@ module.exports = {
 			return res.redirect('/admin/sanpham/sua/' + sp.id);
 		});
 	},
-	xoaPOST: function (req, res) {
+	xoaGET: function (req, res) {
 		Sanpham.update({ id: req.param('id') }, { trangthai: 0 }).exec(function (err) {
 			if (err) {
 				return res.serverError(err);
 			}
-			req.flash('success','Xóa sản phẩm thành công')
+			req.flash('success','Xóa sản phẩm thành công');
 			return res.redirect('/admin/sanpham/danhsach');
 		});
 	}

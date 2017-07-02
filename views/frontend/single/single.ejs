@@ -78,19 +78,23 @@
                             <!-- Nav tabs -->
                             <div class="card">
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation" class="active"><a href="#mota" aria-controls="mota" role="tab" data-toggle="tab">Mô tả sản phẩm</a></li>
-                                    <li role="presentation"><a href="#cauhinh" aria-controls="cauhinh" role="tab" data-toggle="tab">Cấu hình chi tiết</a></li>
+                                <li role="presentation"  class="active"><a href="#cauhinh" aria-controls="cauhinh" role="tab" data-toggle="tab">Cấu hình chi tiết</a></li>
+                                <% if(result.mota != "không có mô tả"){ %>
+                                    <li role="presentation"><a href="#mota" aria-controls="mota" role="tab" data-toggle="tab">Mô tả sản phẩm</a></li>
+                                <% } %>                                    
                                     <li role="presentation"><a href="#binhluan" aria-controls="binhluan" role="tab" data-toggle="tab">Bình luận</a></li>
                                 </ul>
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div role="tabpanel" class="tab-pane active" id="mota">
-                                        <%- result.mota%>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane" id="cauhinh">
+                                <div role="tabpanel" class="tab-pane active" id="cauhinh">
                                         <%- result.cauhinh%>
                                     </div>
+                                <% if(result.mota != "không có mô tả"){ %>
+                                    <div role="tabpanel" class="tab-pane" id="mota">
+                                        <%- result.mota%>
+                                    </div>
+                                <% } %>                                    
                                     <div role="tabpanel" class="tab-pane" id="binhluan">
                                         <div id="fb-root"></div>
                                         <script>

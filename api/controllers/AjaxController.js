@@ -38,14 +38,14 @@ module.exports = {
             Sanpham.findOne({ id: id }).exec(function (err, product) {
                 if (err) {
                     return res.serverError(err);
-                }
+                }                
                 cart.change(product, product.id, soluong);
                 req.session.cart = cart;
                 list.forEach(function (pri) {
                     tong += pri.gia;
                 });
                 req.session.cart.totalPrice = tong;
-                return res.json(req.session.cart);
+                return res.json(req.session.cart);                
             });
         }
     },
@@ -62,10 +62,7 @@ module.exports = {
             trangthai: 1,
         }).exec(function (err, hoadon) {
             if (err) {
-                // req.flash('err',err.Errors)
-                // return res.redirect('/cart');
-                // return res.serverError(err);
-                return res.serverError(err);
+                return res.write(err.Errors);                
             }
             list.forEach(function (x) {
                 Chitiethoadon.create({
@@ -114,7 +111,7 @@ module.exports = {
     loadsanpham: function (req, res) {
         var page = req.param('page');
         var id = req.param('idnsx');
-        Sanpham.find({ soluong: { '!': 0 }, trangthai: { '!': 0 }, idnhasanxuat: id }).skip((page - 1) * 8).limit(8).sort('id DESC').exec(function (err, result) {
+        Sanpham.find({ soluong: { '!': 0 }, trangthai: { '!=': 0 }, idnhasanxuat: id }).skip((page - 1) * 8).limit(8).sort('id DESC').exec(function (err, result) {
             res.writeHead(200, { 'Content-Type': 'html/plain' });
             result.forEach(function (sp) {
                 return res.write('<div class="col-sm-6 col-md-3">'
@@ -140,7 +137,7 @@ module.exports = {
         });
     },
     laythongtindonhang: function (req, res) {
-        Chitiethoadon.find({ donhang: req.param('madonhang') }).populate('idhoadon').populate('idsanpham').exec(function (err, result) {
+        Chitiethoadon.find({ donhang: req.param('madonhang')}).populate('idhoadon').populate('idsanpham').exec(function (err, result) {
             if (!_.isEmpty(result)) {
                 res.writeHead(200, { 'Content-Type': 'html/plain' });
                 result.forEach(function (ct) {
@@ -150,7 +147,7 @@ module.exports = {
                         + '<td>' + accounting.formatMoney(ct.gia, options) + '</td>'
                         + '</tr>');
                 });
-                res.write('<tr><td class="text-center" colspan="3"><h4>Thông tin</h4></td></tr>'
+                res.write('<tr><td class="text-center" colspan="3"><h4>Thông tin đơn hàng</h4></td></tr>'
                     + ' <tr>'
                     + '<td colspan="3">Tổng giá trị</td>'
                     + '<td>' + accounting.formatMoney(result[0].idhoadon.giatri, options) + '</td>'
@@ -162,8 +159,11 @@ module.exports = {
                     + '</tr>');
                 if (result[0].idhoadon.trangthai == 1) {
                     res.write('<tr><td colspan="4"><span class="label label-primary">Đang trong quá trình giao hàng</span></td></tr>');
+                    res.write('<tr><td colspan="4"><a class="btn btn-danger" href="/huydonhang/'+ req.param('madonhang') +'">Hũy đơn hàng</a></td></tr>');
+                } else if (result[0].idhoadon.trangthai == 0) {
+                    res.write('<tr><td><span class="label label-success">Đã giao hàng</span></td><td><b>Lưu ý: sau khi hũy đơn hàng, đơn hàng sẽ không còn tồn tại</b></td></tr>');
                 } else {
-                    res.write('<tr><td colspan="4"><span class="label label-success">Đã giao hàng</span></td></tr>');
+                    res.write('<tr><td colspan="4"><span class="label label-danger">Đơn hàng đã hũy</span></td></tr>');
                 }
                 res.end();
 
@@ -172,6 +172,12 @@ module.exports = {
                 res.end('<tr><td colspan="4"><span class="label label-danger">Không có đơn hàng</span></td></tr>');
             }
         });
-    }
+    }, 
+    laydoanhthu: function(req, res){
+        var start = req.param('start'), end = req.param('end');
+        Hoadon.query('SELECT DATE(createdAt) as createdAt, SUM(giatri) as giatri FROM hoadon WHERE trangthai = 0 AND (createdAt BETWEEN "'+ start +'" AND "'+ end +'") GROUP BY DATE(createdAt)', function(err, result){
+            return res.json(result);      
+        });
+    }   
 };
 

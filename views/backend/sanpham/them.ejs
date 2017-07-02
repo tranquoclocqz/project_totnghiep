@@ -10,61 +10,61 @@
                             <strong>Lỗi</strong>
                             <%= JSON.stringify(j[err][0].message) %>
                         </div>
-                        <% }) %>
-                            <% } %>
-                                <% if(req.session.flash && req.session.flash.success){ %>
-                                    <div class="alert alert-success">
-                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                                        <%= req.flash('success') %>
-                                    </div>
-                                    <% } %>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">Thông tin sản phẩm</div>
-                                            <div class="panel-body">
-                                                <div>
-                                                    <h4>Tên sản phẩm</h4>
-                                                    <div>
-                                                        <input type="text" name="txt_tensp" id="txt_tensp" class="form-control" value="">
-                                                        <label for="txt_tensp" generated="true" class="error" style="color:red"></label>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h4>Số lượng</h4>
-                                                    <div>
-                                                        <input type='number' min="0" value="0" name='txt_sl' class='form-control' placeholder="Số lượng">
-                                                        <label for="txt_sl" generated="true" class="error" style="color:red"></label>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h4>Giá sản phẩm</h4>
-                                                    <div>
-                                                        <input type='number' min="0" value="0" name='txt_gia' class='form-control' placeholder="Giá">
-                                                        <label for="txt_gia" generated="true" class="error" style="color:red"></label>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h4>Giá khuyến mãi</h4>
-                                                    <div>
-                                                        <input type='number' min='0' value="0" name='txt_km' class='form-control' placeholder="Giá khuyến mãi">
-                                                        <label for="txt_km" generated="true" class="error" style="color:red"></label>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h4>Nội dung</h4>
-                                                    <div>
-                                                        <textarea class='ckeditor' name='txt_noidung' id='txt_noidung'></textarea>
-                                                        <label for="txt_noidung" generated="true" class="error" style="color:red"></label>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h4>Cấu hình</h4>
-                                                    <div>
-                                                        <textarea class='ckeditor' name='txt_cauhinh' id='txt_cauhinh'></textarea>
-                                                        <label for="txt_cauhinh" generated="true" class="error" style="color:red"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                <% }) %>
+            <% } %>
+            <% if(req.session.flash && req.session.flash.success){ %>
+                <div class="alert alert-success">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                    <%= req.flash('success') %>
+                </div>
+            <% } %>
+            <div class="panel panel-default">
+                <div class="panel-heading">Thông tin sản phẩm</div>
+                <div class="panel-body">
+                    <div>
+                        <h4>Tên sản phẩm</h4>
+                        <div>
+                            <input type="text" name="txt_tensp" id="txt_tensp" class="form-control" value="">
+                            <label for="txt_tensp" generated="true" class="error" style="color:red"></label>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Số lượng</h4>
+                        <div>
+                            <input type='number' min="0" value="0" name='txt_sl' class='form-control' placeholder="Số lượng">
+                            <label for="txt_sl" generated="true" class="error" style="color:red"></label>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Giá sản phẩm</h4>
+                        <div>
+                            <input type='number' min="0" value="0" name='txt_gia' class='form-control' placeholder="Giá">
+                            <label for="txt_gia" generated="true" class="error" style="color:red"></label>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Giá khuyến mãi</h4>
+                        <div>
+                            <input type='number' min='0' value="0" name='txt_km' class='form-control' placeholder="Giá khuyến mãi">
+                            <label for="txt_km" generated="true" class="error" style="color:red"></label>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Nội dung</h4>
+                        <div>
+                            <textarea class='ckeditor' name='txt_noidung' id='txt_noidung'></textarea>
+                            <label for="txt_noidung" generated="true" class="error" style="color:red"></label>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Cấu hình</h4>
+                        <div>
+                            <textarea class='ckeditor' name='txt_cauhinh' id='txt_cauhinh'></textarea>
+                            <label for="txt_cauhinh" generated="true" class="error" style="color:red"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class='col-sm-3'>
             <div class="panel panel-default">
@@ -151,11 +151,11 @@
         rules: {
             txt_tensp: {
                 required: true,
-                rangeLength: [10, 50],
+                rangeLength: [1, 100],
             },
             txt_sl: {
                 required: true,
-                range: [1, 100],
+                range: [1, 1000],
             },
             txt_gia: {
                 required: true,
@@ -165,11 +165,11 @@
             },
             txt_noidung: {
                 required: true,
-                maxLength: 2000,
+                maxLength: 200000,
             },
             txt_cauhinh: {
                 required: true,
-                maxLength: 500,
+                maxLength: 50000,
             },
             cbo_nhasx: {
                 required: true,
@@ -181,11 +181,11 @@
         messages: {
             txt_tensp: {
                 required: "Bạn chưa nhập tên sản phẩm",
-                rangeLength: "Tên sản phẩm từ 10 - 50 ký tự",
+                rangeLength: "Tên sản phẩm từ 1 - 100 ký tự",
             },
             txt_sl: {
                 required: "Bạn chưa nhập số lượng sản phẩm",
-                range: "Số lượng từ 1 - 100",
+                range: "Số lượng từ 1 - 1000",
             },
             txt_gia: {
                 required: "Bạn chưa nhập giá sản phẩm",
@@ -195,11 +195,11 @@
             },
             txt_noidung: {
                 required: "Bạn chưa nhập nội dung mô tả sản phẩm",
-                maxLength: "Nội dung mô tả sản phẩm tối đa 2000 ký tự",
+                maxLength: "Nội dung mô tả sản phẩm tối đa 200000 ký tự",
             },
             txt_cauhinh: {
                 required: "Bạn chưa nhập cấu hình sản phẩm",
-                maxLength: "Chi tiết cấu hình tối đa 500 ký tự",
+                maxLength: "Chi tiết cấu hình tối đa 50000 ký tự",
             },
             cbo_nhasx: {
                 required: "Bạn chưa chọn nhà sản xuất cho sản phẩm",

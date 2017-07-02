@@ -56,10 +56,16 @@
                                 
                             </tbody>
                         </table>
+                        <% if(req.session.flash && req.session.flash.warning){ %>
+                            <div class="alert alert-warning">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                <%= req.flash('warning') %>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-2"></div>
+            <div class="col-sm-2"></div>        
         </div>
     </div>
 </div>

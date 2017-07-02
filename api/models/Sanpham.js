@@ -69,8 +69,8 @@ module.exports = {
 	validationMessages: {
 		tensanpham: {
 			required: "Bạn chưa nhập tên sản phẩm",
-			maxLength: "Tên sản phẩm từ 10 - 50 ký tự",
-			minLength: "Tên sản phẩm từ 10 - 50 ký tự",
+			maxLength: "Tên sản phẩm từ 1 - 100 ký tự",
+			minLength: "Tên sản phẩm từ 1 - 100 ký tự",
 		},
 		anhdaidien: {
 			required: "Bạn chưa có ảnh đại diện",
@@ -88,11 +88,11 @@ module.exports = {
 		},
 		cauhinh: {
 			required: "Bạn chưa thông tin mô tả cấu hình",
-			maxLength: "Mô tả cấu hình tối đa 500 ký tự",
+			maxLength: "Mô tả cấu hình tối đa 50000 ký tự",
 		},
 		mota: {
 			required: "Bạn chưa nhập mô tả sản phẩm",
-			maxLength: "Mô tả sản phẩm tối đa 2000 ký tự",
+			maxLength: "Mô tả sản phẩm tối đa 200000 ký tự",
 		},
 		idnhasanxuat: {
 			required: "Bạn chưa chọn nhà sản xuất",

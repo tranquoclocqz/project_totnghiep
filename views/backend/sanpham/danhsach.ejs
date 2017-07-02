@@ -1,8 +1,6 @@
 <% stylesheet('admin_asset/media/css/dataTables.bootstrap.css') -%>
     <% stylesheet('admin_asset/media/css/dataTables.responsive.css') -%>
         <div class='row main'>
-            <!--<link rel="stylesheet" type="text/css" href="admin_asset/media/css/dataTables.bootstrap.css">-->
-            <!--<link rel="stylesheet" type="text/css" href="admin_asset/media/css/dataTables.responsive.css" rel="stylesheet">-->
             <div class="col-sm-10 col-sm-offset-2">
                 <h1>Danh sách sản phẩm</h1>
                 <% if(req.session.flash && req.session.flash.success){ %>
@@ -34,16 +32,21 @@
                                 <td><%= sp.tenthietbi %></td>
                                 <td><%= sp.tennhasanxuat %></td>
                                 <td><%=moment(sp.createdAt).locale('vi').format('LL')%></td>
-                                <td><%=moment(sp.createdAt).locale('vi').format('LL')%></td>                                
-                                <td>
-                                    <% if(sp.trangthai != 0){ %>
-                                        ###
-                                    <% } else { %>
-
-                                    <% } %>
+                                <td><%=moment(sp.createdAt).locale('vi').format('LL')%></td>                 
+                                <% if(sp.trangthai != 0){ %>
+                                <td class="text-center">                                    
+                                    <a href="/admin/sanpham/xoa/<%= sp.spid %>">Xóa</a>                                                      
                                 </td>
-                                <td>###</td>
-                                <td>###</td>                                
+                                <td class="text-center"><a href="/admin/sanpham/sua/<%= sp.spid %>">Sửa</a></td>
+                                <% } else { %> 
+                                <td><label class="label label-danger">đã xóa</label></td>
+                                <td class="text-center"><a href="/admin/sanpham/sua/<%= sp.spid %>">Sửa</a></td>                                
+                                <% } %>
+                                <% if(sp.soluong == 0){ %>                              
+                                <td><label class="label label-warning">Hết hàng</label></td>
+                                <% } else { %>
+                                <td></td>
+                                <% } %>
                             </tr>
                             <% }) %>
                         </tbody>

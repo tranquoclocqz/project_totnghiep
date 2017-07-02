@@ -14,25 +14,16 @@ var options = {
 };
 module.exports = {
     index: function (req, res) {
-        // Sanpham.find({ trangthai: 1, limit: 10, }).sort('id DESC').exec(function (err, sp) {
-        //     return res.view('frontend/index/index', {
-        //         layout: 'frontend/layout/layout',
-        //         sanpham: sp,
-        //         title: 'index.ejs',
-        //         accounting: accounting,
-        //         options: options,
-        //     })
-        // });
         Sanpham.query('SELECT * FROM `sanpham` WHERE id in (SELECT * FROM (SELECT `idsanpham` FROM chitiethoadon GROUP BY idsanpham ORDER BY sum(`soluong`) DESC limit 5) as t)',function(err, result){
             Sanpham.find({trangthai:1}).sort('createdAt DESC').skip(0).limit(20).exec(function(err, sanpham){
-                    return res.view('frontend/index/index',{
-                        layout:'frontend/layout/layout',
-                        sanpham: result,
-                        topsanpham: sanpham,
-                        title: 'Ustora trang web bán điện thoại, laptop hàng đầu Việt Nam',
-                        accounting: accounting,
-                        options: options,
-                    });
+                return res.view('frontend/index/index',{
+                    layout:'frontend/layout/layout',
+                    sanpham: result,
+                    topsanpham: sanpham,
+                    title: 'Ustora trang web bán điện thoại, laptop hàng đầu Việt Nam',
+                    accounting: accounting,
+                    options: options,
+                });
             });            
         });
     },
@@ -68,13 +59,12 @@ module.exports = {
             accounting: accounting,
             options: options,
         });
-
     },
     checkout: function (req, res) {
         return res.view('frontend/checkout/checkout', {
             layout: 'frontend/layout/layout',
             title: 'checkout.ejs',
-        })
+        });
     },
     shop: function (req, res) {
         // skip: bat dau tu dau, limit: lay bao nhieu
@@ -86,6 +76,34 @@ module.exports = {
                 accounting: accounting,
                 options: options,
             });         
+        });
+    },
+    huydonhang: function(req, res){
+        var id = req.param('id');
+        Hoadon.update({donhang: id},{trangthai:2}).exec(function(err, result){
+            if(err){
+                return res.serverError(err);
+            }
+            if(_.isEmpty(result)){
+                req.flash('warning','Không tồn tại đơn hàng');
+                return res.redirect('/checkout');
+            } else {
+                Chitiethoadon.find({donhang: id}).exec(function(err, cthd){
+                    console.log('cthd',cthd);
+                    cthd.forEach(function(sp){
+                        console.log('idsanpham',sp.idsanpham);
+                        Sanpham.findOne({id: sp.idsanpham}).exec(function(err,ctsp){
+                            if(err){
+                                return res.serverError(err);
+                            }
+                            var rc = ctsp;
+                            rc.soluong = ctsp.soluong + sp.soluong;
+                            rc.save();
+                        });
+                    });
+                });
+                return res.redirect('/');
+            }            
         });
     }
 };

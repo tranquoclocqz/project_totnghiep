@@ -9,17 +9,19 @@ module.exports = {
     addToCart: function (req, res) {
         var proid = req.param('id');
         var cart = new addCart(req.session.cart ? req.session.cart : {});
-        Sanpham.findOne({ id: proid }).exec(function (err, product) {
+        Sanpham.findOne({ id: proid , trangthai: 1}).exec(function (err, product) {
             if (err) {
                 return res.serverError(err);
             }
-            if (!product) {
-                req.flash('err','Không tồn tại sản phẩm')
+            if (_.isEmpty(product)) {
+                req.flash('err','Không tồn tại sản phẩm');
                 return res.redirect("/cart");                
+            } 
+            else {
+                cart.add(product, product.id);
+                req.session.cart = cart;
+                return res.redirect("/cart");
             }
-            cart.add(product, product.id);
-            req.session.cart = cart;
-            return res.redirect("/cart");
         });
     },
     xoa: function (req, res) {

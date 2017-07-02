@@ -37,7 +37,8 @@ module.exports.routes = {
   'GET /chitiet/:slug/:id.html': 'PageController.single',
   'GET /cart': 'PageController.cart',
   'GET /checkout': 'PageController.checkout',
-  'GET /addtocart/:id':'CartController.addToCart', 
+  'GET /addtocart/:id':'CartController.addToCart',   
+  'GET /huydonhang/:id':'PageController.huydonhang',
   /************admin************/
     /************đơn hàng************/
     'GET /admin/donhang/:id':'ChitiethoadonController.donhang',
@@ -60,13 +61,15 @@ module.exports.routes = {
 
     /************sản phẩm************/
       /*--danh sách--*/
-      'GET /admin/sanpham/danhsach':'Sanphamcontroller.danhsachGET',
+      'GET /admin/sanpham/danhsach':'SanphamController.danhsachGET',
       /*--thêm--*/
-      'GET /admin/sanpham/them':'Sanphamcontroller.themGET',
-      'POST /admin/sanpham/them':'Sanphamcontroller.themPOST',
+      'GET /admin/sanpham/them':'SanphamController.themGET',
+      'POST /admin/sanpham/them':'SanphamController.themPOST',
       /*--sửa--*/
-      'GET /admin/sanpham/sua/:id':'Sanphamcontroller.suaGET',
-      'POST /admin/sanpham/sua/:id':'Sanphamcontroller.suaPOST',
+      'GET /admin/sanpham/sua/:id':'SanphamController.suaGET',
+      'POST /admin/sanpham/sua/:id':'SanphamController.suaPOST',
+      /*--xóa--*/
+      'GET /admin/sanpham/xoa/:id':'SanphamController.xoaGET',
     /**********Thiết bị**********/
       /*--danh sách--*/
       'GET /admin/thietbi/danhsach':'ThietbiController.danhsachGET',
@@ -98,8 +101,7 @@ module.exports.routes = {
       'GET /timkiem/:key':'AjaxController.timkiem',
       'GET /loadsanpham/:idnsx/:page':'AjaxController.loadsanpham',
       'POST /laythongtindonhang':'AjaxController.laythongtindonhang',
-
-
+      'POST /doanhthu':'AjaxController.laydoanhthu',
 
 
 

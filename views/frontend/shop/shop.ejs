@@ -23,20 +23,22 @@
                             <img src="images/anhdaidien/<%= key.anhdaidien %>" alt="<%= key.tensanpham %>">
                         </a>
                         <div class="caption text-center">
-                            <h3 style="">
+                            <h4 style="">
                                 <a href="/chitiet/<%= key.slug %>/<%= key.id %>.html" title="<%= key.tensanpham %>">
                                     <%= key.tensanpham %>
                                 </a>
-                            </h3>                            
+                            </h4>                            
                             <% if(key.khuyenmai !='0'){ %>
                                 <p>
-                                    <%= accounting.formatMoney(key.khuyenmai,options) %><sup style="color: red">KM</sup>
+                                <del><%= accounting.formatMoney(key.gia,options) %></del>
+                                    <ins><%= accounting.formatMoney(key.khuyenmai,options) %><sup style="color: red">KM</sup>
+                                    </ins>
                                 </p>
                                 <% } else { %>
                                     <p>
-                                        <%= accounting.formatMoney(key.gia,options) %>
-                                    </p>
-                                    <% } %>
+                                 <ins><%= accounting.formatMoney(key.gia,options) %></ins>
+                                 </p>
+                                <% } %>
                                         <p>
                                             <a href="/addtocart/<%= key.id %>" class="btn btn-primary">Mua ngay</a>
                                         </p>

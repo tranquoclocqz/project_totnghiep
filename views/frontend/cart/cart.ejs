@@ -147,29 +147,56 @@
                                 <div class="col-sm-6">
                                     <!--<form method="post" action="/cart" class="shipping_calculator">
                                         <input type="hidden" name="_csrf" value="<%= _csrf%>">-->
-                                    <div class="shipping_calculator">
-                                        
+                                    <div class="shipping_calculator">                                       
                                             <h2><a class="shipping-calculator-button" data-toggle="collapse" href="#calcalute-shipping-wrap"
                                                     aria-expanded="false" aria-controls="calcalute-shipping-wrap">Thông tin khách hàng</a></h2>
 
-                                            <p class="form-row form-row-wide"><input type="text" id="txt_tenkhachhang" name="txt_tenkhachhang" placeholder="Họ tên khách hàng *"
-                                                    value="" class="input-text">
-                                                    <label generated="true" class="error" for="txt_tenkhachhang"></label>
+                                            <p class="form-row form-row-wide">
+                                            <input pattern=".{2,50}"   required title="Tên 2 - 50 ký tự" type="text" id="txt_tenkhachhang" name="txt_tenkhachhang" placeholder="Họ tên khách hàng *"
+                                                    value="" class="input-text">                                                   
                                                     </p>
-                                            <p class="form-row form-row-wide"><input type="text" id="txt_diachi" name="txt_diachi" placeholder="Địa chỉ *" value=""
-                                                    class="input-text">
-                                                    <label generated="true" class="error" for="txt_diachi"></label>
+                                            <p class="form-row form-row-wide">
+                                            <input pattern=".{10,50}"   required title="Địa chỉ 10 - 50 ký tự" type="text" id="txt_diachi" name="txt_diachi" placeholder="Địa chỉ *" value=""
+                                                    class="input-text">                                                    
                                                     </p>
-                                            <p class="form-row form-row-wide"><input type="text" id="txt_sdt" name="txt_sdt" placeholder="Số điện thoại *" value=""
-                                                    onkeypress="return isNumber(event);" class="input-text" maxlength="11">
-                                                     <label generated="true" class="error" for="txt_sdt"></label>
+                                            <p class="form-row form-row-wide"><input pattern=".{9,}" type="text" id="txt_sdt" name="txt_sdt" placeholder="Số điện thoại *" value=""
+                                                    onkeypress="return isNumber(event);" class="input-text" maxlength="11">                                                     
                                                     </p>
-                                                    <p><button class="button" data-toggle="modal" data-target="#myModal" value="1" id="dathang"
+                                                    <p><button class="button" value="1" id="dathang"
                                                 name="calc_shipping" type="submit">Đặt hàng</button></p>                                              
-                                                                                      
-
-                                    </div>                                    
-                                    <!--<script src="asset/js/jquery.validate-1.9.js"></script>
+                                    </div>                                   
+                                    
+                                    <script>
+                                        $(document).ready(function () {                                            
+                                            $("#dathang").click(function () {
+                                                var flag = 1;
+                                                if($('#txt_tenkhachhang').val().length < 2 || $('#txt_tenkhachhang').val().length > 50){
+                                                    flag = 0;
+                                                    return alert('Tên khách hàng 2 - 50 ký tự');
+                                                }
+                                                if($('#txt_diachi').val().length < 10 || $('#txt_diachi').val().length > 50){
+                                                    flag = 0;
+                                                    return alert('Điạ chỉ 10 - 50 ký tự');
+                                                }
+                                                if($('#txt_sdt').val().length < 8 || $('#txt_sdt').val().length > 11){
+                                                    flag = 0;
+                                                    return alert('Số điện thoại 8 - 11 số');
+                                                }
+                                                if(flag == 1){
+                                                    $.post('/dathang', {
+                                                        txt_tenkhachhang: $('#txt_tenkhachhang').val(),
+                                                        txt_diachi: $("#txt_diachi").val(),
+                                                        txt_sdt: $("#txt_sdt").val(),
+                                                        _csrf: "<%= _csrf %>",
+                                                    }, function (data) {
+                                                        $("#myModal").show();
+                                                        $("#code").text(data);
+                                                    });
+                                                }
+                                            });
+                                        });
+                                    </script>
+                                    <!-- <script src="asset/js/jquery.validate-1.9.js"></script>
                                     <script>
                                         $("#form_thongotin_kh").validate({
                                             rules: {
@@ -201,21 +228,7 @@
                                                 }
                                             }
                                         });
-                                    </script>-->
-                                    <script>
-                                        $(document).ready(function () {
-                                            $("#dathang").click(function () {
-                                                $.post('/dathang', {
-                                                    txt_tenkhachhang: $('#txt_tenkhachhang').val(),
-                                                    txt_diachi: $("#txt_diachi").val(),
-                                                    txt_sdt: $("#txt_sdt").val(),
-                                                    _csrf: "<%= _csrf %>",
-                                                }, function (data) {
-                                                    $("#code").text(data);
-                                                });
-                                            });
-                                        });
-                                    </script>
+                                    </script> -->
                                 </div>
                             </div>                            
                         </div>
@@ -227,31 +240,20 @@
         </div>
     </div>
 </div>
-
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Mã hóa đơn</h4>
-            </div>
-            <div class="modal-body">
-                <p>Mã hóa đơn của bạn là
-                    <h4 id="code"></h4>
-                </p>
-                </p>Nhập mã hóa đơn vào ô xem đơn hàng để xem chi tiết đơn hàng mà bạn đã đặt hàng</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="close">Close</button>
-            </div>
-        </div>
-    </div>
+<div id="myModal" class="modal">
+  <div class="modal-content">    
+    <p>Mã đơn hàng của bạn</p>
+    <h2><b id="code"></b></h2>
+    <p>Nhập mã đơn hàng vào kiểm tra hóa đơn để biết thêm chi tiết</p>
+    <p class="text-right"><button id="close" class="btn btn-default">Đóng</button></p>
+  </div>
 </div>
 <script>
-                                        $(document).ready(function () {
-                                            $("#close").click(function () {
-                                                window.location.href = "/";
-                                            });
-                                        });
+    $(document).ready(function () {
+        $("#close").click(function () {
+            window.location.href = "/";
+        });
+    });
 
 </script>
 <script>
