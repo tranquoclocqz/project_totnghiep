@@ -44,6 +44,7 @@ module.exports.routes = {
     'GET /admin/donhang/:id':'ChitiethoadonController.donhang',
     'GET /xoa/:id':'CartController.xoa',
     'GET /admin/giaohang/:id':'AdminController.giaohang',
+    'GET /admin/huydonhang/:id':'AdminController.huydonhangadmin',
     /************authenticate************/
     'GET /admin/login':'AuthController.loginGET',
     'POST /admin/login':'AuthController.loginPOST',
@@ -102,6 +103,7 @@ module.exports.routes = {
       'GET /loadsanpham/:idnsx/:page':'AjaxController.loadsanpham',
       'POST /laythongtindonhang':'AjaxController.laythongtindonhang',
       'POST /doanhthu':'AjaxController.laydoanhthu',
+      'GET /admin/laydanhsachdonhang':'AjaxController.laydanhsachdonhang',
 
 
 

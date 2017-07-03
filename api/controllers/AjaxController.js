@@ -38,7 +38,7 @@ module.exports = {
             Sanpham.findOne({ id: id }).exec(function (err, product) {
                 if (err) {
                     return res.serverError(err);
-                }                
+                }                               
                 cart.change(product, product.id, soluong);
                 req.session.cart = cart;
                 list.forEach(function (pri) {
@@ -97,7 +97,7 @@ module.exports = {
     },
     timkiem: function (req, res) {
         var key = req.param('key');
-        Sanpham.find({ tensanpham: { 'like': '%' + key + '%' } }).exec(function (err, result) {
+        Sanpham.find({ tensanpham: { 'like': '%' + key + '%' }, limit:5 }).exec(function (err, result) {
             if (err) {
                 return res.serverError(err);
             }
@@ -111,7 +111,7 @@ module.exports = {
     loadsanpham: function (req, res) {
         var page = req.param('page');
         var id = req.param('idnsx');
-        Sanpham.find({ soluong: { '!': 0 }, trangthai: { '!=': 0 }, idnhasanxuat: id }).skip((page - 1) * 8).limit(8).sort('id DESC').exec(function (err, result) {
+        Sanpham.find({ soluong: { '!': 0 }, trangthai: 1, idnhasanxuat: id }).skip((page - 1) * 8).limit(8).sort('id DESC').exec(function (err, result) {
             res.writeHead(200, { 'Content-Type': 'html/plain' });
             result.forEach(function (sp) {
                 return res.write('<div class="col-sm-6 col-md-3">'
@@ -120,9 +120,9 @@ module.exports = {
                     + '            <img src="images/anhdaidien/' + sp.anhdaidien + '" alt="' + sp.tensanpham + '"'
                     + '        </a>'
                     + '       <div class="caption text-center">'
-                    + '            <h3>'
+                    + '            <h4>'
                     + '                <a href="/chitiet/' + sp.slug + '/' + sp.id + '.html" title="' + sp.tensanpham + '">' + sp.tensanpham + '</a>'
-                    + '            </h3>'
+                    + '            </h4>'
                     + '            <p>'
                     + '                  ' + accounting.formatMoney(sp.gia, options) + ''
                     + '            </p>'
@@ -178,6 +178,43 @@ module.exports = {
         Hoadon.query('SELECT DATE(createdAt) as createdAt, SUM(giatri) as giatri FROM hoadon WHERE trangthai = 0 AND (createdAt BETWEEN "'+ start +'" AND "'+ end +'") GROUP BY DATE(createdAt)', function(err, result){
             return res.json(result);      
         });
-    }   
+    },
+
+    laydanhsachdonhang: function(req, res){
+        Hoadon.find().sort('createdAt DESC').exec(function (err, hoadon) {
+            res.writeHead(200, { 'Content-Type': 'html/plain' });
+            hoadon.forEach(function(hd){           
+            res.write('<tr>'
+                +'<td>'
+                +'<a href="/admin/donhang/'+ hd.donhang +'">'+ hd.donhang +' </a>'
+                +'</td>'
+                +'<td>'+ hd.khachhang +'</td>'
+                +'<td>'+ accounting.formatMoney(hd.giatri,options) +'</td>'
+                +'<td>'+ hd.diachi +'</td>'
+                +'<td>'+ hd.sodienthoai +'</td>'
+                +'<td>'+ moment(hd.createdAt).locale('vi').format('LL') +'</td>');
+                if(hd.trangthai == 0){
+                    res.write('<td>'
+                    +'<label class="label label-success">Đã giao hàng</label>'
+                    +'</td>'
+                    +'<td></td>'
+                    +'<td></td>');
+                } else if(hd.trangthai == 1){
+                    res.write('<td>'
+                    +'<label class="label label-primary">Đang giao hàng</label>'
+                    +'</td>'
+                    +'<td><a href="/admin/giaohang/'+ hd.id +'" class="btn btn-primary">Xác nhận</a></td>'
+                    +'<td><a class="btn btn-danger" href="/admin/huydonhang/'+ hd.donhang +'">Hũy</a></td>');
+                } else {
+                    res.write('<td>'
+                    +'<label class="label label-danger">Đã hũy đơn  hàng</label>'
+                    +'</td>'
+                    +'<td></td>'
+                    +'<td></td></tr>');
+                }
+             });
+            res.end();
+        });
+    }
 };
 

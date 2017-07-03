@@ -8,7 +8,7 @@ jQuery(document).ready(function($){
     $('.product-carousel').owlCarousel({
         loop:true,
         nav:true,
-        navigationText:['<','>'],
+        navText:['<','>'],
         margin:10,
         // responsiveClass:true,
         // responsive:{
@@ -27,7 +27,7 @@ jQuery(document).ready(function($){
     $('.related-products-carousel').owlCarousel({
         loop:true,
         nav:true,
-        navigationText:['<','>'],
+        navText:['<','>'],
         margin:20,
         responsiveClass:true,
         responsive:{
@@ -50,6 +50,7 @@ jQuery(document).ready(function($){
         loop:true,
         nav:true,
         margin:20,
+		navText:['<','>'],
         responsiveClass:true,
         responsive:{
             0:{

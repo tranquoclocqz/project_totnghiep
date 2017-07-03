@@ -7,15 +7,15 @@
 			</div>
 		</div>
 		<% if(req.session.flash && req.session.flash.err){ %>
-		<% var j = req.flash('err')[0] %>
-			<div class="alert alert-danger">
-				<% Object.keys(j).forEach(function(err){ %>				
-				<div>
-					<%= JSON.stringify(j[err][0].message) %>
-				</div>
-				<% }) %>
-			</div>
-		<% } %>
+                <% var j = req.flash('err')[0] %>
+                    <% Object.keys(j).forEach(function(err){ %>
+                        <div class="alert alert-danger">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                            <strong>Lỗi</strong>
+                            <%= JSON.stringify(j[err][0].message) %>
+                        </div>
+                <% }) %>
+            <% } %>
 		<% if(req.session.flash && req.session.flash.success){ %>
 			<div class="alert alert-success">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
@@ -29,51 +29,41 @@
 					<div class="cols-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-							<input type="text" class="form-control" name="txt_name" id="name" placeholder="Enter your Name" />
+							<input type="text" class="form-control" name="txt_name" placeholder="Enter your Name" />
 						</div>
-					</div>
+					</div>					
 				</div>
-
-				<div class="form-group">
-					<label for="email" class="cols-sm-2 control-label">Email</label>
-					<div class="cols-sm-10">
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-							<input type="email" class="form-control" name="txt_email" id="email" placeholder="Nhập email" />
-						</div>
-					</div>
-				</div>
-
+				<label class="error" generated="true" for="txt_name" style="color:red"></label>
 				<div class="form-group">
 					<label for="username" class="cols-sm-2 control-label">Tài khoản</label>
 					<div class="cols-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-							<input type="text" class="form-control" name="txt_username" id="username" placeholder="Nhập tài khỏan" />
+							<input type="text" class="form-control" name="txt_username" placeholder="Nhập tài khỏan" />
 						</div>
 					</div>
 				</div>
-
+				<label class="error" generated="true" for="txt_username" style="color:red"></label>
 				<div class="form-group">
 					<label for="password" class="cols-sm-2 control-label">Mật khẩu</label>
 					<div class="cols-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-							<input type="password" class="form-control" name="txt_password" id="password" placeholder="Nhập mât khẩu" />
+							<input type="password" class="form-control" name="txt_password" id="txt_password" placeholder="Nhập mât khẩu" />
 						</div>
 					</div>
 				</div>
-
+				<label class="error" generated="true" for="txt_password" style="color:red"></label>
 				<div class="form-group">
 					<label for="confirm" class="cols-sm-2 control-label">Nhập lại mật khẩu</label>
 					<div class="cols-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-							<input type="password" class="form-control" name="txt_confirm" id="confirm" placeholder="Nhập lại mật khẩu" />
+							<input type="password" class="form-control" name="txt_confirm" placeholder="Nhập lại mật khẩu" />
 						</div>
 					</div>
 				</div>
-
+				<label class="error" generated="true" for="txt_confirm" style="color:red"></label>
 				<div class="form-group ">
 					<input type="submit" class="btn btn-primary btn-lg btn-block login-button" value='Đăng ký'>
 				</div>
@@ -87,15 +77,39 @@
 <script>
 	$("form").validate({
 		rules: {
-			txt_ten_nhasx: {
+			txt_name:{
 				required: true,
-				rangeLength: [3, 20],
+			},
+			txt_username:{
+				required: true,
+				rangLength:[8,16],
+			},
+			txt_password:{
+				required: true,
+				rangLength:[8,32],
+			},
+			txt_confirm:{
+				equalTo: "#txt_password",
+				required: true,
+				rangLength:[8,32],
 			}
 		},
 		messages: {
-			txt_ten_nhasx: {
-				required: "Bạn chưa nhập tên nhà sản xuất",
-				rangeLength: "Tên nhà sản xuất phải từ 3 - 20 ký tự",
+			txt_name:{
+				required: "Bạn chưa nhập tên của bạn",
+			},
+			txt_username:{
+				required: "Bạn chưa nhập tài khoản",
+				rangLength:"Tài khoản 8 - 16 ký tự",
+			},
+			txt_password:{
+				required: "Bạn chưa nhập mật khẩu",
+				rangLength:"Mật khẩu 8 - 32 ký tự",
+			},
+			txt_confirm:{
+				equalTo: "Mật khẩu không trùng",
+				required: "Bạn chưa nhập mật khẩu",
+				rangLength:"Mật khẩu 8 - 32 ký tự",
 			}
 		}
 	});

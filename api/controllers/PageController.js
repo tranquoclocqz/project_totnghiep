@@ -46,13 +46,13 @@ module.exports = {
             return res.view('frontend/cart/cart', {
                 layout: 'frontend/layout/layout',
                 product: null,
-                title: 'cart.ejs',
+                title: 'Giỏ hàng',
             });
         }
         var cart = new addCart(req.session.cart);
         return res.view('frontend/cart/cart', {
             layout: 'frontend/layout/layout',
-            title: 'cart.ejs',
+            title: 'Giỏ hàng',
             product: cart.generateArray(),
             totalPrice: cart.totalPrice,
             totalQty: cart.totalQty,
@@ -63,7 +63,7 @@ module.exports = {
     checkout: function (req, res) {
         return res.view('frontend/checkout/checkout', {
             layout: 'frontend/layout/layout',
-            title: 'checkout.ejs',
+            title: 'Kiểm tra đơn hàng',
         });
     },
     shop: function (req, res) {
@@ -102,7 +102,8 @@ module.exports = {
                         });
                     });
                 });
-                return res.redirect('/');
+                req.flash('success','Đơn hàng đã được hũy');
+                return res.redirect('/checkout');
             }            
         });
     }

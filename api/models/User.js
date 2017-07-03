@@ -26,10 +26,6 @@ module.exports = {
 			type: 'string',
 			required: true,
 		},
-		email: {
-			type: 'email',
-			required: true,
-		},
 		trangthai: {
 			type: 'integer',
 		}
@@ -48,9 +44,6 @@ module.exports = {
 		},
 		tennguoidung: {
 			required: 'Bạn chưa nhập tên người dùng',
-		},
-		email: {
-			required: 'Bạn chưa nhập email',
 		},
     }
 };

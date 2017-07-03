@@ -36,13 +36,13 @@
         <li><a href="<%=sails.getUrlFor('NhasanxuatController.themGET')%>">Thêm</a></li>
       </ul>
 
-      <li data-toggle="collapse" data-target="#taikhoan" class="collapsed">
+      <!-- <li data-toggle="collapse" data-target="#taikhoan" class="collapsed">
         <a><i class="fa fa-users fa-lg"></i> Tài khoản<span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="taikhoan">
         <li><a href="<%=sails.getUrlFor('UserController.danhsachGET')%>">Danh sách</a></li>
         <li><a href="<%=sails.getUrlFor('UserController.themGET')%>">Thêm</a></li>
-      </ul>
+      </ul> -->
       <li>
         <a>
                     <i class="fa fa-user fa-lg"></i><% if(req.session.user){ %> <%= req.session.user.tennguoidung %> <% } %>
