@@ -94,7 +94,28 @@ module.exports.routes = {
       'POST /admin/nhasanxuat/sua-:id':'NhasanxuatController.suaPOST',
       /*--xóa--*/
       'GET /admin/nhasanxuat/xoa-:id':'NhasanxuatController.xoaGET',
-
+      /***********Nhà cung cấp*********/
+      /*--danh sách--*/
+      'GET /admin/nhacungung/danhsach':'NhacungungController.getDanhsach',
+      /*--thêm--*/
+      'GET /admin/nhacungung/them':'NhacungungController.getThem',
+      'POST /admin/nhacungung/them':'NhacungungController.postThem',
+      /*--sửa--*/
+      'GET /admin/nhacungung/sua/:id':'NhacungungController.getSua',
+      'POST /admin/nhacungung/sua/:id':'NhacungungController.postSua',
+      /*--xóa--*/
+      'GET /admin/nhacungung/xoa/:id':'NhacungungController.getXoa',
+     /***********Slider*********/
+     /*--danh sách--*/ 
+     'GET /admin/slider/danhsach':'SliderController.getDanhsach',
+     /*--thêm--*/
+     'GET /admin/slider/them':'SliderController.getThem',
+     'POST /admin/slider/them':'SliderController.postThem',
+     /*--sửa--*/
+     'GET /admin/slider/sua/:id':'SliderController.suaGET',
+     'POST /admin/slider/sua/:id':'SliderController.suaPOST',
+     /*--xóa--*/
+     'GET /admin/slider/xoa/:id':'SliderController.getXoa',
     /***********AJAX*********/
       'GET /admin/ajax/nhasx-:id':'AjaxController.nhasx',   
       'POST /thaydoi':'AjaxController.thaydoi',    

@@ -20,9 +20,9 @@ module.exports = {
             if (err) {
                 return serverError(err);
             }
-            if (!result) {
+            if (_.isEmpty(result)) {
                 req.flash('err', 'Tài khoản không tồn tại vui lòng kiểm tra lại');
-                return res.redirect('/admin/dashboard');
+                return res.redirect('/admin/login');
             }
             else {
                 req.session.user = result;

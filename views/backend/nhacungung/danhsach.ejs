@@ -2,7 +2,7 @@
     <% stylesheet('admin_asset/media/css/dataTables.responsive.css') -%>
         <div class='row main'>
             <div class="col-sm-10 col-sm-offset-2">
-                <h1>Danh sách sản phẩm</h1>
+                <h1>Danh sách nhà cung ứng</h1>
                 <% if(req.session.flash && req.session.flash.success){ %>
 					<div class="alert alert-success">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
@@ -14,43 +14,26 @@
                         <thead>
                             <tr align="center">
                                 <th>ID</th>
-                                <th>Sản phẩm</th>
-                                <th>Thiết bị</th>
-                                <th>Nhà SX</th>
-                                <th>Số lượng</th>
-                                <th>Ngày thêm</th>
-                                <th>Ngày cập nhật</th>
+                                <th>Tên nhà cung ứng</th>
+                                <th>Địa chỉ</th>
+                                <th>Email</th>  
+                                <th>Số điện thoại</th>                               
                                 <th>Xóa</th>
                                 <th>Sửa</th>
-                                <th>Trạng thái</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% sanpham.forEach(function(sp){ %>
+                        <% nhacungung.forEach(function(value){ %>
                             <tr>
-                                <td><%= sp.spid %></td>
-                                <td><a href="/admin/sanpham/sua/<%= sp.spid %>"><%= sp.tensanpham %></a></td>
-                                <td><%= sp.tenthietbi %></td>                                
-                                <td><%= sp.tennhasanxuat %></td>
-                                <td><%= sp.soluong %></td>
-                                <td><%=moment(sp.createdAt).locale('vi').format('LL')%></td>
-                                <td><%=moment(sp.createdAt).locale('vi').format('LL')%></td>                 
-                                <% if(sp.trangthai != 0){ %>
-                                <td class="text-center">                                    
-                                    <a href="/admin/sanpham/xoa/<%= sp.spid %>">Xóa</a>                                                      
-                                </td>
-                                <td class="text-center"><a href="/admin/sanpham/sua/<%= sp.spid %>">Sửa</a></td>
-                                <% } else { %> 
-                                <td><label class="label label-danger">đã xóa</label></td>
-                                <td class="text-center"><a href="/admin/sanpham/sua/<%= sp.spid %>">Sửa</a></td>                                
-                                <% } %>
-                                <% if(sp.soluong == 0){ %>                              
-                                <td><label class="label label-warning">Hết hàng</label></td>
-                                <% } else { %>
-                                <td></td>
-                                <% } %>
-                            </tr>
-                            <% }) %>
+                                <td><%= value.id %></td>
+                                <td><%= value.tennhacungung %></td>
+                                <td><%= value.diachi %></td>
+                                <td><%= value.email %></td>
+                                <td><%= value.sodienthoai %></td>
+                                <td><a href="/admin/nhacungung/xoa/<%= value.id %>">Xóa</a></td>
+                                <td><a href="/admin/nhacungung/sua/<%= value.id %>">Sửa</a></td>
+                            </tr>                           
+                        <% }) %>
                         </tbody>
                     </table>
                 </div>

@@ -29,6 +29,10 @@ module.exports = {
 			max: 1000,
 			min: 1,
 		},
+		gianhap:{
+			type:'string',
+			required:true,
+		},
 		gia: {
 			type: 'string',
 			required: true,
@@ -64,6 +68,13 @@ module.exports = {
 		chitiethoadon: {
 			collection: 'chitiethoadon',
 			via: 'idsanpham'
+		},
+		chitietnhaphang:{
+			collection: 'chitietnhaphang',
+			via: 'idsanpham'
+		},
+		idnhacungung:{
+			model:'nhacungung'
 		}
 	},
 	validationMessages: {
@@ -79,6 +90,9 @@ module.exports = {
 			required: "Bạn chưa nhập số lượng",
 			max: "Số lượng từ  1 - 1000",
 			min: "Số lượng từ  1 - 1000",
+		},
+		gianhap:{
+			required: "Bạn chưa nhập gía",
 		},
 		gia: {
 			required: "Bạn chưa nhập giá",

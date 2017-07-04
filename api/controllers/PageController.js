@@ -16,13 +16,16 @@ module.exports = {
     index: function (req, res) {
         Sanpham.query('SELECT * FROM `sanpham` WHERE id in (SELECT * FROM (SELECT `idsanpham` FROM chitiethoadon GROUP BY idsanpham ORDER BY sum(`soluong`) DESC limit 5) as t)',function(err, result){
             Sanpham.find({trangthai:1}).sort('createdAt DESC').skip(0).limit(20).exec(function(err, sanpham){
-                return res.view('frontend/index/index',{
-                    layout:'frontend/layout/layout',
-                    sanpham: result,
-                    topsanpham: sanpham,
-                    title: 'Ustora trang web bán điện thoại, laptop hàng đầu Việt Nam',
-                    accounting: accounting,
-                    options: options,
+                Slider.find().exec(function(err, slider){
+                    return res.view('frontend/index/index',{
+                        layout:'frontend/layout/layout',
+                        sanpham: result,
+                        topsanpham: sanpham,
+                        slider:slider,
+                        title: 'Ustora trang web bán điện thoại, laptop hàng đầu Việt Nam',
+                        accounting: accounting,
+                        options: options,
+                    });
                 });
             });            
         });

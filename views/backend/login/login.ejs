@@ -63,10 +63,13 @@
                                 <input type='submit' id="btn-login" href="#" class="btn btn-success" value='Đăng nhập'>
                             </div>
                         </div>
-                    </form>
-                   
-                        <h1><%=req.flash('success')%></h1>
-                    
+                    </form>                
+                        <% if(req.session.flash && req.session.flash.err){ %>
+                        <div class="alert alert-danger">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                            <%= req.flash('err') %>
+                        </div>
+                    <% } %>
                 </div>
             </div>
         </div>

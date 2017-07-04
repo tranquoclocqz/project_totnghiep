@@ -14,13 +14,13 @@
       </li>
       <ul class="sub-menu collapse" id="sanpham">
         <li><a href="/admin/sanpham/danhsach">Danh sách</a></li>
-        <li><a href="/admin/sanpham/them">Thêm</a></li>
+        <li><a href="/admin/sanpham/them">Nhập hàng</a></li>
       </ul>
 
 
 
       <li data-toggle="collapse" data-target="#thietbi" class="collapsed">
-        <a><i class="fa fa-tag fa-lg"></i>Thiết bị <span class="arrow"></span></a>
+        <a><i class="fa fa-laptop fa-lg"></i>Thiết bị <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="thietbi">
         <li><a href="<%=sails.getUrlFor('ThietbiController.danhsachGET')%>">Danh sách</a></li>
@@ -29,13 +29,26 @@
 
 
       <li data-toggle="collapse" data-target="#nhasx" class="collapsed">
-        <a><i class="fa fa-tags fa-lg"></i> Nhà sản xuất <span class="arrow"></span></a>
+        <a><i class="fa fa-tag fa-lg"></i> Nhà sản xuất <span class="arrow"></span></a>
       </li>
       <ul class="sub-menu collapse" id="nhasx">
         <li><a href="<%=sails.getUrlFor('NhasanxuatController.danhsachGET')%>">Danh sách</a></li>
         <li><a href="<%=sails.getUrlFor('NhasanxuatController.themGET')%>">Thêm</a></li>
       </ul>
-
+      <li data-toggle="collapse" data-target="#slider" class="collapsed">
+        <a><i class="fa fa-sliders fa-lg"></i> Slider <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="slider">
+        <li><a href="/admin/slider/danhsach">Danh sách</a></li>
+        <li><a href="/admin/slider/them">Thêm</a></li>
+      </ul>
+      <li data-toggle="collapse" data-target="#nhacungung" class="collapsed">
+        <a><i class="fa fa-truck fa-lg"></i> Nhà cung ứng <span class="arrow"></span></a>
+      </li>
+      <ul class="sub-menu collapse" id="nhacungung">
+        <li><a href="/admin/nhacungung/danhsach">Danh sách</a></li>
+        <li><a href="/admin/nhacungung/them">Thêm</a></li>
+      </ul>
       <!-- <li data-toggle="collapse" data-target="#taikhoan" class="collapsed">
         <a><i class="fa fa-users fa-lg"></i> Tài khoản<span class="arrow"></span></a>
       </li>
@@ -50,7 +63,7 @@
       </li>
       <li>
         <a href="/admin/logout">
-                    <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> Logout
+                    <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> Đăng xuất
                   </a>
       </li>
     </ul>

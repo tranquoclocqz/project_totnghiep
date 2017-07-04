@@ -27,7 +27,7 @@ module.exports = {
 					moment: moment,                                                                                             
 				});
 			});
-			// res.json(hoadon);
+
 		});
 	},
 	loginGET: function (req, res) {
@@ -77,7 +77,7 @@ module.exports = {
                 return res.redirect('/admin/dashboard');
             }
             if(result.trangthai == 2){
-	    		req.flash('warning','Đơn hàng này đã được hũy không được thể hũy được nữa');
+	    		req.flash('warning','Đơn hàng này đã được hủy không được thể hủy được nữa');
 	    		return res.redirect('/admin/dashboard');    		
         	} 
         	if(!_.isEmpty(result)) {
@@ -96,7 +96,7 @@ module.exports = {
                         });
                     });
                 });
-                req.flash('success','Đơn hàng đã được hũy');
+                req.flash('success','Đơn hàng đã được hủy');
                 return res.redirect('/admin/dashboard');
         	}
         });

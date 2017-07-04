@@ -1,0 +1,76 @@
+<style type="text/css">
+    .error{
+        color: red;
+        font-weigth:700;
+    }
+</style>
+<div class='row main' style="margin:20px 0px 0px 0px">
+    <form method="post" action="/admin/slider/sua/<%= slider.id %>" class="form-horizontal" enctype="multipart/form-data">
+        <input type='hidden' name='_csrf' value='<%= _csrf %>'>        
+        <div class="col-sm-10 col-sm-offset-2">
+        <h1>Cập nhật slider</h1>
+        <% if(req.session.flash && req.session.flash.err){ %>
+            <% var j = req.flash('err')[0] %>
+                <% Object.keys(j).forEach(function(err){ %>
+                    <div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                        <strong>Lỗi</strong>
+                        <%= JSON.stringify(j[err][0].message) %>
+                    </div>
+            <% }) %>
+        <% } %>
+        <% if(req.session.flash && req.session.flash.success){ %>
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                <%= req.flash('success') %>
+            </div>
+        <% } %>
+            <div class="form-group">
+                <h4>Tiêu đề</h4>
+                <input type="text" name="txt_tieude" class="form-control" value="<%= slider.tieude %>">
+            </div>
+            <div class="form-group">
+                <h4>Đường dẫn</h4>
+                <input type="text" name="txt_duongdan" class="form-control" value="<%= slider.url %>">
+            </div>
+            <div class="form-group">
+                <input type="file" accept="image/.gif|.png|.jpg|.jpeg" name='ful_anhdaidien' id="ful_anhdaidien" class="filestyle" data-buttonName="btn-primary">
+                <div class="image-holder" id="image-holder-1">
+                <img src="images/slider/<%= slider.urlanh %>" class="img img-responsive">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="text-center">
+                    <button class="btn btn-primary">Cập nhật</button>
+                </div>
+            </div>
+        </div>        
+    </form>
+</div>
+<script>
+    $(":file").filestyle({ buttonName: "btn-primary", buttonText: "Chọn hình" });
+</script>
+<script src='admin_asset/js/jquery.validate-1.9.js'></script>
+<script>
+    $("form").validate({
+        rules: {
+            txt_duongdan:{
+                required: true,
+            },
+            txt_tieude:{
+                required:true,
+            },            
+        },
+        messages: {
+            txt_duongdan:{
+                required: "Bạn chưa nhập đường dẫn",
+            },
+            txt_tieude:{
+                required:"Bạn chưa nhập tiêu đề",
+            },            
+        }
+    });
+
+</script>
+<% script('admin_asset/js/bootstrap-filestyle.min.js') -%>
+        <% script('admin_asset/js/preview.js') -%>

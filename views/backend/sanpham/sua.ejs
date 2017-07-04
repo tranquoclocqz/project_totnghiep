@@ -36,9 +36,16 @@
                         </div>
                     </div>
                     <div>
-                        <h4>Giá sản phẩm</h4>
+                        <h4>Giá nhập</h4>
                         <div>
-                            <input type='number' min='0' name='txt_gia' class='form-control' placeholder="Giá" value="<%= sanpham.gia %>">
+                            <input type='number' min="0" name='txt_gianhap' class='form-control' placeholder="Giá nhập" value="<%= sanpham.gnhap %>">
+                            <label for="txt_gianhap" generated="true" class="error" style="color:red"></label>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Giá bán</h4>
+                        <div>
+                            <input type='number' min="0"  name='txt_gia' class='form-control' placeholder="Giá" value="<%= sanpham.gia %>">
                             <label for="txt_gia" generated="true" class="error" style="color:red"></label>
                         </div>
                     </div>
@@ -67,7 +74,6 @@
         <div class='col-sm-3'>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Thong tin 2
                 </div>
                 <div class="panel-body">
                     <div>
@@ -99,6 +105,20 @@
                          <label for="cbo_nhasx" generated="true" class="error" style="color:red"></label>
                         </div>
                     </div>
+                    <div>
+                        <h4>Nhà cung ứng</h4>
+                        <div>
+                            <select name="cbo_nhacungung" id="cbo_nhacungung" class="form-control">
+                        <% nhacungung.forEach(function(nhacungung){ %>
+                            <option value='<%=nhacungung.id%>'
+                            <% if(nhacungung.id == sanpham.idnhacungung){ %>
+                                selected
+                            <% } %>
+                            ><%=nhacungung.tennhacungung%></option>
+                        <% }) %>
+                        </select>                            
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="panel panel-default">
@@ -108,7 +128,7 @@
                 <div class="panel-body">
                     <div>
                         <div>                             
-                            <input type="file" accept="image/*" name='ful_anhdaidien' id="ful_anhdaidien" class="filestyle" data-buttonName="btn-primary">
+                            <input type="file" accept="image/.gif|.png|.jpg|.jpeg" name='ful_anhdaidien' id="ful_anhdaidien" class="filestyle" data-buttonName="btn-primary">
                         </div>                        
                         <div class="image-holder" id="image-holder-1">
                             <img class="img-responsive" src="images/anhdaidien/<%= sanpham.anhdaidien %>">
@@ -123,7 +143,7 @@
                 <div class="panel-body">
                     <div>
                         <div>
-                            <input type="file" accept="image/*" name='ful_anhsanpham' id="ful_anhsanpham" multiple class="filestyle" data-buttonName="btn-primary">
+                            <input type="file" accept="image/.gif|.png|.jpg|.jpeg" name='ful_anhsanpham' id="ful_anhsanpham" multiple class="filestyle" data-buttonName="btn-primary">
                         </div>                        
                         <div class="image-holder" id="image-holder-2">
                             <% hinhsanpham.forEach(function(value){ %>
@@ -183,8 +203,13 @@
                 required: true,
                 range: [1, 1000],
             },
+            txt_gianhap: {
+                required: true,
+                range:[1,100000000],
+            },
             txt_gia: {
                 required: true,
+                range:[1,100000000],
             },
             txt_km: {
                 required: true,
@@ -200,6 +225,9 @@
             cbo_nhasx: {
                 required: true,
             },
+            ful_anhdaidien: {
+                required: true,
+            }
         },
         messages: {
             txt_tensp: {
@@ -210,8 +238,13 @@
                 required: "Bạn chưa nhập số lượng sản phẩm",
                 range: "Số lượng từ 1 - 1000",
             },
+            txt_gianhap: {
+                required: "Bạn chưa nhập giá sản phẩm",
+                 range:"Giá không thể là 0 đồng",
+            },
             txt_gia: {
                 required: "Bạn chưa nhập giá sản phẩm",
+                range:"Giá không thể là 0 đồng",
             },
             txt_km: {
                 required: "Bạn chưa nhập giá khuyến mãi",
@@ -222,11 +255,14 @@
             },
             txt_cauhinh: {
                 required: "Bạn chưa nhập cấu hình sản phẩm",
-                maxLength:"Chi tiết cấu hình tối đa 50000 ký tự",
+                maxLength: "Chi tiết cấu hình tối đa 50000 ký tự",
             },
             cbo_nhasx: {
                 required: "Bạn chưa chọn nhà sản xuất cho sản phẩm",
             },
+            ful_anhdaidien: {
+                required: "Bạn chưa chọn ảnh đại diện",
+            }
         }
     });
 

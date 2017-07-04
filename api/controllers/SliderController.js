@@ -6,35 +6,39 @@
  */
 var fs = require('fs');
 var path = require('path').resolve(sails.config.appPath, 'assets/images');
+var slug = require('url-slug');
+var moment = require('moment');
 module.exports = {
-    GETdanhsach: function (req, res) {
+    getDanhsach: function (req, res) {
         Slider.find().exec(function (err, result) {
             return res.view('backend/slider/danhsach', {
                 layout: 'backend/layout/layout',
                 title: 'Danh sách slider',
                 slider: result,
+                moment: moment,
             });
         });
     },
-    GETthem: function (req, res) {
+    getThem: function (req, res) {
         return res.view('backend/slider/them', {
             layout: 'backend/layout/layout',
             title: 'Thêm slider',
         });
     },
-    POSTthem: function (req, res) {
+    postThem: function (req, res) {
         Slider.create({
-            tieude: req.param('txt_tietude'),
+            tieude: req.param('txt_tieude'),
             url: req.param('txt_duongdan'),
+            urlanh:slug(req.param('txt_tieude')) + '.png',
         }).exec(function (err, result) {
             if (err) {
                 req.flash('err', err.Errors);
                 return res.redirect('/admin/slider/them');
             }
-            req.file("ful_anhslider").upload({
+            req.file("ful_anhdaidien").upload({
                 maxBytes: 10000000,
                 dirname: path + '/slider',
-                saveAs: req.param('txt_tieude') + '.png',
+                saveAs: slug(req.param('txt_tieude')) + '.png',
             }, function (err, success) {
                 if (err) {
                     req.flash('err', err.Errors);
@@ -44,23 +48,23 @@ module.exports = {
                     req.flash('err', 'Không có file ảnh được tải lên');
                     return res.redirect('/admin/slider/them');
                 }
-                req.flahs('success', 'Thêm slider thành công');
+                req.flash('success', 'Thêm slider thành công');
                 return res.redirect('/admin/slider/them');
             });
         });
+        console.log('OK');
     },
-    POSTxoa: function (req, res) {
+    getXoa: function (req, res) {
         Slider.destroy({ id: req.param('id') }).exec(function (err, result) {
             if (err) {
                 req.flash('err', err.Errors);
                 return res.redirect('/admin/slider/danhsach');
             }
-            fs.unlinkSync(path + '/slider/' + result.urlanh);
-            req.flahs('success', 'Thêm slider thành công');
+            req.flash('success', 'Thêm slider thành công');
             return res.redirect('/admin/slider/danhsach');
         });
     },
-    GETsua: function (req, res) {
+    suaGET: function (req, res) {
         Slider.findOne({ id: req.param('id') }).exec(function (err, result) {
             return res.view('backend/slider/sua', {
                 slider: result,
@@ -69,32 +73,33 @@ module.exports = {
             });
         });
     },
-    POSTsua: function (req, res) {
+    suaPOST: function (req, res) {
         Slider.findOne({ id: req.param('id') }).exec(function (err, result) {
             if (err) {
                 req.flash('err', err.Erros);
                 return res.redirect('/admin/slider/sua/' + req.param('id'));
             }
             var rc = result;
-            req.file("ful_anhslider").upload({
+            req.file("ful_anhdaidien").upload({
                 maxBytes: 10000000,
                 dirname: path + '/slider',
-                saveAs: req.param('txt_tieude') + '.png',
+                saveAs: slug(req.param('txt_tieude')) + '.png',
             }, function (err, success) {
-                if (success.length <= 0) {
-                    req.flash('err', 'Không có file ảnh được tải lên');
+                if (success.length == 0) {
+                    rc.tieude = req.param('txt_tieude');
+                    rc.url = req.param('txt_duongdan');
+                    rc.save();
+                    req.flash('success', 'Cập nhật slider thành công');
                     return res.redirect('/admin/slider/sua/' + req.param('id'));
-                }
-                if (err) {
-                    req.flash('err', err);
+                } else {
+                    fs.unlinkSync(path + '/slider/' + result.urlanh);
+                    rc.tieude = req.param('txt_tieude');
+                    rc.url = req.param('txt_duongdan');
+                    rc.urlanh = success[0].fd.split('\\').pop();
+                    rc.save();
+                    req.flash('success', 'Cập nhật slider thành công');
                     return res.redirect('/admin/slider/sua/' + req.param('id'));
-                }
-                rc.tieude = req.param('txt_tieude');
-                rc.url = req.param('txt_duongdan');
-                rc.urlanh = success[i].fd.split('\\').pop();
-                rc.save();
-                req.flahs('success', 'Thêm slider thành công');
-                return res.redirect('/admin/slider/sua/' + req.param('id'));
+                }           
             });
         });
     }

@@ -15,7 +15,24 @@ module.exports = {
   	diachi:{
   		type:'text',
   		required: true,
-  	}
+  	},
+    sodienthoai:{
+      type:'text'
+    },
+    email:{
+      type:'text'
+    },
+    trangthai:{
+      type:'integer',
+    },
+    chitietnhaphang:{
+      collection: 'chitietnhaphang',
+      via: 'idnhacungung'
+    },
+    sanpham:{
+      collection:'sanpham',
+      via:'idnhacungung'
+    }    
   }
 };
 
